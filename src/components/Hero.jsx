@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden pt-28 pb-24"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-24 pb-14 sm:pb-16"
     >
       {/* Floating glow orbs */}
       <div className="pointer-events-none absolute inset-0">
@@ -26,49 +26,48 @@ export default function Hero() {
 
       <div className="container-x relative z-10 flex flex-col items-center text-center">
         <motion.div {...fade(0)}>
-          <span className="mb-8 inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pink/10 px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-pink-soft sm:text-[11px]">
+          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-pink-soft sm:mb-6 sm:px-5 sm:py-2 sm:text-[11px]">
             <MapPinIcon className="h-3.5 w-3.5" /> Cincinnati, Ohio · Premium Hair Care Studio
           </span>
         </motion.div>
 
         <motion.div {...fade(0.1)}>
-          <Logo className="mx-auto w-[min(88vw,580px)] drop-shadow-[0_0_60px_rgba(255,46,136,0.4)]" />
+          <Logo className="mx-auto w-[min(66vw,360px)] drop-shadow-[0_0_55px_rgba(255,46,136,0.4)] sm:w-[min(54vw,440px)]" />
         </motion.div>
 
         <motion.h1
           {...fade(0.25)}
-          className="mt-9 font-display text-4xl font-bold leading-[1.08] text-white sm:mt-12 sm:text-6xl lg:text-7xl"
+          className="mt-6 font-display text-[2rem] font-bold leading-[1.1] text-white sm:mt-8 sm:text-5xl lg:text-6xl"
         >
           Where Beauty Meets <span className="pink-text">Confidence</span>
         </motion.h1>
 
         <motion.p
-          {...fade(0.35)}
-          className="mt-5 font-script text-2xl text-pink-soft sm:text-4xl"
+          {...fade(0.32)}
+          className="mt-3.5 font-script text-2xl text-pink-soft sm:mt-4 sm:text-4xl"
         >
           Luxury hair care, crafted around you
         </motion.p>
 
         <motion.p
-          {...fade(0.45)}
-          className="mt-5 text-[11px] font-semibold uppercase tracking-[0.38em] silver-text sm:text-sm sm:tracking-[0.42em]"
+          {...fade(0.4)}
+          className="mt-3.5 text-[10px] font-semibold uppercase tracking-[0.34em] silver-text sm:mt-4 sm:text-sm sm:tracking-[0.42em]"
         >
           Confidence<span className="text-pink"> · </span>Presentation
           <span className="text-pink"> · </span>Consistency
         </motion.p>
 
         <motion.p
-          {...fade(0.55)}
-          className="mt-7 max-w-xl text-sm leading-relaxed text-silver-dim sm:mt-8 sm:text-base"
+          {...fade(0.48)}
+          className="mt-5 max-w-xl text-sm leading-relaxed text-silver-dim sm:mt-6 sm:text-base"
         >
           A refined salon experience built around your hair, your features, and
-          how you want to show up — with polished results that stay consistent
-          every single visit.
+          how you want to show up — polished results, every single visit.
         </motion.p>
 
         <motion.div
-          {...fade(0.65)}
-          className="mt-9 flex w-full flex-col items-center justify-center gap-3.5 sm:mt-11 sm:flex-row sm:gap-4"
+          {...fade(0.56)}
+          className="mt-7 flex w-full max-w-md flex-col items-center justify-center gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:gap-4"
         >
           <a href="#contact" className="btn-primary w-full sm:w-auto">
             Book Appointment <ArrowIcon className="h-4 w-4" />

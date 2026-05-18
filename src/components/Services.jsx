@@ -12,32 +12,32 @@ const services = [
   {
     icon: SilkPressIcon,
     title: 'Silk Press',
-    desc: 'Smooth, glossy, frizz-free finishes that move naturally and last — without compromising your hair’s health.',
+    desc: 'Smooth, glossy, frizz-free finishes with body and movement — pressed to perfection without compromising your hair’s health.',
   },
   {
     icon: WigIcon,
-    title: 'Wig Install',
-    desc: 'Seamless, natural-looking installs with a flawless hairline and a secure, confident, all-day fit.',
-  },
-  {
-    icon: CareIcon,
-    title: 'Hair Care',
-    desc: 'Personalized care routines and consultations focused on long-term strength, growth, and shine.',
+    title: 'Sleek Ponytail',
+    desc: 'Polished, sculpted ponytails with a clean part and laid edges — sharp, elegant, and event-ready.',
   },
   {
     icon: StylingIcon,
-    title: 'Styling',
-    desc: 'Event-ready and everyday styling crafted around your features, your texture, and your moment.',
+    title: 'Short Pixie Styling',
+    desc: 'Defined waves and curls on short cuts — precise, intentional styling that frames your features beautifully.',
+  },
+  {
+    icon: CareIcon,
+    title: 'Soft Curl Finish',
+    desc: 'Bouncy, long-lasting soft curls with natural shine and a flawless, photo-ready finish.',
   },
   {
     icon: TreatmentIcon,
-    title: 'Treatments',
-    desc: 'Deep-conditioning and restorative treatments that repair, hydrate, and protect every strand.',
+    title: 'Healthy Hair Styling',
+    desc: 'Styling built around hair health — protecting strength, shine, and integrity with every appointment.',
   },
   {
     icon: CollectionIcon,
-    title: 'Pretty Hair Care Collection',
-    desc: 'Our signature product line — salon-grade essentials to maintain your look between visits.',
+    title: 'Sleek / Professional Looks',
+    desc: 'Clean, refined, polished styling for work, events, and everyday confidence — consistently done right.',
   },
 ];
 

@@ -3,6 +3,7 @@ import Hero from './components/Hero.jsx';
 import TrustStrip from './components/TrustStrip.jsx';
 import Services from './components/Services.jsx';
 import Gallery from './components/Gallery.jsx';
+import RealClientResults from './components/RealClientResults.jsx';
 import BookingCTA from './components/BookingCTA.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import QRSection from './components/QRSection.jsx';
@@ -20,6 +21,7 @@ export default function App() {
         <TrustStrip />
         <Services />
         <Gallery />
+        <RealClientResults />
         <BookingCTA />
         <ContactForm />
         <QRSection />
