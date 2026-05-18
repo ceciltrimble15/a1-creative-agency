@@ -1,0 +1,23 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TRHUE Hair Care">
+  <defs>
+    <linearGradient id="p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff8fc4"/>
+      <stop offset="0.55" stop-color="#ff2e88"/>
+      <stop offset="1" stop-color="#c01060"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.6" stop-color="#aab0bd"/>
+      <stop offset="1" stop-color="#9aa0ad"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#050505"/>
+  <path d="M150 170 C100 110 160 70 215 95 C250 112 270 155 270 155 C270 155 295 112 270 80"
+        fill="none" stroke="url(#s)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M150 170 C140 240 185 305 270 380 C320 415 270 155 270 155"
+        fill="none" stroke="url(#s)" stroke-width="16" stroke-linecap="round" opacity="0.85"/>
+  <text x="256" y="320" text-anchor="middle" font-family="'Playfair Display',Georgia,serif"
+        font-weight="800" font-size="150" letter-spacing="2" fill="url(#p)">T</text>
+  <text x="256" y="430" text-anchor="middle" font-family="Georgia,serif"
+        font-style="italic" font-size="64" fill="url(#p)">TRHUE</text>
+</svg>
