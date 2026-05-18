@@ -33,16 +33,13 @@ Scan-to-Book QR · Social & Contact · A1 Creative proof footer
 
 ## Brand logo
 
-The logo is a faithful vector reproduction in
-[`src/components/Logo.jsx`](src/components/Logo.jsx) so it stays crisp at
-every size and powers the navbar, hero, footer, and hero watermark.
+The site uses the official supplied TRHUE Hair Care artwork at
+`public/trhue-logo.png`, wired through
+[`src/components/Logo.jsx`](src/components/Logo.jsx) (`USE_IMAGE = true`)
+so a single source powers the navbar, hero, footer, and hero watermark.
 
-To use the original supplied artwork instead:
-
-1. Drop the file in at `public/trhue-logo.png`
-2. Set `USE_IMAGE = true` at the top of `src/components/Logo.jsx`
-
-Every placement updates at once.
+A faithful vector fallback is retained in the same component — set
+`USE_IMAGE = false` to use it if the raster file is ever unavailable.
 
 ## Placeholders (intentional, frontend-only)
 

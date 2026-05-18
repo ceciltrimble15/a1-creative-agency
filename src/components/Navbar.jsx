@@ -30,11 +30,8 @@ export default function Navbar() {
         }`}
       >
         <nav className="container-x flex h-20 items-center justify-between">
-          <a href="#home" className="flex items-center gap-3" aria-label="TRHUE Hair Care home">
-            <Logo className="h-11 w-auto drop-shadow-[0_0_14px_rgba(255,46,136,0.35)]" />
-            <span className="hidden font-display text-lg font-bold tracking-wide text-white sm:block">
-              TRHUE<span className="pink-text"> Hair Care</span>
-            </span>
+          <a href="#home" className="flex items-center" aria-label="TRHUE Hair Care home">
+            <Logo className="h-12 w-auto drop-shadow-[0_0_16px_rgba(255,46,136,0.4)] sm:h-14" />
           </a>
 
           <ul className="hidden items-center gap-9 md:flex">

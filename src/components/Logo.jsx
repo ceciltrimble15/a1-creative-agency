@@ -9,7 +9,7 @@
  * at `public/trhue-logo.png` and set USE_IMAGE to true below — every
  * placement on the site (navbar, hero, footer, watermark) updates at once.
  */
-const USE_IMAGE = false;
+const USE_IMAGE = true;
 
 export default function Logo({ className = '', title = 'TRHUE Hair Care' }) {
   if (USE_IMAGE) {
@@ -17,8 +17,10 @@ export default function Logo({ className = '', title = 'TRHUE Hair Care' }) {
       <img
         src="/trhue-logo.png"
         alt={title}
-        className={className}
+        loading="eager"
+        decoding="async"
         draggable="false"
+        className={`select-none object-contain ${className}`}
       />
     );
   }

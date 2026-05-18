@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#050505',
-        coal: '#0b0b0d',
+        ink: '#000000',
+        coal: '#060608',
         graphite: '#141417',
         pink: {
           DEFAULT: '#ff2e88',
