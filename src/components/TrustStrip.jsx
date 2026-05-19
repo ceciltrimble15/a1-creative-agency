@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 
 const items = [
   'Cincinnati-Based',
-  'Mobile-Friendly Booking',
   'Appointment Requests Available',
-  'Beauty & Hair Care Services',
-  'Community-Focused Brand',
+  'Natural Hair Care',
+  'Professional Styling',
+  'Community-Focused Beauty Brand',
 ];
 
 export default function TrustStrip() {

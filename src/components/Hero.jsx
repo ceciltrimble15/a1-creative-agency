@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Logo from './Logo.jsx';
-import { ArrowIcon, MapPinIcon } from './icons.jsx';
+import { ArrowIcon, MapPinIcon, PhoneIcon } from './icons.jsx';
+import { SITE } from '../lib/site.js';
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -73,8 +74,8 @@ export default function Hero() {
           <a href="#contact" className="btn-primary w-full sm:w-auto">
             Book Appointment <ArrowIcon className="h-4 w-4" />
           </a>
-          <a href="#contact" className="btn-ghost w-full sm:w-auto">
-            Request Information
+          <a href={SITE.phoneTel} className="btn-ghost w-full sm:w-auto">
+            <PhoneIcon className="h-4 w-4" /> Call / Text Now
           </a>
         </motion.div>
       </div>

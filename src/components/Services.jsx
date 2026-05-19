@@ -5,29 +5,28 @@ import {
   CareIcon,
   StylingIcon,
   TreatmentIcon,
-  CollectionIcon,
 } from './icons.jsx';
 
 const services = [
   {
     icon: SilkPressIcon,
     title: 'Silk Press',
-    desc: 'Smooth, glossy, frizz-free finishes that move naturally and last — without compromising your hair’s health.',
+    desc: 'Smooth, glossy, frizz-free silk press finishes that move naturally and last — without compromising your hair’s health.',
   },
   {
     icon: WigIcon,
-    title: 'Wig Install',
-    desc: 'Seamless, natural-looking installs with a flawless hairline and a secure, confident, all-day fit.',
+    title: 'Protective Styling',
+    desc: 'Sew-ins, quick weaves, and installs that protect your natural hair with a flawless, secure, all-day finish.',
   },
   {
     icon: CareIcon,
-    title: 'Hair Care',
-    desc: 'Personalized care routines and consultations focused on long-term strength, growth, and shine.',
+    title: 'Healthy Hair Care',
+    desc: 'Personalized care routines and consultations focused on long-term scalp health, strength, growth, and shine.',
   },
   {
     icon: StylingIcon,
-    title: 'Styling',
-    desc: 'Event-ready and everyday styling crafted around your features, your texture, and your moment.',
+    title: 'Professional Styling',
+    desc: 'Event-ready and everyday styling crafted around your features, your natural texture, and your moment.',
   },
   {
     icon: TreatmentIcon,
@@ -35,9 +34,9 @@ const services = [
     desc: 'Deep-conditioning and restorative treatments that repair, hydrate, and protect every strand.',
   },
   {
-    icon: CollectionIcon,
-    title: 'Pretty Hair Care Collection',
-    desc: 'Our signature product line — salon-grade essentials to maintain your look between visits.',
+    icon: CareIcon,
+    title: 'Color',
+    desc: 'Custom color and dimension applied with care to keep your hair vibrant, healthy, and luxurious.',
   },
 ];
 

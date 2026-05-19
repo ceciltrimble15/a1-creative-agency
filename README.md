@@ -28,8 +28,16 @@ npm run preview  # preview the production build
 
 ## Sections
 
-Navbar · Hero · Services · Gallery · Booking CTA · Contact / Lead Form ·
+Navbar · Hero · Trust Strip · Services · Services & Pricing · Pretty Hair
+Care Collection · Gallery · Booking CTA · Contact / Lead Form ·
 Scan-to-Book QR · Social & Contact · A1 Creative proof footer
+
+## Live business details
+
+Live contact, address, hours, and social details are centralized in
+[`src/lib/site.js`](src/lib/site.js) and flow into every section. The
+scan-to-book QR is generated at runtime (via `qrcode.react`) and routes
+to `https://www.trhuehaircare.com`.
 
 ## Brand logo
 
@@ -41,14 +49,15 @@ so a single source powers the navbar, hero, footer, and hero watermark.
 A faithful vector fallback is retained in the same component — set
 `USE_IMAGE = false` to use it if the raster file is ever unavailable.
 
-## Placeholders (intentional, frontend-only)
+## Notes
 
-- Gallery uses styled placeholders — ready for real client photography
-- QR section uses a decorative placeholder code — swap with the real
-  booking QR
-- Social handles, phone, and email are sample values
-- The lead form does not POST anywhere yet (Airtable / Twilio / CRM are
-  deliberately out of scope for the Starter build)
+- Gallery uses styled brand visuals — ready for real client photography
+- The scan-to-book QR encodes the live domain and is fully functional
+- Phone, email, address, and hours are live business values
+- Social tiles display the owner's profile names; exact Instagram /
+  Facebook profile URLs can be set in `src/lib/site.js`
+- The lead form captures input on the frontend only (Airtable / Twilio /
+  CRM are deliberately out of scope for the Starter build)
 
 ---
 

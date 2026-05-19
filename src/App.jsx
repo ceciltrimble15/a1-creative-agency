@@ -2,6 +2,8 @@ import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import TrustStrip from './components/TrustStrip.jsx';
 import Services from './components/Services.jsx';
+import Pricing from './components/Pricing.jsx';
+import Collection from './components/Collection.jsx';
 import Gallery from './components/Gallery.jsx';
 import BookingCTA from './components/BookingCTA.jsx';
 import ContactForm from './components/ContactForm.jsx';
@@ -19,6 +21,8 @@ export default function App() {
         <Hero />
         <TrustStrip />
         <Services />
+        <Pricing />
+        <Collection />
         <Gallery />
         <BookingCTA />
         <ContactForm />

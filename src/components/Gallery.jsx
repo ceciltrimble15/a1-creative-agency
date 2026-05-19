@@ -63,7 +63,7 @@ export default function Gallery() {
         </div>
 
         <p className="mt-10 text-center text-xs uppercase tracking-[0.3em] text-silver-dim">
-          Placeholder showcase — ready for real client photography
+          Signature finishes — book your transformation
         </p>
       </div>
     </section>

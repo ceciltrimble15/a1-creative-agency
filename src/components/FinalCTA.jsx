@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowIcon, PhoneIcon } from './icons.jsx';
+import { SITE } from '../lib/site.js';
 
 export default function FinalCTA() {
   return (
@@ -28,7 +29,7 @@ export default function FinalCTA() {
               <a href="#contact" className="btn-primary w-full sm:w-auto">
                 Book Appointment <ArrowIcon className="h-4 w-4" />
               </a>
-              <a href="tel:+15130000000" className="btn-ghost w-full sm:w-auto">
+              <a href={SITE.phoneTel} className="btn-ghost w-full sm:w-auto">
                 <PhoneIcon className="h-4 w-4" /> Call / Text Now
               </a>
             </div>
