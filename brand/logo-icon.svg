@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="100 60 824 820" role="img" aria-label="A1 Creative Agency icon">
+  <title>A1 Creative Agency — Icon</title>
+
+  <defs>
+    <radialGradient id="a1i-glass" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#1d2840"/>
+      <stop offset="55%" stop-color="#0b1322"/>
+      <stop offset="100%" stop-color="#04070d"/>
+    </radialGradient>
+    <linearGradient id="a1i-rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f6fb"/>
+      <stop offset="22%" stop-color="#8d97ac"/>
+      <stop offset="50%" stop-color="#e2e7ef"/>
+      <stop offset="78%" stop-color="#5c6478"/>
+      <stop offset="100%" stop-color="#c5cbd8"/>
+    </linearGradient>
+    <linearGradient id="a1i-chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f6f8fc"/>
+      <stop offset="14%" stop-color="#a8b0c2"/>
+      <stop offset="32%" stop-color="#e7ecf3"/>
+      <stop offset="54%" stop-color="#7d8597"/>
+      <stop offset="74%" stop-color="#dfe4ee"/>
+      <stop offset="100%" stop-color="#525a6c"/>
+    </linearGradient>
+    <linearGradient id="a1i-blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9cc6ff"/>
+      <stop offset="50%" stop-color="#2a82ff"/>
+      <stop offset="100%" stop-color="#0b3f9d"/>
+    </linearGradient>
+    <linearGradient id="a1i-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe7a8"/>
+      <stop offset="50%" stop-color="#dfb346"/>
+      <stop offset="100%" stop-color="#876514"/>
+    </linearGradient>
+    <linearGradient id="a1i-base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b4253"/>
+      <stop offset="30%" stop-color="#181b24"/>
+      <stop offset="60%" stop-color="#2a2f3c"/>
+      <stop offset="100%" stop-color="#070912"/>
+    </linearGradient>
+    <linearGradient id="a1i-ring" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a6275"/>
+      <stop offset="50%" stop-color="#cdd3df"/>
+      <stop offset="100%" stop-color="#1a1d26"/>
+    </linearGradient>
+    <linearGradient id="a1i-blueTint" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2a82ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="a1i-goldTint" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#dfb346" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#dfb346" stop-opacity="0.22"/>
+    </linearGradient>
+    <filter id="a1i-glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="a1i-spark" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+    <clipPath id="a1i-bulbClip">
+      <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"/>
+    </clipPath>
+  </defs>
+
+  <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"
+        fill="url(#a1i-glass)" stroke="url(#a1i-rim)" stroke-width="6"/>
+  <g clip-path="url(#a1i-bulbClip)">
+    <rect x="180" y="80" width="332" height="620" fill="url(#a1i-blueTint)"/>
+    <rect x="512" y="80" width="332" height="620" fill="url(#a1i-goldTint)"/>
+    <line x1="512" y1="100" x2="512" y2="690" stroke="#dfe4ee" stroke-opacity="0.08" stroke-width="1"/>
+  </g>
+
+  <g clip-path="url(#a1i-bulbClip)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <g stroke="url(#a1i-blue)" stroke-width="3.2" filter="url(#a1i-glow)">
+      <path d="M 250 250 L 312 250 L 312 312"/>
+      <path d="M 224 420 L 290 420 L 290 484"/>
+      <path d="M 268 596 L 332 596"/>
+    </g>
+    <g fill="#9cc6ff" filter="url(#a1i-spark)">
+      <circle cx="250" cy="250" r="6"/>
+      <circle cx="312" cy="312" r="6"/>
+      <circle cx="224" cy="420" r="6"/>
+      <circle cx="290" cy="484" r="6"/>
+      <circle cx="268" cy="596" r="6"/>
+      <circle cx="332" cy="596" r="6"/>
+    </g>
+    <g stroke="url(#a1i-gold)" stroke-width="3.2" filter="url(#a1i-glow)">
+      <path d="M 774 250 L 712 250 L 712 312"/>
+      <path d="M 800 420 L 734 420 L 734 484"/>
+      <path d="M 756 596 L 692 596"/>
+    </g>
+    <g fill="#ffe7a8" filter="url(#a1i-spark)">
+      <circle cx="774" cy="250" r="6"/>
+      <circle cx="712" cy="312" r="6"/>
+      <circle cx="800" cy="420" r="6"/>
+      <circle cx="734" cy="484" r="6"/>
+      <circle cx="756" cy="596" r="6"/>
+      <circle cx="692" cy="596" r="6"/>
+    </g>
+  </g>
+
+  <g filter="url(#a1i-glow)">
+    <path fill="url(#a1i-chrome)" fill-rule="evenodd" d="
+      M 345 570 L 425 310 L 505 570 L 470 570 L 460 540 L 390 540 L 380 570 Z
+      M 405 490 L 425 360 L 445 490 Z
+    "/>
+    <path fill="#e7ecf3" d="M 397 504 L 453 504 L 449 520 L 401 520 Z" opacity="0.85"/>
+    <path fill="url(#a1i-chrome)" d="M 540 310 L 526 310 L 498 570 L 512 570 Z"/>
+    <path fill="url(#a1i-chrome)" d="
+      M 560 310 L 635 310 L 635 540 L 670 540 L 670 570
+      L 555 570 L 555 540 L 600 540 L 600 360 L 560 310 Z
+    "/>
+  </g>
+
+  <g>
+    <path d="M 410 698 L 614 698 L 624 730 L 400 730 Z" fill="url(#a1i-base)" stroke="#0a0c12" stroke-width="1"/>
+    <rect x="402" y="734" width="220" height="20" rx="4" fill="url(#a1i-base)" stroke="url(#a1i-ring)" stroke-width="1"/>
+    <rect x="402" y="758" width="220" height="20" rx="4" fill="url(#a1i-base)" stroke="url(#a1i-ring)" stroke-width="1"/>
+    <rect x="402" y="782" width="220" height="20" rx="4" fill="url(#a1i-base)" stroke="url(#a1i-ring)" stroke-width="1"/>
+    <path d="M 410 806 L 614 806 L 596 850 L 428 850 Z" fill="url(#a1i-base)" stroke="#0a0c12" stroke-width="1"/>
+    <ellipse cx="512" cy="858" rx="60" ry="14" fill="#050609"/>
+  </g>
+</svg>
