@@ -411,6 +411,13 @@ footer .wrap {
 }
 footer .brand { display: flex; align-items: center; gap: 10px; color: var(--a1-silver-2); }
 footer .brand img { height: 30px; }
+footer .footer-contact {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--a1-silver-2);
+}
+footer .footer-contact a { color: var(--a1-silver-2); text-decoration: none; transition: color 0.2s; }
+footer .footer-contact a:hover { color: var(--a1-electric-blue); }
+footer .footer-contact .sep { color: var(--a1-silver-3); }
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 600px) {
