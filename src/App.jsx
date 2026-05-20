@@ -2,7 +2,10 @@ import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import TrustStrip from './components/TrustStrip.jsx';
 import Services from './components/Services.jsx';
+import Pricing from './components/Pricing.jsx';
+import Collection from './components/Collection.jsx';
 import Gallery from './components/Gallery.jsx';
+import Studio from './components/Studio.jsx';
 import BookingCTA from './components/BookingCTA.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import QRSection from './components/QRSection.jsx';
@@ -19,7 +22,10 @@ export default function App() {
         <Hero />
         <TrustStrip />
         <Services />
+        <Pricing />
+        <Collection />
         <Gallery />
+        <Studio />
         <BookingCTA />
         <ContactForm />
         <QRSection />

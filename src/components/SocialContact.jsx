@@ -6,12 +6,13 @@ import {
   MailIcon,
   MapPinIcon,
 } from './icons.jsx';
+import { SITE } from '../lib/site.js';
 
 const channels = [
-  { icon: InstagramIcon, label: 'Instagram', value: '@trhuehaircare', href: 'https://instagram.com/trhuehaircare' },
-  { icon: FacebookIcon, label: 'Facebook', value: 'TRHUE Hair Care', href: 'https://facebook.com/trhuehaircare' },
-  { icon: PhoneIcon, label: 'Business Phone', value: '(513) 000-0000', href: 'tel:+15130000000' },
-  { icon: MailIcon, label: 'Business Email', value: 'info@trhuehaircare.com', href: 'mailto:info@trhuehaircare.com' },
+  { icon: PhoneIcon, label: 'Call / Text', value: SITE.phoneDisplay, href: SITE.phoneTel },
+  { icon: MailIcon, label: 'Email', value: SITE.email, href: SITE.emailHref },
+  { icon: InstagramIcon, label: 'Instagram', value: SITE.social.instagram.name, href: SITE.social.instagram.href },
+  { icon: FacebookIcon, label: 'Facebook', value: SITE.social.facebook.name, href: SITE.social.facebook.href },
 ];
 
 const fade = (i) => ({
@@ -63,11 +64,14 @@ export default function SocialContact() {
 
         {/* Location + Hours */}
         <div className="mt-5 grid gap-4 sm:gap-5 lg:grid-cols-2">
-          <motion.div
+          <motion.a
             {...fade(1)}
-            className="flex items-start gap-5 rounded-3xl glass p-7 sm:p-8"
+            href={SITE.mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-start gap-5 rounded-3xl glass p-7 transition-all duration-500 hover:-translate-y-1 hover:border-pink/40 hover:shadow-card sm:p-8"
           >
-            <span className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl border border-pink/30 bg-pink/10 text-pink-soft">
+            <span className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl border border-pink/30 bg-pink/10 text-pink-soft transition-all duration-500 group-hover:text-white group-hover:shadow-glow">
               <MapPinIcon className="h-6 w-6" />
             </span>
             <div>
@@ -75,13 +79,13 @@ export default function SocialContact() {
                 Location
               </p>
               <p className="mt-1.5 font-display text-lg font-semibold text-white">
-                Cincinnati, Ohio
+                {SITE.address.street}
               </p>
               <p className="mt-1 text-sm text-silver-dim">
-                Serving Cincinnati, Ohio and surrounding areas
+                {SITE.address.cityState}
               </p>
             </div>
-          </motion.div>
+          </motion.a>
 
           <motion.div
             {...fade(2)}
@@ -91,28 +95,35 @@ export default function SocialContact() {
               Business Hours
             </p>
             <div className="mt-4 space-y-3">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <span className="text-sm text-silver">Monday – Saturday</span>
-                <span className="font-display text-sm font-semibold text-white">
-                  By Appointment
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-silver">Sunday</span>
-                <span className="font-display text-sm font-semibold text-pink-soft">
-                  Closed
-                </span>
-              </div>
+              {SITE.hours.map((h, idx) => (
+                <div
+                  key={h.day}
+                  className={`flex items-center justify-between ${
+                    idx < SITE.hours.length - 1
+                      ? 'border-b border-white/10 pb-3'
+                      : ''
+                  }`}
+                >
+                  <span className="text-sm text-silver">{h.day}</span>
+                  <span
+                    className={`font-display text-sm font-semibold ${
+                      h.value === 'Closed' ? 'text-pink-soft' : 'text-white'
+                    }`}
+                  >
+                    {h.value}
+                  </span>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
 
         {/* Mobile-friendly call / text */}
         <div className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row sm:gap-4">
-          <a href="tel:+15130000000" className="btn-primary w-full sm:w-auto">
+          <a href={SITE.phoneTel} className="btn-primary w-full sm:w-auto">
             <PhoneIcon className="h-4 w-4" /> Call Now
           </a>
-          <a href="sms:+15130000000" className="btn-ghost w-full sm:w-auto">
+          <a href={SITE.phoneSms} className="btn-ghost w-full sm:w-auto">
             Text Us
           </a>
         </div>

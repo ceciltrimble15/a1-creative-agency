@@ -1,13 +1,14 @@
 import Logo from './Logo.jsx';
 import { PhoneIcon, MailIcon, InstagramIcon, FacebookIcon } from './icons.jsx';
+import { SITE } from '../lib/site.js';
 
-const navLinks = ['Services', 'Gallery', 'Book', 'Contact'];
+const navLinks = ['Services', 'Pricing', 'Collection', 'Contact'];
 
 const contacts = [
-  { icon: PhoneIcon, label: '(513) 000-0000', href: 'tel:+15130000000' },
-  { icon: MailIcon, label: 'info@trhuehaircare.com', href: 'mailto:info@trhuehaircare.com' },
-  { icon: InstagramIcon, label: '@trhuehaircare', href: 'https://instagram.com/trhuehaircare' },
-  { icon: FacebookIcon, label: 'TRHUE Hair Care', href: 'https://facebook.com/trhuehaircare' },
+  { icon: PhoneIcon, label: SITE.phoneDisplay, href: SITE.phoneTel },
+  { icon: MailIcon, label: SITE.email, href: SITE.emailHref },
+  { icon: InstagramIcon, label: SITE.social.instagram.name, href: SITE.social.instagram.href },
+  { icon: FacebookIcon, label: SITE.social.facebook.name, href: SITE.social.facebook.href },
 ];
 
 export default function Footer() {
@@ -23,9 +24,14 @@ export default function Footer() {
               Luxury hair care and beauty services built around confidence,
               consistency, and presentation.
             </p>
-            <p className="mt-4 text-[11px] uppercase tracking-[0.28em] text-pink-soft">
-              Serving Cincinnati, Ohio
-            </p>
+            <a
+              href={SITE.mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 text-[11px] uppercase tracking-[0.28em] text-pink-soft transition-colors hover:text-white"
+            >
+              {SITE.address.full}
+            </a>
           </div>
 
           {/* Explore */}

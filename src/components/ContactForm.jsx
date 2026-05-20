@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowIcon } from './icons.jsx';
+import { ArrowIcon, PhoneIcon, MailIcon, MapPinIcon } from './icons.jsx';
+import { SITE } from '../lib/site.js';
 
 const serviceOptions = [
   'Silk Press',
-  'Wig Install',
-  'Hair Care',
-  'Styling',
-  'Treatments',
+  'Roll & Set',
+  'Ponytail',
+  'Quick Weave',
+  'Sew-In',
+  'Short Style Curl',
+  'Color',
   'Pretty Hair Care Collection',
   'Other / Not Sure',
 ];
@@ -59,6 +62,32 @@ export default function ContactForm() {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 space-y-3.5 border-t border-white/10 pt-8">
+            <a
+              href={SITE.phoneTel}
+              className="group flex items-center gap-3.5 text-sm text-silver transition-colors hover:text-pink-soft"
+            >
+              <PhoneIcon className="h-4 w-4 flex-none text-pink" />
+              {SITE.phoneDisplay}
+            </a>
+            <a
+              href={SITE.emailHref}
+              className="group flex items-center gap-3.5 text-sm text-silver transition-colors hover:text-pink-soft"
+            >
+              <MailIcon className="h-4 w-4 flex-none text-pink" />
+              {SITE.email}
+            </a>
+            <a
+              href={SITE.mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3.5 text-sm text-silver transition-colors hover:text-pink-soft"
+            >
+              <MapPinIcon className="h-4 w-4 flex-none text-pink" />
+              {SITE.address.full}
+            </a>
+          </div>
         </motion.div>
 
         <motion.div
@@ -104,7 +133,7 @@ export default function ContactForm() {
                   <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-silver-dim">
                     Phone
                   </label>
-                  <input required type="tel" name="phone" placeholder="(513) 000-0000" className={fieldClass} />
+                  <input required type="tel" name="phone" placeholder="Your phone number" className={fieldClass} />
                 </div>
               </div>
 

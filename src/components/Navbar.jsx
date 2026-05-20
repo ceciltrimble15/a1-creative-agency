@@ -4,8 +4,9 @@ import Logo from './Logo.jsx';
 
 const links = [
   { label: 'Services', href: '#services' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Collection', href: '#collection' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Book', href: '#book' },
   { label: 'Contact', href: '#contact' },
 ];
 
