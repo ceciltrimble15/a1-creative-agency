@@ -1,4 +1,4 @@
-@import url('../a1-brand/tokens.css');
+@import url('/a1-brand/tokens.css');
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
