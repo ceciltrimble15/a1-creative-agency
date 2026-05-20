@@ -1,0 +1,46 @@
+/* A1 Creative Agency — Master Brand Tokens
+   Reference values for any product surface (web, app, presentation).
+   These are the same gradient stops that drive the SVG master logo. */
+
+:root {
+  /* Core palette */
+  --a1-black: #04070d;
+  --a1-navy: #0a1626;
+  --a1-coal: #0b1322;
+  --a1-graphite: #1a1d26;
+  --a1-steel: #2a2f3c;
+
+  --a1-silver-0: #f6f8fc;
+  --a1-silver-1: #e7ecf3;
+  --a1-silver-2: #a8b0c2;
+  --a1-silver-3: #525a6c;
+
+  --a1-blue-soft: #9cc6ff;
+  --a1-blue: #2a82ff;
+  --a1-blue-deep: #0b3f9d;
+
+  --a1-gold-soft: #ffe7a8;
+  --a1-gold: #dfb346;
+  --a1-gold-deep: #876514;
+
+  /* Signature gradients */
+  --a1-grad-blue: linear-gradient(180deg, #9cc6ff 0%, #2a82ff 50%, #0b3f9d 100%);
+  --a1-grad-gold: linear-gradient(180deg, #ffe7a8 0%, #dfb346 50%, #876514 100%);
+  --a1-grad-chrome: linear-gradient(180deg,
+      #f6f8fc 0%, #a8b0c2 14%, #e7ecf3 32%,
+      #7d8597 54%, #dfe4ee 74%, #525a6c 100%);
+  --a1-grad-stage: radial-gradient(ellipse at 50% 46%,
+      #0e1422 0%, #05080f 55%, #000 100%);
+
+  /* Typography */
+  --a1-font-display: 'Space Grotesk', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --a1-font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Spacing primitives (8-pt scale) */
+  --a1-s-1: 8px;
+  --a1-s-2: 16px;
+  --a1-s-3: 24px;
+  --a1-s-4: 32px;
+  --a1-s-6: 48px;
+  --a1-s-8: 64px;
+}
