@@ -5,9 +5,5 @@
   "installCommand": null,
   "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/",         "destination": "/touch-of-feather-landing/index.html" },
-    { "source": "/styles.css", "destination": "/touch-of-feather-landing/styles.css" }
-  ]
+  "trailingSlash": false
 }
