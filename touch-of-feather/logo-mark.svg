@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" role="img" aria-label="A Touch of Feather LLC — General Contractor and Master Carpenter">
+  <defs>
+    <linearGradient id="featherGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%"  stop-color="#a8bfd6"/>
+      <stop offset="45%" stop-color="#6f8aa6"/>
+      <stop offset="100%" stop-color="#2c3a4a"/>
+    </linearGradient>
+    <linearGradient id="shaftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5b6878"/>
+      <stop offset="50%" stop-color="#a0a9b6"/>
+      <stop offset="100%" stop-color="#3a4350"/>
+    </linearGradient>
+    <linearGradient id="hammerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#9aa3b0"/>
+      <stop offset="55%" stop-color="#5b6472"/>
+      <stop offset="100%" stop-color="#262c36"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#e8cf90"/>
+      <stop offset="55%" stop-color="#c9a062"/>
+      <stop offset="100%" stop-color="#8a6b30"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Feather (stylized) -->
+  <g filter="url(#soft)">
+    <!-- vanes -->
+    <path d="M160 30
+             C 205 80, 235 145, 230 215
+             C 226 270, 200 315, 165 340
+             C 160 240, 155 140, 160 30 Z"
+          fill="url(#featherGrad)"/>
+    <path d="M160 30
+             C 115 90, 92 160, 100 230
+             C 106 282, 130 320, 158 340
+             C 158 240, 158 140, 160 30 Z"
+          fill="url(#featherGrad)" opacity="0.92"/>
+    <!-- vane separations -->
+    <g stroke="#0a0d12" stroke-width="1.2" opacity="0.55" fill="none">
+      <path d="M160 70  C 180 95, 195 120, 200 140"/>
+      <path d="M160 110 C 185 135, 205 165, 212 190"/>
+      <path d="M160 150 C 190 175, 212 210, 218 240"/>
+      <path d="M160 190 C 192 215, 215 250, 215 285"/>
+      <path d="M160 70  C 140 95, 125 120, 120 140"/>
+      <path d="M160 110 C 135 135, 115 165, 108 190"/>
+      <path d="M160 150 C 130 175, 108 210, 102 240"/>
+      <path d="M160 190 C 128 215, 105 250, 105 285"/>
+    </g>
+    <!-- shaft / quill -->
+    <path d="M158 30 L 162 360 L 158 360 Z" fill="url(#shaftGrad)"/>
+  </g>
+
+  <!-- Hammer head & claw -->
+  <g>
+    <!-- handle continuation -->
+    <rect x="156" y="340" width="8" height="60" rx="2" fill="url(#shaftGrad)"/>
+    <!-- head -->
+    <path d="M105 388
+             L 215 388
+             L 222 408
+             L 200 422
+             L 188 414
+             L 168 414
+             L 168 430
+             L 152 430
+             L 152 414
+             L 132 414
+             L 120 422
+             L 98 408 Z"
+          fill="url(#hammerGrad)" stroke="#0a0d12" stroke-width="1"/>
+    <!-- claw split -->
+    <path d="M158 414 L 158 432 L 162 432 L 162 414 Z" fill="#0a0d12" opacity="0.7"/>
+    <!-- highlights -->
+    <path d="M110 392 L 210 392" stroke="#cfd6e0" stroke-width="1" opacity="0.35"/>
+  </g>
+
+  <!-- (Reserved space for the wordmark — rendered as live text in HTML.
+       Keeping the mark itself clean here so it scales well in nav + footer.) -->
+</svg>
