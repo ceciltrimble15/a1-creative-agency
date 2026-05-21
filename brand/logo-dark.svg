@@ -3,14 +3,11 @@
   <title>A1 Creative Agency — Dark Luxury Presentation</title>
 
   <defs>
-    <!-- Cinematic stage background -->
     <radialGradient id="a1d-stage" cx="50%" cy="46%" r="70%">
       <stop offset="0%" stop-color="#0e1422"/>
       <stop offset="55%" stop-color="#05080f"/>
       <stop offset="100%" stop-color="#000000"/>
     </radialGradient>
-
-    <!-- Soft brand accent halos -->
     <radialGradient id="a1d-blueHalo" cx="30%" cy="40%" r="35%">
       <stop offset="0%" stop-color="#2a82ff" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
@@ -19,8 +16,6 @@
       <stop offset="0%" stop-color="#dfb346" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="#dfb346" stop-opacity="0"/>
     </radialGradient>
-
-    <!-- Master logo gradients (namespaced) -->
     <radialGradient id="a1d-glass" cx="50%" cy="42%" r="62%">
       <stop offset="0%" stop-color="#1d2840"/>
       <stop offset="55%" stop-color="#0b1322"/>
@@ -93,12 +88,10 @@
     </clipPath>
   </defs>
 
-  <!-- Stage -->
   <rect width="1280" height="1440" fill="url(#a1d-stage)"/>
   <rect width="1280" height="1440" fill="url(#a1d-blueHalo)"/>
   <rect width="1280" height="1440" fill="url(#a1d-goldHalo)"/>
 
-  <!-- Subtle horizon line -->
   <line x1="160" y1="1320" x2="1120" y2="1320" stroke="#1a1d26" stroke-width="1"/>
   <text x="640" y="1372" text-anchor="middle"
         font-family="'Space Grotesk','Inter','Helvetica Neue',Arial,sans-serif"
@@ -106,7 +99,6 @@
     INFRASTRUCTURE · INTELLIGENCE · SYSTEMS
   </text>
 
-  <!-- Logo group (scaled & placed) -->
   <g transform="translate(128 160)" filter="url(#a1d-drop)">
     <g>
       <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"

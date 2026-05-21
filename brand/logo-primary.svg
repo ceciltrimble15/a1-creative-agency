@@ -3,14 +3,11 @@
   <title>A1 Creative Agency — Master Primary Logo</title>
 
   <defs>
-    <!-- Bulb glass interior: deep navy with subtle inner light -->
     <radialGradient id="a1-glass" cx="50%" cy="42%" r="62%">
       <stop offset="0%" stop-color="#1d2840"/>
       <stop offset="55%" stop-color="#0b1322"/>
       <stop offset="100%" stop-color="#04070d"/>
     </radialGradient>
-
-    <!-- Polished chrome rim of bulb -->
     <linearGradient id="a1-rim" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f3f6fb"/>
       <stop offset="22%" stop-color="#8d97ac"/>
@@ -18,8 +15,6 @@
       <stop offset="78%" stop-color="#5c6478"/>
       <stop offset="100%" stop-color="#c5cbd8"/>
     </linearGradient>
-
-    <!-- Brushed chrome (A/1 wordmark and base) -->
     <linearGradient id="a1-chrome" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f6f8fc"/>
       <stop offset="14%" stop-color="#a8b0c2"/>
@@ -28,56 +23,40 @@
       <stop offset="74%" stop-color="#dfe4ee"/>
       <stop offset="100%" stop-color="#525a6c"/>
     </linearGradient>
-
-    <!-- Electric blue (circuit + tint) -->
     <linearGradient id="a1-blue" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#9cc6ff"/>
       <stop offset="50%" stop-color="#2a82ff"/>
       <stop offset="100%" stop-color="#0b3f9d"/>
     </linearGradient>
-
-    <!-- Metallic gold (circuit + tint) -->
     <linearGradient id="a1-gold" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#ffe7a8"/>
       <stop offset="50%" stop-color="#dfb346"/>
       <stop offset="100%" stop-color="#876514"/>
     </linearGradient>
-
-    <!-- Base metal with darker brushed feel -->
     <linearGradient id="a1-base" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#3b4253"/>
       <stop offset="30%" stop-color="#181b24"/>
       <stop offset="60%" stop-color="#2a2f3c"/>
       <stop offset="100%" stop-color="#070912"/>
     </linearGradient>
-
-    <!-- Ring highlights on screw cap -->
     <linearGradient id="a1-ring" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#5a6275"/>
       <stop offset="50%" stop-color="#cdd3df"/>
       <stop offset="100%" stop-color="#1a1d26"/>
     </linearGradient>
-
-    <!-- Wordmark plate metal -->
     <linearGradient id="a1-plate" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#1a1e28"/>
       <stop offset="50%" stop-color="#2a2f3c"/>
       <stop offset="100%" stop-color="#0a0c12"/>
     </linearGradient>
-
-    <!-- Subtle blue inside-glass tint (left half) -->
     <linearGradient id="a1-blueTint" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#2a82ff" stop-opacity="0.22"/>
       <stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
     </linearGradient>
-
-    <!-- Subtle gold inside-glass tint (right half) -->
     <linearGradient id="a1-goldTint" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#dfb346" stop-opacity="0"/>
       <stop offset="100%" stop-color="#dfb346" stop-opacity="0.22"/>
     </linearGradient>
-
-    <!-- Soft glow filter for circuitry + mark -->
     <filter id="a1-glow" x="-25%" y="-25%" width="150%" height="150%">
       <feGaussianBlur stdDeviation="4" result="b"/>
       <feMerge>
@@ -85,37 +64,26 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-
-    <!-- Tighter glow for circuit nodes -->
     <filter id="a1-spark" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="2.2"/>
     </filter>
-
-    <!-- Bulb glass clip (used to confine circuitry inside the envelope) -->
     <clipPath id="a1-bulbClip">
       <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"/>
     </clipPath>
   </defs>
 
-  <!-- Bulb glass envelope -->
   <g>
-    <!-- subtle outer ambient halo -->
     <ellipse cx="512" cy="400" rx="430" ry="380" fill="url(#a1-glass)" opacity="0.0"/>
-    <!-- glass body -->
     <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"
           fill="url(#a1-glass)" stroke="url(#a1-rim)" stroke-width="6"/>
-    <!-- blue/gold tints inside glass -->
     <g clip-path="url(#a1-bulbClip)">
       <rect x="180" y="80" width="332" height="620" fill="url(#a1-blueTint)"/>
       <rect x="512" y="80" width="332" height="620" fill="url(#a1-goldTint)"/>
-      <!-- vertical split seam, very subtle -->
       <line x1="512" y1="100" x2="512" y2="690" stroke="#dfe4ee" stroke-opacity="0.08" stroke-width="1"/>
     </g>
   </g>
 
-  <!-- Circuitry inside glass -->
   <g clip-path="url(#a1-bulbClip)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <!-- Blue (left) -->
     <g stroke="url(#a1-blue)" stroke-width="3.2" filter="url(#a1-glow)">
       <path d="M 250 250 L 312 250 L 312 312"/>
       <path d="M 224 420 L 290 420 L 290 484"/>
@@ -134,8 +102,6 @@
       <circle cx="268" cy="168" r="5"/>
       <circle cx="354" cy="642" r="5"/>
     </g>
-
-    <!-- Gold (right) -->
     <g stroke="url(#a1-gold)" stroke-width="3.2" filter="url(#a1-glow)">
       <path d="M 774 250 L 712 250 L 712 312"/>
       <path d="M 800 420 L 734 420 L 734 484"/>
@@ -156,9 +122,7 @@
     </g>
   </g>
 
-  <!-- A / 1 mark -->
   <g filter="url(#a1-glow)">
-    <!-- A -->
     <path fill="url(#a1-chrome)" fill-rule="evenodd" d="
       M 345 570
       L 425 310
@@ -173,13 +137,8 @@
       L 445 490
       Z
     "/>
-    <!-- Crossbar accent (bright chrome shine) -->
     <path fill="#e7ecf3" d="M 397 504 L 453 504 L 449 520 L 401 520 Z" opacity="0.85"/>
-
-    <!-- Diagonal slash separator -->
     <path fill="url(#a1-chrome)" d="M 540 310 L 526 310 L 498 570 L 512 570 Z"/>
-
-    <!-- 1 -->
     <path fill="url(#a1-chrome)" d="
       M 560 310
       L 635 310
@@ -195,32 +154,23 @@
     "/>
   </g>
 
-  <!-- Bulb base / screw cap -->
   <g>
-    <!-- Neck shoulder -->
     <path d="M 410 698 L 614 698 L 624 730 L 400 730 Z" fill="url(#a1-base)" stroke="#0a0c12" stroke-width="1"/>
-    <!-- Threaded screw rings -->
     <rect x="402" y="734" width="220" height="20" rx="4" fill="url(#a1-base)" stroke="url(#a1-ring)" stroke-width="1"/>
     <rect x="402" y="758" width="220" height="20" rx="4" fill="url(#a1-base)" stroke="url(#a1-ring)" stroke-width="1"/>
     <rect x="402" y="782" width="220" height="20" rx="4" fill="url(#a1-base)" stroke="url(#a1-ring)" stroke-width="1"/>
-    <!-- Brushed insulator -->
     <path d="M 410 806 L 614 806 L 596 850 L 428 850 Z" fill="url(#a1-base)" stroke="#0a0c12" stroke-width="1"/>
-    <!-- Contact tip -->
     <ellipse cx="512" cy="858" rx="60" ry="14" fill="#050609"/>
   </g>
 
-  <!-- Wordmark plate -->
   <g>
     <rect x="80" y="900" width="864" height="84" rx="10"
           fill="url(#a1-plate)" stroke="url(#a1-rim)" stroke-width="1.5"/>
-    <!-- accent dots -->
     <circle cx="120" cy="942" r="4" fill="url(#a1-chrome)"/>
     <circle cx="904" cy="942" r="4" fill="url(#a1-chrome)"/>
-    <!-- two-tone underline -->
     <line x1="180" y1="966" x2="510" y2="966" stroke="url(#a1-blue)" stroke-width="2"/>
     <line x1="514" y1="966" x2="844" y2="966" stroke="url(#a1-gold)" stroke-width="2"/>
     <circle cx="512" cy="966" r="3" fill="url(#a1-chrome)"/>
-    <!-- Wordmark text -->
     <text x="512" y="950" text-anchor="middle"
           font-family="'Space Grotesk','Inter','Helvetica Neue',Arial,sans-serif"
           font-weight="600" font-size="36" letter-spacing="14"
