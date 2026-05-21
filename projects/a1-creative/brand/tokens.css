@@ -23,6 +23,10 @@
   --a1-gold: #dfb346;
   --a1-gold-deep: #876514;
 
+  /* UI values */
+  --a1-border: 1px solid #11151f;
+  --a1-body-text: #cdd3df;
+
   /* Signature gradients */
   --a1-grad-blue: linear-gradient(180deg, #9cc6ff 0%, #2a82ff 50%, #0b3f9d 100%);
   --a1-grad-gold: linear-gradient(180deg, #ffe7a8 0%, #dfb346 50%, #876514 100%);
