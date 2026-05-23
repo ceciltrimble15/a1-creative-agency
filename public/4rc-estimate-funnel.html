@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Estimate — 4 Reel Cleaning | Jacksonville, NC</title>
+  <meta name="description" content="Get a free cleaning estimate from 4 Reel Cleaning in Jacksonville, NC. Residential cleaning, deep cleaning, move-in/move-out, decluttering, hauling & disposal, and custom organizing." />
+  <meta name="theme-color" content="#1a1a2e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-navy: #0a0f2e;
+      --brand-blue: #1e3a8a;
+      --brand-sky: #3b82f6;
+      --brand-cyan: #06b6d4;
+      --brand-gold: #f59e0b;
+      --brand-green: #10b981;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --surface: rgba(255,255,255,0.05);
+      --surface-hover: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.1);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--brand-navy);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background ── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow-1 {
+      position: fixed;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .bg-glow-2 {
+      position: fixed;
+      bottom: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 48px 0 32px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--brand-sky);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--brand-sky);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .logo-mark {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #60a5fa, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .logo-sub {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(28px, 6vw, 42px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, #60a5fa, #06b6d4, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── Trust bar ── */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 36px;
+    }
+    .trust-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .trust-chip .icon { font-size: 14px; }
+
+    /* ── Services grid ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brand-sky);
+      margin-bottom: 14px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .service-card:hover {
+      background: var(--surface-hover);
+      border-color: rgba(59,130,246,0.3);
+    }
+    .service-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .service-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    /* ── Form card ── */
+    .form-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .form-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 24px 20px; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    label .req { color: var(--brand-sky); margin-left: 2px; }
+
+    input, select, textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      padding: 12px 14px;
+      width: 100%;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      appearance: none;
+    }
+    input::placeholder, textarea::placeholder {
+      color: rgba(148,163,184,0.5);
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--brand-sky);
+      background: rgba(59,130,246,0.08);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    select option {
+      background: #1e293b;
+      color: var(--text-primary);
+    }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .char-hint {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: right;
+      margin-top: -10px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Submit button ── */
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--brand-sky), var(--brand-cyan));
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 16px 24px;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-submit:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+    .btn-submit:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 10px;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Success state ── */
+    #success-panel {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .success-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--brand-green), #34d399);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 20px;
+    }
+    .success-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .success-msg {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 20px;
+    }
+    .success-detail {
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #34d399;
+      line-height: 1.6;
+    }
+
+    /* ── Error banner ── */
+    #error-banner {
+      display: none;
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 8px;
+      color: #fca5a5;
+      font-size: 13px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── Reviews ── */
+    .reviews-section {
+      margin-top: 40px;
+    }
+    .reviews-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .review-stars {
+      color: var(--brand-gold);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .review-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .review-author {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .review-placeholder-note {
+      font-size: 10px;
+      color: rgba(148,163,184,0.4);
+      margin-top: 2px;
+    }
+
+    /* ── Footer ── */
+    .funnel-footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: rgba(148,163,184,0.5);
+      line-height: 1.8;
+    }
+    .funnel-footer a {
+      color: var(--brand-sky);
+      text-decoration: none;
+    }
+
+    /* ── Field validation highlight ── */
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: rgba(239,68,68,0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Now Accepting New Clients
+      </div>
+      <div class="logo-mark">4 REEL</div>
+      <div class="logo-sub">Cleaning Services</div>
+      <h1>Get Your <span>Free Estimate</span><br>in Minutes</h1>
+      <p class="header-sub">
+        Professional cleaning &amp; organizing services serving<br>
+        <strong style="color:var(--text-primary)">Jacksonville, NC &amp; surrounding areas.</strong>
+        Fill out the form — we'll respond fast.
+      </p>
+    </header>
+
+    <!-- Trust chips -->
+    <div class="trust-bar">
+      <div class="trust-chip"><span class="icon">📍</span> Jacksonville, NC</div>
+      <div class="trust-chip"><span class="icon">⚡</span> Fast Response</div>
+      <div class="trust-chip"><span class="icon">💬</span> Text Confirmation</div>
+      <div class="trust-chip"><span class="icon">🆓</span> Free Estimate</div>
+    </div>
+
+    <!-- Services -->
+    <div class="section-label">Services We Offer</div>
+    <div class="services-grid">
+      <div class="service-card"><span class="service-icon">🏠</span><span class="service-name">Regular Cleaning</span></div>
+      <div class="service-card"><span class="service-icon">🧹</span><span class="service-name">Deep Cleaning</span></div>
+      <div class="service-card"><span class="service-icon">📦</span><span class="service-name">Move-In / Move-Out</span></div>
+      <div class="service-card"><span class="service-icon">🗂️</span><span class="service-name">Decluttering</span></div>
+      <div class="service-card"><span class="service-icon">🚛</span><span class="service-name">Hauling &amp; Disposal</span></div>
+      <div class="service-card"><span class="service-icon">✨</span><span class="service-name">Custom Organizing</span></div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-card">
+      <div class="form-title">Request Your Free Estimate</div>
+      <p class="form-desc">Submit below and you'll receive a text confirmation right away. We'll follow up to schedule your visit.</p>
+
+      <div id="error-banner"></div>
+
+      <form id="estimate-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(910) 555-0100" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="jane@email.com" autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="address">Service Address <span class="req">*</span></label>
+          <input type="text" id="address" name="address" placeholder="123 Main St, Jacksonville, NC" required autocomplete="street-address" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="serviceType">Service Type <span class="req">*</span></label>
+            <select id="serviceType" name="serviceType" required>
+              <option value="" disabled selected>Select a service…</option>
+              <option value="Regular Cleaning">Regular Cleaning</option>
+              <option value="Deep Cleaning">Deep Cleaning</option>
+              <option value="Move-In / Move-Out">Move-In / Move-Out</option>
+              <option value="Decluttering">Decluttering</option>
+              <option value="Hauling & Disposal">Hauling &amp; Disposal</option>
+              <option value="Custom Organizing">Custom Organizing</option>
+              <option value="Multiple Services">Multiple Services</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="preferredDate">Preferred Date</label>
+            <input type="date" id="preferredDate" name="preferredDate" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Additional Details</label>
+          <textarea id="message" name="message" placeholder="Square footage, number of rooms, pets, special requests…" maxlength="500"></textarea>
+          <div class="char-hint"><span id="char-count">0</span>/500</div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span id="btn-label">Get My Free Estimate →</span>
+          <span class="spinner" id="btn-spinner"></span>
+        </button>
+        <p class="btn-note">No spam. You'll receive 1 confirmation text. That's it.</p>
+      </form>
+
+      <!-- Success panel (hidden by default) -->
+      <div id="success-panel">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Request Received!</div>
+        <p class="success-msg">
+          Your estimate request has been submitted. Check your phone — a confirmation text is on the way.
+        </p>
+        <div class="success-detail">
+          We'll be in touch shortly to confirm details and schedule your visit.<br>
+          Questions? Text or call us directly.
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews (clearly marked as placeholders) -->
+    <div class="reviews-section">
+      <div class="section-label">What Clients Say</div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Super professional and thorough. My place looked brand new after the deep clean. Will definitely book again!"</p>
+          <div class="review-author">— T.W., Jacksonville NC</div>
+          <div class="review-placeholder-note">[Placeholder — replace with verified client review]</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"They helped me declutter and organize my whole garage before my PCS move. Fast, affordable, and easy to communicate with."</p>
+          <div class="review-author">— M.R., Jacksonville NC</div>
+          <div class="review-placeholder-note">[Placeholder — replace with verified client review]</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Move-out clean was done the same week I reached out. Got my full deposit back. Highly recommend."</p>
+          <div class="review-author">— D.L., Onslow County NC</div>
+          <div class="review-placeholder-note">[Placeholder — replace with verified client review]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="funnel-footer">
+      <div>4 Reel Cleaning &nbsp;·&nbsp; Jacksonville, NC</div>
+      <div>Built by <a href="https://a1creativeagency.com" target="_blank" rel="noopener">A1 Creative Agency</a></div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Character counter
+    const msgArea = document.getElementById('message');
+    const charCount = document.getElementById('char-count');
+    msgArea.addEventListener('input', () => {
+      charCount.textContent = msgArea.value.length;
+    });
+
+    // Phone formatter
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 10);
+      if (v.length >= 7) v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6)}`;
+      else if (v.length >= 4) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
+      else if (v.length >= 1) v = `(${v}`;
+      e.target.value = v;
+    });
+
+    // Set min date to today
+    const dateInput = document.getElementById('preferredDate');
+    dateInput.min = new Date().toISOString().split('T')[0];
+
+    // Form submit
+    const form = document.getElementById('estimate-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnLabel = document.getElementById('btn-label');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const errorBanner = document.getElementById('error-banner');
+    const successPanel = document.getElementById('success-panel');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBanner.style.display = 'none';
+
+      // Clear previous validation
+      form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+
+      // Basic validation
+      const required = ['name', 'phone', 'address', 'serviceType'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
+      });
+      if (!valid) {
+        showError('Please fill in all required fields.');
+        return;
+      }
+
+      // Phone basic check
+      const rawPhone = phoneInput.value.replace(/\D/g, '');
+      if (rawPhone.length < 10) {
+        phoneInput.classList.add('invalid');
+        showError('Please enter a valid 10-digit phone number.');
+        return;
+      }
+
+      setLoading(true);
+
+      const payload = {
+        name:          document.getElementById('name').value.trim(),
+        phone:         rawPhone,
+        email:         document.getElementById('email').value.trim(),
+        address:       document.getElementById('address').value.trim(),
+        serviceType:   document.getElementById('serviceType').value,
+        preferredDate: document.getElementById('preferredDate').value,
+        message:       document.getElementById('message').value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/estimate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || `Server error (${res.status})`);
+        }
+
+        // Show success
+        form.style.display = 'none';
+        successPanel.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        showError(err.message || 'Something went wrong. Please try again or contact us directly.');
+        setLoading(false);
+      }
+    });
+
+    function setLoading(on) {
+      submitBtn.disabled = on;
+      btnLabel.style.display = on ? 'none' : 'inline';
+      btnSpinner.style.display = on ? 'inline-block' : 'none';
+    }
+
+    function showError(msg) {
+      errorBanner.textContent = msg;
+      errorBanner.style.display = 'block';
+      errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>

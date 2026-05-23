@@ -5,6 +5,11 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "cleanUrls": true,
+  "functions": {
+    "api/estimate.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "headers": [
     {
       "source": "/assets/(.*)",
