@@ -20,11 +20,43 @@ const fieldClass =
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Frontend only — no backend wired yet. Captured for future lead system.
-    setSubmitted(true);
+    setSubmitError(null);
+    setSubmitting(true);
+
+    const form = e.target;
+    const body = {
+      name: form.name.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      service: form.service.value,
+      date: form.date.value,
+      message: form.message.value,
+    };
+
+    try {
+      const res = await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed. Please try again.');
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -180,8 +212,14 @@ export default function ContactForm() {
                 />
               </div>
 
-              <button type="submit" className="btn-primary w-full">
-                Request Appointment <ArrowIcon className="h-4 w-4" />
+              {submitError && (
+                <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                  {submitError}
+                </p>
+              )}
+
+              <button type="submit" disabled={submitting} className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed">
+                {submitting ? 'Sending…' : 'Request Appointment'} {!submitting && <ArrowIcon className="h-4 w-4" />}
               </button>
 
               <p className="text-center text-[11px] uppercase tracking-[0.22em] text-silver-dim/70">
