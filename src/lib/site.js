@@ -1,31 +1,23 @@
-/* Single source of truth for live business + contact details. */
+/* A1 Creative — site config. Update phone/email/booking link here. */
 export const SITE = {
-  name: 'TRHUE Hair Care',
-  tagline: 'Beauty. Care. Confidence.',
-  url: 'https://www.trhuehaircare.com',
+  name: 'A1 Creative',
+  tagline: 'Build The Business System Behind Your Brand.',
+  url: 'https://www.a1creative.agency',
 
-  phoneDisplay: '(513) 822-3929',
-  phoneTel: 'tel:+15138223929',
-  phoneSms: 'sms:+15138223929',
+  /* TODO: update with real phone number */
+  phoneDisplay: '(XXX) XXX-XXXX',
+  phoneTel: 'tel:+10000000000',
 
-  email: 'info@trhuehaircare.com',
-  emailHref: 'mailto:info@trhuehaircare.com',
+  /* TODO: update with real email */
+  email: 'hello@a1creative.agency',
+  emailHref: 'mailto:hello@a1creative.agency',
 
-  address: {
-    street: '4209 Glenway Ave',
-    cityState: 'Cincinnati, OH 45205',
-    full: '4209 Glenway Ave, Cincinnati, OH 45205',
-  },
-  mapsHref:
-    'https://www.google.com/maps/search/?api=1&query=4209+Glenway+Ave+Cincinnati+OH+45205',
+  /* TODO: update with real Calendly / booking link */
+  bookingUrl: 'https://calendly.com/a1creative',
 
   social: {
-    instagram: { name: 'Shawnece Hughes', href: 'https://www.instagram.com/' },
-    facebook: { name: 'Shawnece Pretty Watson', href: 'https://www.facebook.com/' },
+    instagram: { name: '@a1creativeagency', href: 'https://www.instagram.com/a1creativeagency' },
+    facebook: { name: 'A1 Creative Agency', href: 'https://www.facebook.com/' },
+    linkedin: { name: 'A1 Creative', href: 'https://www.linkedin.com/' },
   },
-
-  hours: [
-    { day: 'Monday – Saturday', value: 'By Appointment' },
-    { day: 'Sunday', value: 'Closed' },
-  ],
 };

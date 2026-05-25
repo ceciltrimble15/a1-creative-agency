@@ -1,19 +1,18 @@
 {
-  "name": "trhue-hair-care",
+  "name": "a1-creative-agency",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "TRHUE Hair Care — Community Access System landing page, built by A1 Creative Agency.",
+  "description": "A1 Creative — Business Infrastructure Agency. Build the system behind the brand.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "framer-motion": "^11.3.19",
-    "qrcode.react": "^4.2.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.15.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
