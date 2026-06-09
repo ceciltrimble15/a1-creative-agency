@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon, CheckIcon } from '../components/icons.jsx';
+import { ArrowIcon, CheckIcon, ExternalLinkIcon } from '../components/icons.jsx';
+import { SITE } from '../lib/site.js';
 
 const PACKAGES = [
   {
@@ -26,6 +27,7 @@ const PACKAGES = [
     ],
     cta: 'Start Starter Package',
     ctaClass: 'btn-ghost',
+    paymentKey: 'starter',
     description: 'The right foundation for businesses that need to establish a professional digital presence. A clean website, basic brand cleanup, lead capture, and QR routing — everything to look credible and start capturing leads.',
   },
   {
@@ -52,6 +54,7 @@ const PACKAGES = [
     ],
     cta: 'Start Growth Package',
     ctaClass: 'btn-primary',
+    paymentKey: 'growth',
     description: 'For businesses that are operating but leaking leads and losing customers to disorganization. This is the full infrastructure layer — website, CRM, automation, booking, and follow-up — connected and working.',
   },
   {
@@ -78,6 +81,7 @@ const PACKAGES = [
     ],
     cta: 'Apply for VIP Build',
     ctaClass: 'btn-gold',
+    paymentKey: 'vip',
     description: 'For established businesses ready for a complete operating system. This is a full infrastructure engagement — from website to CRM to automation to client journey. Built and configured for your specific business model.',
   },
 ];
@@ -136,7 +140,7 @@ export default function Packages() {
         <div className="container-x">
           <div className="grid gap-8 lg:grid-cols-3 items-start">
             {PACKAGES.map(
-              ({ tier, subtitle, price, note, borderColor, accentColor, badgeClass, badge, items, cta, ctaClass, description }) => (
+              ({ tier, subtitle, price, note, borderColor, accentColor, badgeClass, badge, items, cta, ctaClass, paymentKey, description }) => (
                 <div
                   key={tier}
                   className={`relative rounded-xl border ${borderColor} bg-graphite flex flex-col overflow-hidden`}
@@ -185,10 +189,52 @@ export default function Packages() {
                       ))}
                     </ul>
 
-                    <div className="mt-8">
-                      <Link to="/contact" className={`${ctaClass} w-full text-center block`}>
-                        {cta}
-                      </Link>
+                    <div className="mt-8 space-y-2.5">
+                      {/* Primary CTA — payment link if set, else strategy call for VIP, else contact */}
+                      {(() => {
+                        const payUrl = paymentKey && SITE.payment[paymentKey];
+                        if (payUrl) {
+                          return (
+                            <a
+                              href={payUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`${ctaClass} w-full text-center flex items-center justify-center gap-2`}
+                            >
+                              Pay Deposit &amp; Start <ExternalLinkIcon className="h-3.5 w-3.5" />
+                            </a>
+                          );
+                        }
+                        if (tier === 'VIP') {
+                          return (
+                            <a
+                              href={SITE.bookingUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`${ctaClass} w-full text-center flex items-center justify-center gap-2`}
+                            >
+                              Book Strategy Call <ExternalLinkIcon className="h-3.5 w-3.5" />
+                            </a>
+                          );
+                        }
+                        return (
+                          <Link to="/contact" className={`${ctaClass} w-full text-center block`}>
+                            {cta}
+                          </Link>
+                        );
+                      })()}
+
+                      {/* Secondary CTA — book a call for Starter/Growth when no payment link yet */}
+                      {!SITE.payment[paymentKey] && tier !== 'VIP' && (
+                        <a
+                          href={SITE.bookingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full text-center text-xs text-silver-dim hover:text-blue transition-colors flex items-center justify-center gap-1.5 py-1"
+                        >
+                          or Book a Strategy Call first <ExternalLinkIcon className="h-3 w-3" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -249,9 +295,17 @@ export default function Packages() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <Link to="/contact" className="btn-primary">
-              Ready to Start? Let's Talk. <ArrowIcon className="h-4 w-4" />
+          <div className="mt-12 flex flex-wrap justify-center gap-4">
+            <a
+              href={SITE.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Book a Strategy Call <ExternalLinkIcon className="h-4 w-4" />
+            </a>
+            <Link to="/contact" className="btn-ghost">
+              Submit Project Details <ArrowIcon className="h-4 w-4" />
             </Link>
           </div>
         </div>

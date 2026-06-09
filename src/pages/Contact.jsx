@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { CheckIcon, MailIcon, PhoneIcon } from '../components/icons.jsx';
+import { CheckIcon, MailIcon, PhoneIcon, ExternalLinkIcon, CalendarIcon } from '../components/icons.jsx';
 import { SITE } from '../lib/site.js';
 
-const FORM_NAME = 'a1-creative-quote';
+const FORM_NAME    = 'a1-creative-quote';
+const FUNCTION_URL = '/.netlify/functions/a1-lead';
+const FALLBACK_MSG = 'Something went wrong. Please call (513) 440-3329 or email operations@a1creativeagency.com.';
 
 const SERVICE_OPTIONS = [
   'Website / Landing Page',
@@ -45,7 +47,7 @@ const INITIAL = {
   botField: '',
 };
 
-// Encode form data as application/x-www-form-urlencoded for Netlify Forms
+// Netlify Forms fallback encoder (kept for static form detection only)
 const encode = (data) =>
   Object.entries(data)
     .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v ?? '')}`)
@@ -68,8 +70,7 @@ const inputClass =
 
 const selectClass = inputClass + ' cursor-pointer';
 
-const FALLBACK_ERROR =
-  'Something went wrong. Please call (513) 440-3329 or email operations@a1creativeagency.com.';
+// (FALLBACK_MSG defined at top of file)
 
 export default function Contact() {
   const [form, setForm] = useState(INITIAL);
@@ -84,29 +85,53 @@ export default function Contact() {
     setErrorMsg('');
 
     try {
-      const res = await fetch('/', {
-        method: 'POST',
+      const res = await fetch(FUNCTION_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:         form.name,
+          email:        form.email,
+          phone:        form.phone,
+          businessName: form.businessName,
+          service:      form.service,
+          budget:       form.budget,
+          timeline:     form.timeline,
+          message:      form.message,
+        }),
+      });
+
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const detail = json?.error || `Status ${res.status}`;
+        throw new Error(detail);
+      }
+
+      setStatus('success');
+      setForm(INITIAL);
+
+      // Also send Netlify Forms backup — fire-and-forget, never blocks success UX
+      fetch('/', {
+        method:  'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({
           'form-name':     FORM_NAME,
           'bot-field':     form.botField,
           'business-name': form.businessName,
-          'name':          form.name,
-          'phone':         form.phone,
-          'email':         form.email,
-          'service':       form.service,
-          'budget':        form.budget,
-          'timeline':      form.timeline,
-          'message':       form.message,
+          name:            form.name,
+          phone:           form.phone,
+          email:           form.email,
+          service:         form.service,
+          budget:          form.budget,
+          timeline:        form.timeline,
+          message:         form.message,
         }),
-      });
+      }).catch(() => {});
 
-      if (!res.ok) throw new Error(`Status ${res.status}`);
-      setStatus('success');
-      setForm(INITIAL);
-    } catch {
+    } catch (err) {
+      console.error('[contact-form] Submission error:', err.message);
       setStatus('error');
-      setErrorMsg(FALLBACK_ERROR);
+      setErrorMsg(FALLBACK_MSG);
     }
   };
 
@@ -329,6 +354,18 @@ export default function Contact() {
                     {SITE.phoneDisplay}
                   </a>
                 </div>
+                <div className="divider my-5" />
+                <p className="text-xs text-silver-dim mb-3">Prefer to talk first?</p>
+                <a
+                  href={SITE.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-ghost !text-xs !py-2.5 w-full text-center flex items-center justify-center gap-2"
+                >
+                  <CalendarIcon className="h-3.5 w-3.5" />
+                  Book a Strategy Call
+                  <ExternalLinkIcon className="h-3 w-3" />
+                </a>
               </div>
 
               <div className="card p-6">
