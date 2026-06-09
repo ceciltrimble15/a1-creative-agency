@@ -1,38 +1,32 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
-import Hero from './components/Hero.jsx';
-import TrustStrip from './components/TrustStrip.jsx';
-import Services from './components/Services.jsx';
-import Pricing from './components/Pricing.jsx';
-import Collection from './components/Collection.jsx';
-import Gallery from './components/Gallery.jsx';
-import Studio from './components/Studio.jsx';
-import BookingCTA from './components/BookingCTA.jsx';
-import ContactForm from './components/ContactForm.jsx';
-import QRSection from './components/QRSection.jsx';
-import SocialContact from './components/SocialContact.jsx';
-import FinalCTA from './components/FinalCTA.jsx';
 import Footer from './components/Footer.jsx';
+import Home from './pages/Home.jsx';
+import Services from './pages/Services.jsx';
+import Infrastructure from './pages/Infrastructure.jsx';
+import Packages from './pages/Packages.jsx';
+import CaseStudies from './pages/CaseStudies.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 
 export default function App() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-ink text-silver">
-      <div className="pointer-events-none fixed inset-0 grain opacity-60" />
-      <Navbar />
-      <main>
-        <Hero />
-        <TrustStrip />
-        <Services />
-        <Pricing />
-        <Collection />
-        <Gallery />
-        <Studio />
-        <BookingCTA />
-        <ContactForm />
-        <QRSection />
-        <SocialContact />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="relative min-h-screen bg-navy text-silver">
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/infrastructure" element={<Infrastructure />} />
+            <Route path="/packages" element={<Packages />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

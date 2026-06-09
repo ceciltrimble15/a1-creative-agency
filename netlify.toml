@@ -1,0 +1,46 @@
+[build]
+  command   = "npm run build"
+  publish   = "dist"
+  functions = "netlify/functions"
+
+# ── SSL / canonical domain ────────────────────────────────────────────────────
+# Force HTTPS + canonicalize www → apex.
+# These must come BEFORE the SPA catch-all below.
+
+[[redirects]]
+  from   = "https://www.a1creativeagency.com/*"
+  to     = "https://a1creativeagency.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://www.a1creativeagency.com/*"
+  to     = "https://a1creativeagency.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://a1creativeagency.com/*"
+  to     = "https://a1creativeagency.com/:splat"
+  status = 301
+  force  = true
+
+# ── React Router SPA ─────────────────────────────────────────────────────────
+# All non-asset, non-function paths serve index.html.
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── Cache headers ─────────────────────────────────────────────────────────────
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"

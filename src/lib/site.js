@@ -1,31 +1,35 @@
-/* Single source of truth for live business + contact details. */
+/* A1 Creative — single source of truth for all live URLs and config. */
 export const SITE = {
-  name: 'TRHUE Hair Care',
-  tagline: 'Beauty. Care. Confidence.',
-  url: 'https://www.trhuehaircare.com',
+  name:    'A1 Creative',
+  tagline: 'Build The Business System Behind Your Brand.',
+  url:     'https://a1creativeagency.com',
 
-  phoneDisplay: '(513) 822-3929',
-  phoneTel: 'tel:+15138223929',
-  phoneSms: 'sms:+15138223929',
+  phoneDisplay: '(513) 440-3329',
+  phoneTel:     'tel:+15134403329',
 
-  email: 'info@trhuehaircare.com',
-  emailHref: 'mailto:info@trhuehaircare.com',
+  email:     'operations@a1creativeagency.com',
+  emailHref: 'mailto:operations@a1creativeagency.com',
 
-  address: {
-    street: '4209 Glenway Ave',
-    cityState: 'Cincinnati, OH 45205',
-    full: '4209 Glenway Ave, Cincinnati, OH 45205',
+  // Real Calendly — A1 Creative Agency Strategy Call (30 min outbound call)
+  bookingUrl: 'https://calendly.com/admin-a1creativeagency/new-meeting',
+
+  // Payment links — set Stripe payment link URLs here, then each package
+  // card will automatically show a "Pay Deposit" button.
+  // Leave as empty string ('') to hide the payment button on that package.
+  //
+  // To get these links:
+  //   1. Go to dashboard.stripe.com → Payment Links → Create Link
+  //   2. Create one link per package (e.g. "$750 deposit — Starter")
+  //   3. Paste the https://buy.stripe.com/... URL below
+  payment: {
+    starter: '', // e.g. 'https://buy.stripe.com/xxx'
+    growth:  '', // e.g. 'https://buy.stripe.com/yyy'
+    vip:     '', // VIP → send to strategy call instead
   },
-  mapsHref:
-    'https://www.google.com/maps/search/?api=1&query=4209+Glenway+Ave+Cincinnati+OH+45205',
 
   social: {
-    instagram: { name: 'Shawnece Hughes', href: 'https://www.instagram.com/' },
-    facebook: { name: 'Shawnece Pretty Watson', href: 'https://www.facebook.com/' },
+    instagram: { name: '@a1creativeagency', href: 'https://www.instagram.com/a1creativeagency' },
+    facebook:  { name: 'A1 Creative Agency', href: 'https://www.facebook.com/' },
+    linkedin:  { name: 'A1 Creative',         href: 'https://www.linkedin.com/' },
   },
-
-  hours: [
-    { day: 'Monday – Saturday', value: 'By Appointment' },
-    { day: 'Sunday', value: 'Closed' },
-  ],
 };
