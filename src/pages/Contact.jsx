@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { CheckIcon, MailIcon, PhoneIcon } from '../components/icons.jsx';
 import { SITE } from '../lib/site.js';
 
+const FORM_NAME = 'a1-creative-quote';
+
 const SERVICE_OPTIONS = [
   'Website / Landing Page',
   'Brand Identity',
@@ -40,7 +42,14 @@ const INITIAL = {
   budget: '',
   timeline: '',
   message: '',
+  botField: '',
 };
+
+// Encode form data as application/x-www-form-urlencoded for Netlify Forms
+const encode = (data) =>
+  Object.entries(data)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v ?? '')}`)
+    .join('&');
 
 function Field({ label, required, children }) {
   return (
@@ -59,6 +68,9 @@ const inputClass =
 
 const selectClass = inputClass + ' cursor-pointer';
 
+const FALLBACK_ERROR =
+  'Something went wrong. Please call (513) 440-3329 or email operations@a1creativeagency.com.';
+
 export default function Contact() {
   const [form, setForm] = useState(INITIAL);
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
@@ -72,28 +84,35 @@ export default function Contact() {
     setErrorMsg('');
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          client: 'A1-Creative',
-          source: 'website',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name':     FORM_NAME,
+          'bot-field':     form.botField,
+          'business-name': form.businessName,
+          'name':          form.name,
+          'phone':         form.phone,
+          'email':         form.email,
+          'service':       form.service,
+          'budget':        form.budget,
+          'timeline':      form.timeline,
+          'message':       form.message,
         }),
       });
 
-      if (!res.ok) throw new Error(`Server error: ${res.status}`);
+      if (!res.ok) throw new Error(`Status ${res.status}`);
       setStatus('success');
       setForm(INITIAL);
-    } catch (err) {
+    } catch {
       setStatus('error');
-      setErrorMsg(err.message || 'Something went wrong. Please try again or email us directly.');
+      setErrorMsg(FALLBACK_ERROR);
     }
   };
 
   return (
     <>
-      {/* Header */}
+      {/* Page Header */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-hero-gradient opacity-50" />
@@ -115,7 +134,8 @@ export default function Contact() {
       <section className="py-8 pb-32">
         <div className="container-x">
           <div className="grid gap-12 lg:grid-cols-[1fr_360px] lg:items-start">
-            {/* Form */}
+
+            {/* Form card */}
             <div className="rounded-xl border border-white/[0.06] bg-graphite p-8 lg:p-10">
               {status === 'success' ? (
                 <div className="flex flex-col items-center justify-center text-center py-12">
@@ -129,11 +149,38 @@ export default function Contact() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                /* name + data-netlify are required by Netlify Forms on the rendered element.
+                   The actual capture happens via the URL-encoded POST in handleSubmit. */
+                <form
+                  name={FORM_NAME}
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                >
+                  {/* Hidden inputs required by Netlify Forms */}
+                  <input type="hidden" name="form-name" value={FORM_NAME} />
+
+                  {/* Honeypot — hidden from real users, catches bots */}
+                  <div style={{ display: 'none' }} aria-hidden="true">
+                    <label>
+                      Don't fill this out if you're human:
+                      <input
+                        name="bot-field"
+                        value={form.botField}
+                        onChange={set('botField')}
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </label>
+                  </div>
+
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Business Name" required>
                       <input
                         type="text"
+                        name="business-name"
                         required
                         value={form.businessName}
                         onChange={set('businessName')}
@@ -144,6 +191,7 @@ export default function Contact() {
                     <Field label="Your Name" required>
                       <input
                         type="text"
+                        name="name"
                         required
                         value={form.name}
                         onChange={set('name')}
@@ -157,6 +205,7 @@ export default function Contact() {
                     <Field label="Phone Number" required>
                       <input
                         type="tel"
+                        name="phone"
                         required
                         value={form.phone}
                         onChange={set('phone')}
@@ -167,6 +216,7 @@ export default function Contact() {
                     <Field label="Email Address" required>
                       <input
                         type="email"
+                        name="email"
                         required
                         value={form.email}
                         onChange={set('email')}
@@ -178,6 +228,7 @@ export default function Contact() {
 
                   <Field label="Service Interest" required>
                     <select
+                      name="service"
                       required
                       value={form.service}
                       onChange={set('service')}
@@ -193,6 +244,7 @@ export default function Contact() {
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Budget Range">
                       <select
+                        name="budget"
                         value={form.budget}
                         onChange={set('budget')}
                         className={selectClass}
@@ -205,6 +257,7 @@ export default function Contact() {
                     </Field>
                     <Field label="Timeline">
                       <select
+                        name="timeline"
                         value={form.timeline}
                         onChange={set('timeline')}
                         className={selectClass}
@@ -219,6 +272,7 @@ export default function Contact() {
 
                   <Field label="Project Details">
                     <textarea
+                      name="message"
                       value={form.message}
                       onChange={set('message')}
                       rows={5}
@@ -284,7 +338,7 @@ export default function Contact() {
                     'You submit your project details above.',
                     'We review your submission and research your business.',
                     'We follow up within 1 business day to discuss your system.',
-                    'If it\'s a fit, we send a scoped proposal and intake agreement.',
+                    "If it's a fit, we send a scoped proposal and intake agreement.",
                     'You approve and deposit. We start building.',
                   ].map((step, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-silver-dim">
@@ -310,6 +364,7 @@ export default function Contact() {
                 </a>
               </div>
             </div>
+
           </div>
         </div>
       </section>

@@ -4,15 +4,12 @@ export const SITE = {
   tagline: 'Build The Business System Behind Your Brand.',
   url: 'https://www.a1creative.agency',
 
-  /* TODO: update with real phone number */
-  phoneDisplay: '(XXX) XXX-XXXX',
-  phoneTel: 'tel:+10000000000',
+  phoneDisplay: '(513) 440-3329',
+  phoneTel: 'tel:+15134403329',
 
-  /* TODO: update with real email */
-  email: 'hello@a1creative.agency',
-  emailHref: 'mailto:hello@a1creative.agency',
+  email: 'operations@a1creativeagency.com',
+  emailHref: 'mailto:operations@a1creativeagency.com',
 
-  /* TODO: update with real Calendly / booking link */
   bookingUrl: 'https://calendly.com/a1creative',
 
   social: {

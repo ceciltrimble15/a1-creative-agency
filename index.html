@@ -24,6 +24,23 @@
     />
   </head>
   <body>
+    <!--
+      Netlify Forms detection — this hidden form must exist in the
+      built HTML so Netlify registers it during deploy.
+      The React form POSTs to "/" with form-name matching this name.
+    -->
+    <form name="a1-creative-quote" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text"  name="business-name" />
+      <input type="text"  name="name" />
+      <input type="tel"   name="phone" />
+      <input type="email" name="email" />
+      <select name="service"></select>
+      <select name="budget"></select>
+      <select name="timeline"></select>
+      <textarea name="message"></textarea>
+      <input type="text"  name="bot-field" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
