@@ -1,3 +1,6 @@
+import { createLead, createTask, logAutomation } from './_lib/airtable.js';
+import { notifyOps } from './_lib/notify.js';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -7,14 +10,6 @@ export default async function handler(req, res) {
 
   if (!name || !phone || !email) {
     return res.status(400).json({ error: 'Name, phone, and email are required' });
-  }
-
-  const apiKey = process.env.AIRTABLE_API_KEY;
-  const baseId = process.env.AIRTABLE_BASE_ID;
-
-  if (!apiKey || !baseId) {
-    console.error('Missing env vars: AIRTABLE_API_KEY or AIRTABLE_BASE_ID');
-    return res.status(500).json({ error: 'Server configuration error' });
   }
 
   const notesParts = [];
@@ -34,26 +29,33 @@ export default async function handler(req, res) {
   if (notesParts.length > 0) fields['Notes'] = notesParts.join('\n');
   if (date) fields['date'] = date;
 
-  try {
-    const response = await fetch(`https://api.airtable.com/v0/${baseId}/Leads`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ fields }),
-    });
+  const lead = await createLead(fields);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error('Airtable API error:', JSON.stringify(data));
-      return res.status(502).json({ error: data.error?.message || 'Failed to create lead in Airtable' });
-    }
-
-    return res.status(200).json({ success: true, id: data.id });
-  } catch (err) {
-    console.error('Submit lead exception:', err);
-    return res.status(500).json({ error: 'Internal server error' });
+  if (!lead.ok) {
+    console.error('Airtable lead error:', lead.error);
+    await logAutomation('website_lead_capture', `FAILED for ${name} (${phone}): ${lead.error}`, 'error');
+    return res.status(502).json({ error: lead.error || 'Failed to create lead in Airtable' });
   }
+
+  // Follow-up pipeline: task + ops notification + log. Best-effort — the
+  // lead is already stored, so none of these should fail the submission.
+  const [task, notify] = await Promise.all([
+    createTask({
+      'Name': `Follow up with ${name} (${phone})`,
+      'Status': 'To Do',
+      'Notes': `Website lead${service ? ` — ${service}` : ''}${date ? `, preferred date ${date}` : ''}. Email: ${email}`,
+    }),
+    notifyOps(
+      `New website lead: ${name}`,
+      `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service || '—'}\nPreferred date: ${date || '—'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
+    ),
+  ]);
+
+  await logAutomation(
+    'website_lead_capture',
+    `Lead ${lead.id} for ${name} (${phone}). Task: ${task.ok ? task.id : `failed (${task.error})`}. Ops email: ${notify.ok ? 'sent' : `failed (${notify.error})`}`,
+    task.ok && notify.ok ? 'ok' : 'partial'
+  );
+
+  return res.status(200).json({ success: true, id: lead.id });
 }
