@@ -8,6 +8,6 @@
 #     link (Airtable → Leads table → Form view → Share form → copy the
 #     "Open form" URL). Keep status 302 so it's never cached permanently. <<<
 
-/quote     https://airtable.com/shrXXXXXXXXXXXXXX   302
-/quote/*   https://airtable.com/shrXXXXXXXXXXXXXX   302
-/intake    https://airtable.com/shrXXXXXXXXXXXXXX   302
+/quote     https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form   302
+/quote/*   https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form   302
+/intake    https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form   302

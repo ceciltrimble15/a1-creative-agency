@@ -11,11 +11,11 @@ Airtable intake form URL. Set it, and everything below works.
 
 ---
 
-## 0. Get the one URL
-Airtable → **A1 Lead Connector** base → **Leads** table → a **Form** view →
-**Share form** → copy the "Open form" link (looks like `https://airtable.com/shr…`).
-Find-and-replace `https://airtable.com/shrXXXXXXXXXXXXXX` with it in:
-`_redirects`, `quote.html`, `intake.html`.
+## 0. The one URL (already set)
+The published Airtable form is
+`https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form` and it is already
+wired into `_redirects`, `quote.html`, and `intake.html`. To change the destination
+later, find-and-replace that URL in those three files — nothing else.
 
 ---
 
@@ -30,7 +30,7 @@ Pick the one that matches the live host:
   302-redirects to the form.
 - **Vercel:** add to `vercel.json`:
   ```json
-  { "redirects": [{ "source": "/quote", "destination": "https://airtable.com/shrXXXXXXXXXXXXXX", "permanent": false }] }
+  { "redirects": [{ "source": "/quote", "destination": "https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form", "permanent": false }] }
   ```
 - **Any static host (fallback):** deploy `projects/a1-creative/quote.html` at `/quote`.
 
@@ -73,16 +73,13 @@ won't lose a lead, but they need these fields to land):
 
 ---
 
-## 5. Facebook / LinkedIn links
-The broken links (`facebook.com/`, `linkedin.com/` generic homepages) live in the
-A1 site source at `src/lib/site.js`:
-```js
-facebook:  { name: 'A1 Creative Agency', href: 'https://www.facebook.com/<your-page>' },
-linkedin:  { name: 'A1 Creative',         href: 'https://www.linkedin.com/company/<your-co>' },
-```
-Set the real URLs, **or** remove those two `<a>` blocks from `Footer.jsx` so prospects
-aren't sent to a stranger's profile. (Send me the two real URLs and I'll patch it.)
-Instagram (`instagram.com/a1creativeagency`) is already correct.
+## 5. Facebook / LinkedIn links — resolved
+Applied to the A1 site source (`src/lib/site.js` + `Footer.jsx`):
+- **Facebook** → `https://www.facebook.com/profile.php?id=61590367834347` (real page).
+- **LinkedIn** → **removed** (not ready). The dead LinkedIn icon no longer renders.
+- **Instagram** (`instagram.com/a1creativeagency`) — already correct.
+
+These ship when the A1 site source is deployed.
 
 ---
 
