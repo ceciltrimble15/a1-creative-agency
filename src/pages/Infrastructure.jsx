@@ -254,9 +254,9 @@ export default function Infrastructure() {
                 what infrastructure you need.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link to="/contact" className="btn-primary">
+                <a href="https://a1creativeagency.com/quote" className="btn-primary">
                   Start Your Build <ArrowIcon className="h-4 w-4" />
-                </Link>
+                </a>
                 <Link to="/packages" className="btn-ghost">
                   View Packages
                 </Link>

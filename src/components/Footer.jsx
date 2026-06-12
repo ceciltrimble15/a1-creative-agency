@@ -117,9 +117,9 @@ export default function Footer() {
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-silver-dim mb-3">
                 Ready to Start?
               </p>
-              <Link to="/contact" className="btn-primary !text-xs !py-3 !px-5">
+              <a href="https://a1creativeagency.com/quote" className="btn-primary !text-xs !py-3 !px-5">
                 Start Your System
-              </Link>
+              </a>
             </div>
           </div>
         </div>

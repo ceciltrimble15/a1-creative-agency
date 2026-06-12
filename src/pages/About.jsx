@@ -147,9 +147,9 @@ export default function About() {
             </p>
 
             <div className="mt-8 pt-8 border-t border-white/[0.06] flex flex-wrap gap-4">
-              <Link to="/contact" className="btn-primary">
+              <a href="https://a1creativeagency.com/quote" className="btn-primary">
                 Work With Us <ArrowIcon className="h-4 w-4" />
-              </Link>
+              </a>
               <Link to="/infrastructure" className="btn-ghost">
                 How We Build
               </Link>
@@ -167,9 +167,9 @@ export default function About() {
           <p className="text-silver-dim max-w-md mx-auto mb-8">
             Tell us about your business and where you're trying to go.
           </p>
-          <Link to="/contact" className="btn-primary">
+          <a href="https://a1creativeagency.com/quote" className="btn-primary">
             Start Your Business System <ArrowIcon className="h-4 w-4" />
-          </Link>
+          </a>
         </div>
       </section>
     </>

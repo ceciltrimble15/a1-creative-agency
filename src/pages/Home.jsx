@@ -132,9 +132,9 @@ export default function Home() {
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to="/contact" className="btn-primary">
+              <a href="https://a1creativeagency.com/quote" className="btn-primary">
                 Start Your Business System <ArrowIcon className="h-4 w-4" />
-              </Link>
+              </a>
               <Link to="/packages" className="btn-ghost">
                 View Packages
               </Link>
@@ -412,9 +412,9 @@ export default function Home() {
                 Tell us about your business. We'll build the system behind your brand.
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link to="/contact" className="btn-primary">
+                <a href="https://a1creativeagency.com/quote" className="btn-primary">
                   Start Your Business System <ArrowIcon className="h-4 w-4" />
-                </Link>
+                </a>
                 <Link to="/packages" className="btn-ghost">
                   View Packages
                 </Link>

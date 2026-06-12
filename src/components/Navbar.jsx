@@ -61,12 +61,12 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <Link to="/contact" className="btn-ghost !py-2.5 !px-5 !text-xs">
+          <a href="https://a1creativeagency.com/quote" className="btn-ghost !py-2.5 !px-5 !text-xs">
             Get a Quote
-          </Link>
-          <Link to="/contact" className="btn-primary !py-2.5 !px-5 !text-xs">
+          </a>
+          <a href="https://a1creativeagency.com/quote" className="btn-primary !py-2.5 !px-5 !text-xs">
             Start Your System
-          </Link>
+          </a>
         </div>
 
         {/* Mobile hamburger */}
@@ -114,12 +114,12 @@ export default function Navbar() {
               </NavLink>
             ))}
             <div className="mt-3 pt-3 border-t border-white/[0.06] flex flex-col gap-2">
-              <Link to="/contact" className="btn-ghost !text-xs !py-3 text-center">
+              <a href="https://a1creativeagency.com/quote" className="btn-ghost !text-xs !py-3 text-center">
                 Get a Quote
-              </Link>
-              <Link to="/contact" className="btn-primary !text-xs !py-3 text-center">
+              </a>
+              <a href="https://a1creativeagency.com/quote" className="btn-primary !text-xs !py-3 text-center">
                 Start Your System
-              </Link>
+              </a>
             </div>
           </nav>
         </div>

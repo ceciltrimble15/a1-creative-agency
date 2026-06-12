@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ArrowIcon, CheckIcon, ExternalLinkIcon } from '../components/icons.jsx';
 import { SITE } from '../lib/site.js';
 
@@ -218,9 +217,9 @@ export default function Packages() {
                           );
                         }
                         return (
-                          <Link to="/contact" className={`${ctaClass} w-full text-center block`}>
+                          <a href="https://a1creativeagency.com/quote" className={`${ctaClass} w-full text-center block`}>
                             {cta}
-                          </Link>
+                          </a>
                         );
                       })()}
 
@@ -244,9 +243,9 @@ export default function Packages() {
 
           <p className="text-center text-xs text-silver-dark mt-8">
             All packages require an intake call and deposit to begin. Pricing may vary based on scope.{' '}
-            <Link to="/contact" className="text-blue hover:underline">
+            <a href="https://a1creativeagency.com/quote" className="text-blue hover:underline">
               Contact us for a custom quote.
-            </Link>
+            </a>
           </p>
         </div>
       </section>
@@ -304,9 +303,9 @@ export default function Packages() {
             >
               Book a Strategy Call <ExternalLinkIcon className="h-4 w-4" />
             </a>
-            <Link to="/contact" className="btn-ghost">
+            <a href="https://a1creativeagency.com/quote" className="btn-ghost">
               Submit Project Details <ArrowIcon className="h-4 w-4" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

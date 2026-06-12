@@ -208,9 +208,9 @@ export default function Services() {
               <Link to="/packages" className="btn-primary">
                 View Packages <ArrowIcon className="h-4 w-4" />
               </Link>
-              <Link to="/contact" className="btn-ghost">
+              <a href="https://a1creativeagency.com/quote" className="btn-ghost">
                 Talk To Us First
-              </Link>
+              </a>
             </div>
           </div>
         </div>
