@@ -29,7 +29,7 @@ export const SITE = {
 
   social: {
     instagram: { name: '@a1creativeagency', href: 'https://www.instagram.com/a1creativeagency' },
-    facebook:  { name: 'A1 Creative Agency', href: 'https://www.facebook.com/' },
-    linkedin:  { name: 'A1 Creative',         href: 'https://www.linkedin.com/' },
+    facebook:  { name: 'A1 Creative Agency', href: 'https://www.facebook.com/profile.php?id=61590367834347' },
+    // linkedin: not live yet — intentionally omitted so no dead link renders.
   },
 };

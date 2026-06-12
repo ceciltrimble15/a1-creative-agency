@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
-import { MailIcon, PhoneIcon, InstagramIcon, LinkedInIcon } from './icons.jsx';
+import { MailIcon, PhoneIcon, InstagramIcon } from './icons.jsx';
 import { SITE } from '../lib/site.js';
 
 const NAV = [
@@ -48,15 +48,6 @@ export default function Footer() {
                 className="flex h-9 w-9 items-center justify-center rounded border border-white/[0.08] text-silver-dim transition-colors hover:border-blue/40 hover:text-blue"
               >
                 <InstagramIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={SITE.social.linkedin.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="flex h-9 w-9 items-center justify-center rounded border border-white/[0.08] text-silver-dim transition-colors hover:border-blue/40 hover:text-blue"
-              >
-                <LinkedInIcon className="h-4 w-4" />
               </a>
               <a
                 href={SITE.emailHref}
