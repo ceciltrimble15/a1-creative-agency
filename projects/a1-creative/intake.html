@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A1 Creative Agency — Start Your Project</title>
+    <meta name="robots" content="noindex" />
+
+    <!--
+      REPRINT-PROOF QR / FLYER DESTINATION
+      ====================================
+      Point the website QR code AND the flyer QR code at:
+
+          https://a1creativeagency.com/intake
+
+      This page forwards to wherever leads should land. Change ONE line below
+      to repoint every printed QR code without reprinting anything.
+
+      NOW (temporary path):  the Airtable public intake form.
+      LATER (final path):    the website "Get A Quote" page once it is wired.
+
+      >>> EDIT THIS LINE: paste your published Airtable form's "Open form"
+          share URL (Airtable → Leads table → Form view → Share form). <<<
+    -->
+    <script>
+      var DESTINATION = "https://airtable.com/REPLACE_WITH_PUBLISHED_INTAKE_FORM";
+      // Forward immediately, preserving any campaign tags on the QR link.
+      var qs = window.location.search || "";
+      window.location.replace(DESTINATION + qs);
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=https://airtable.com/REPLACE_WITH_PUBLISHED_INTAKE_FORM" />
+    </noscript>
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #04070d;
+        color: #e7edf6;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        text-align: center;
+        padding: 24px;
+      }
+      a { color: #4aa3ff; }
+      .card { max-width: 420px; }
+      h1 { font-size: 1.4rem; margin: 0 0 8px; }
+      p { color: #9fb0c4; line-height: 1.5; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Start your A1 Creative project</h1>
+      <p>Taking you to our quick intake form…</p>
+      <p>
+        If it doesn't open automatically,
+        <a href="https://airtable.com/REPLACE_WITH_PUBLISHED_INTAKE_FORM">tap here</a>.
+      </p>
+    </div>
+  </body>
+</html>

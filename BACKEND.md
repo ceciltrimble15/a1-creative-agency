@@ -1,6 +1,10 @@
 # A1 Creative — Backend Infrastructure Audit & Wiring Guide
 
-Audit date: 2026-06-11. Status legend: 🟢 GREEN working · 🟡 YELLOW needs verification · 🔴 RED broken/missing.
+Audit date: 2026-06-11 (pipeline aligned to mission spec 2026-06-12).
+Status legend: 🟢 GREEN working · 🟡 YELLOW needs verification · 🔴 RED broken/missing.
+
+> **See [`A1_AUTOMATION_REPORT.md`](./A1_AUTOMATION_REPORT.md)** for the lead-automation
+> build report, the exact Airtable schema, and the final PASS/FAIL test checklist.
 
 ## Audit results
 
@@ -20,8 +24,8 @@ Audit date: 2026-06-11. Status legend: 🟢 GREEN working · 🟡 YELLOW needs v
 |---|---|---|
 | Active base | 🟡 | Referenced only via `AIRTABLE_BASE_ID` env var on Vercel. No API access from this session to confirm. |
 | Leads table | 🟡 | Code writes fields: `Lead Name`, `Phone`, `Email ` *(trailing space)*, `lead_status`, `Source` *(value has trailing space: `Website form `)*, `Client`, `Notes`, `date`. Confirm these match the base exactly. |
-| Tasks table | 🔴 → code shipped | No code touched it before. New code writes: `Name`, `Status` (`To Do`), `Notes`. Align the table to these fields (or set `AIRTABLE_TASKS_TABLE`). |
-| Automation Logs | 🔴 → code shipped | No code touched it before. New code writes: `Event`, `Details`, `Status`. Align the table (or set `AIRTABLE_LOGS_TABLE`). |
+| Tasks table | 🔴 → code shipped | New code writes spec fields: `Task Name`, `Related Lead` (link → Leads), `Priority` (`High`), `Status` (`Open`), `Due Date`, `Notes`. Add these fields to the Tasks table. |
+| Automation Logs | 🔴 → code shipped | New code writes spec fields: `Event Type`, `Related Lead` (link → Leads), `Status` (`Success`), `Timestamp`, `Notes`. Add these fields to the Automation Logs table. |
 | Lead statuses | 🟡 | Code only ever writes `new`. Verify the base's `lead_status` options cover the pipeline you want (new → contacted → booked → closed, etc.). |
 
 ### 3. Website lead capture
@@ -58,7 +62,7 @@ Add:
 | `RESEND_API_KEY` | from resend.com (free) — powers operations@ emails |
 | `NOTIFY_FROM` | optional; verified sender, e.g. `A1 Creative <alerts@a1creativeagency.com>` |
 
-Optional overrides: `NOTIFY_EMAIL` (default `operations@a1creativeagency.com`), `AIRTABLE_LEADS_TABLE` / `AIRTABLE_TASKS_TABLE` / `AIRTABLE_LOGS_TABLE` (defaults `Leads` / `Tasks` / `Automation Logs`).
+Optional overrides: `NOTIFY_EMAIL` (default `operations@a1creativeagency.com`), `AIRTABLE_LEADS_TABLE` / `AIRTABLE_TASKS_TABLE` / `AIRTABLE_LOGS_TABLE` (defaults `Leads` / `Tasks` / `Automation Logs`), `LEAD_STATUS_NEW` (default `New Lead`), `LEAD_SOURCE_DEFAULT` (default `A1 Creative Intake Form`), `AIRTABLE_LEADS_TABLE_ID` (a `tbl…` id — set it so ops emails deep-link straight to the record).
 
 ### Twilio Console (Phone Numbers → (513) 440-3329 → Voice Configuration)
 
@@ -84,7 +88,11 @@ Caller → (513) 440-3329 → /api/twilio/voice (greeting + forward to OWNER_CEL
                └─ voicemail → /api/twilio/voicemail → alerts + log
 
 Website form → /api/submit-lead
-  ├─ Airtable: Lead (unchanged fields) + Task
-  ├─ email operations@
-  └─ log "website_lead_capture"
+  ├─ Airtable: Lead (Status "New Lead", Source "A1 Creative Intake Form")
+  ├─ Task (Follow up with [name], High/Open, due date, Related Lead)
+  ├─ email operations@ (subject "New A1 Creative Lead: [name]" + record link)
+  └─ log "New Lead Captured" (Success, Related Lead, Timestamp)
+
+Public intake form / QR → Airtable Leads (direct)
+  └─ Airtable automation `automation/airtable-new-lead.js` runs steps 1–4
 ```

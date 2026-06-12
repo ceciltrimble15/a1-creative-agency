@@ -1,6 +1,7 @@
 import { isValidTwilioRequest, sendSms, sendTwiml, xmlEscape } from '../_lib/twilio.js';
-import { createLead, createTask, logAutomation } from '../_lib/airtable.js';
+import { createLead, createTask, logEvent } from '../_lib/airtable.js';
 import { notifyOps, alertOwner } from '../_lib/notify.js';
+import { nextBusinessDayISO } from '../_lib/util.js';
 
 const RECOVERY_TEXT =
   "Hi, this is A1 Creative Agency — sorry we missed your call! We'll call you back shortly, or you can reply to this text and we'll take care of you right here.";
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
   const { DialCallStatus, From, To, CallSid } = req.body || {};
 
   if (DialCallStatus === 'completed') {
-    await logAutomation('call_answered', `Call from ${From} answered (${CallSid})`);
+    await logEvent({ eventType: 'Call Answered', notes: `Call from ${From} answered (${CallSid})` });
     return sendTwiml(res, '<Response><Hangup/></Response>');
   }
 
@@ -38,8 +39,10 @@ export default async function handler(req, res) {
       'Notes': `Missed call to ${To} (status: ${DialCallStatus || 'no dial'}, CallSid: ${CallSid})`,
     }),
     createTask({
-      'Name': `Call back ${From || 'unknown caller'} (missed call)`,
-      'Status': 'To Do',
+      'Task Name': `Call back ${From || 'unknown caller'} (missed call)`,
+      'Priority': 'High',
+      'Status': 'Open',
+      'Due Date': nextBusinessDayISO(),
       'Notes': `Missed call to ${To}. Recovery text ${From ? 'sent' : 'not possible'}.`,
     }),
   ]);
@@ -53,11 +56,12 @@ export default async function handler(req, res) {
   await Promise.all([
     alertOwner(`Missed call from ${From}. Recovery text ${smsResult.ok ? 'sent' : 'FAILED'} — caller logged in Airtable.`),
     notifyOps(`Missed call: ${From}`, summary),
-    logAutomation(
-      'missed_call_recovery',
-      summary,
-      smsResult.ok && leadResult.ok && taskResult.ok ? 'ok' : 'partial'
-    ),
+    logEvent({
+      eventType: 'Missed Call Recovery',
+      relatedLeadId: leadResult.ok ? leadResult.id : undefined,
+      status: smsResult.ok && leadResult.ok && taskResult.ok ? 'Success' : 'Partial',
+      notes: summary,
+    }),
   ]);
 
   return sendTwiml(

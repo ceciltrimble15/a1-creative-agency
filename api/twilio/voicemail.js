@@ -1,5 +1,5 @@
 import { isValidTwilioRequest, sendTwiml, xmlEscape } from '../_lib/twilio.js';
-import { logAutomation } from '../_lib/airtable.js';
+import { logEvent } from '../_lib/airtable.js';
 import { notifyOps, alertOwner } from '../_lib/notify.js';
 
 /* Recording-complete webhook. Pushes the voicemail link to the owner and
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       `Voicemail from ${From}`,
       `Caller: ${From}\nDuration: ${RecordingDuration || '?'}s\nRecording: ${recordingLink}\nCallSid: ${CallSid}`
     ),
-    logAutomation('voicemail_received', `Voicemail from ${From}: ${recordingLink}`),
+    logEvent({ eventType: 'Voicemail Received', notes: `Voicemail from ${From}: ${recordingLink}` }),
   ]);
 
   return sendTwiml(

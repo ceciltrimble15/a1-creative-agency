@@ -39,6 +39,18 @@ async function airtableCreate(table, fields) {
   }
 }
 
+/* Deep link to the Leads record in the Airtable UI. A precise record link
+   needs the table id (tblXXXXXXXX) — set AIRTABLE_LEADS_TABLE_ID to get it.
+   Without it we fall back to opening the base, which still works. */
+export function airtableRecordUrl(recordId) {
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  if (!baseId || !recordId) return '';
+  const tableId = process.env.AIRTABLE_LEADS_TABLE_ID;
+  return tableId
+    ? `https://airtable.com/${baseId}/${tableId}/${recordId}`
+    : `https://airtable.com/${baseId}`;
+}
+
 export function createLead(fields) {
   return airtableCreate(LEADS_TABLE, fields);
 }
@@ -47,14 +59,20 @@ export function createTask(fields) {
   return airtableCreate(TASKS_TABLE, fields);
 }
 
-/* Best-effort automation log — failures are reported to the function log
-   but never break the flow that triggered them. */
-export async function logAutomation(event, details, status = 'ok') {
-  const result = await airtableCreate(LOGS_TABLE, {
-    Event: event,
-    Details: details,
-    Status: status,
-  });
-  if (!result.ok) console.error(`Automation log failed (${event}):`, result.error);
+/* Automation Log entry. Writes the mission-spec fields:
+   Event Type, Related Lead (link), Status, Timestamp, Notes.
+   Best-effort — failures are reported to the function log but never break
+   the flow that triggered them. */
+export async function logEvent({ eventType, relatedLeadId, status = 'Success', notes }) {
+  const fields = {
+    'Event Type': eventType,
+    'Status': status,
+    'Timestamp': new Date().toISOString(),
+  };
+  if (notes) fields['Notes'] = notes;
+  if (relatedLeadId) fields['Related Lead'] = [relatedLeadId];
+
+  const result = await airtableCreate(LOGS_TABLE, fields);
+  if (!result.ok) console.error(`Automation log failed (${eventType}):`, result.error);
   return result;
 }

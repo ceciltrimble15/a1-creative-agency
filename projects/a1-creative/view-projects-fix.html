@@ -1,0 +1,59 @@
+<!--
+  A1 CREATIVE — "VIEW PROJECT" BUTTON FIX (drop-in)
+  =================================================
+  Paste this immediately before </body> on a1creativeagency.com.
+  It repairs every "View Project" button so none are dead.
+
+  How it works: it reads each project card's title/heading text and points
+  its View Project link/button at the matching destination below. No
+  redesign — it only sets href + target on the existing buttons.
+
+  EDIT the DESTINATIONS map to swap in real live URLs as they go live.
+-->
+<script>
+(function () {
+  // Project name (lowercased, matched as a substring) -> destination URL.
+  var DESTINATIONS = {
+    'true hair care'   : 'https://www.trhuehaircare.com',
+    'trhue'            : 'https://www.trhuehaircare.com',
+    '4 reel cleaning'  : 'https://a1creativeagency.com/projects/4-reel-cleaning',
+    'for real cleaning': 'https://a1creativeagency.com/projects/4-reel-cleaning',
+    'a1 suppliers'     : 'https://a1creativeagency.com/projects/a1-suppliers',
+    'a-1 suppliers'    : 'https://a1creativeagency.com/projects/a1-suppliers'
+  };
+
+  function destinationFor(text) {
+    var t = (text || '').toLowerCase();
+    for (var key in DESTINATIONS) {
+      if (t.indexOf(key) !== -1) return DESTINATIONS[key];
+    }
+    return null;
+  }
+
+  // Find every "View Project" control on the page.
+  var controls = [].slice.call(document.querySelectorAll('a, button'))
+    .filter(function (el) {
+      return /view\s*project/i.test(el.textContent || '');
+    });
+
+  controls.forEach(function (el) {
+    // Walk up to the project card, then read its heading/title text.
+    var card = el.closest('article, .card, .project, [class*="project"], li, div') || el.parentNode;
+    var heading = card && card.querySelector('h1, h2, h3, h4, .title, [class*="title"], [class*="name"]');
+    var label = (heading && heading.textContent) || (card && card.textContent) || el.textContent;
+
+    var url = destinationFor(label);
+    if (!url) { console.warn('[A1] No destination matched for project:', (label || '').trim().slice(0, 60)); return; }
+
+    if (el.tagName === 'A') {
+      el.setAttribute('href', url);
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener noreferrer');
+    } else {
+      el.addEventListener('click', function () { window.open(url, '_blank', 'noopener'); });
+      el.style.cursor = 'pointer';
+    }
+    console.log('[A1] Wired View Project ->', url);
+  });
+})();
+</script>
