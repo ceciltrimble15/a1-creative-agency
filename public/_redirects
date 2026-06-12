@@ -1,0 +1,4 @@
+# Permanent quote intake route -> published Airtable form.
+# Belt-and-suspenders for drag-drop deploys (netlify.toml is authoritative).
+/quote   https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form   302!
+/intake  https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form   302!

@@ -25,6 +25,23 @@
   status = 301
   force  = true
 
+# ── Permanent quote intake route ─────────────────────────────────────────────
+# /quote (and /intake) forward to the published Airtable intake form. The QR code
+# and every site CTA point here, so the destination can change without reprinting.
+# Must come BEFORE the SPA catch-all below.
+
+[[redirects]]
+  from   = "/quote"
+  to     = "https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form"
+  status = 302
+  force  = true
+
+[[redirects]]
+  from   = "/intake"
+  to     = "https://airtable.com/app66a6HF20gMtB7Z/pag92tvcd91URlbvG/form"
+  status = 302
+  force  = true
+
 # ── React Router SPA ─────────────────────────────────────────────────────────
 # All non-asset, non-function paths serve index.html.
 
