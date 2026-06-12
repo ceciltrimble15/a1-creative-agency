@@ -1,7 +1,31 @@
 import { createLead, createTask, logAutomation } from './_lib/airtable.js';
 import { notifyOps } from './_lib/notify.js';
 
+/* The A1 Creative homepage is served from Netlify while this endpoint lives
+   on Vercel, so browser form posts arrive cross-origin. */
+const ALLOWED_ORIGINS = [
+  'https://a1creativeagency.com',
+  'https://www.a1creativeagency.com',
+  'https://a1creativeagency4.netlify.app',
+];
+
+function applyCors(req, res) {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Max-Age', '86400');
+  }
+}
+
 export default async function handler(req, res) {
+  applyCors(req, res);
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
