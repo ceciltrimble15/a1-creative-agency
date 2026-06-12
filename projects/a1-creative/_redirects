@@ -1,0 +1,13 @@
+# A1 Creative — permanent intake routing
+# ----------------------------------------------------------------------------
+# Set the Airtable form URL ONCE here. The QR code and every website CTA point
+# at /quote (never at the raw Airtable URL), so you can change the destination
+# later without reprinting the QR or editing the site.
+#
+# >>> Replace the URL below with your published Airtable intake form's share
+#     link (Airtable → Leads table → Form view → Share form → copy the
+#     "Open form" URL). Keep status 302 so it's never cached permanently. <<<
+
+/quote     https://airtable.com/shrXXXXXXXXXXXXXX   302
+/quote/*   https://airtable.com/shrXXXXXXXXXXXXXX   302
+/intake    https://airtable.com/shrXXXXXXXXXXXXXX   302
