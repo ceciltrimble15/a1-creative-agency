@@ -5,6 +5,9 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/quote", "destination": "/api/quote" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
