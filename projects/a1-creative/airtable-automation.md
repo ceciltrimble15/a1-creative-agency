@@ -1,5 +1,8 @@
 # Airtable Automation — New Lead Follow-up (temporary production intake)
 
+> Prefer no scripting? See `airtable-automation-nocode.md` for the
+> point-and-click build with the identical outcome. Run only one of the two.
+
 Intake path while the website form is being wired:
 **Airtable public form → Leads table → this automation** (task + log + email + defaults).
 

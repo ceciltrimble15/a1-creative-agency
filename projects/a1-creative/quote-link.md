@@ -71,7 +71,11 @@ obstruction). Minimum print size ~0.8 in / 2 cm square.
 
 ## Lead follow-up automation
 
-See `airtable-automation.md` (same folder) for the click-path and
-paste-ready script: new Leads record → Task created, Automation Log written,
+Two equivalent builds (run only one on the Leads table):
+- `airtable-automation.md` — click-path + paste-ready script.
+- `airtable-automation-nocode.md` — same outcome with zero scripting,
+  built from Airtable's point-and-click actions plus field defaults.
+
+Both do: new Leads record → Task created, Automation Log written,
 operations@a1creativeagency.com emailed, Status/Source defaulted when blank,
 form values never overwritten.
