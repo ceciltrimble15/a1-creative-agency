@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, phone, email, service, date, message } = req.body;
+  const { name, phone, email, service, date, message, client, source } = req.body;
 
   if (!name || !phone || !email) {
     return res.status(400).json({ error: 'Name, phone, and email are required' });
@@ -46,8 +46,10 @@ export default async function handler(req, res) {
     'Phone': phone,
     'Email ': email,
     'lead_status': 'new',
-    'Source': 'Website form ',
-    'Client': 'TRHUE Hair Care',
+    // Caller-supplied so each site tags itself; defaults suit the A1 site
+    // since a1creativeagency.com is this project's production domain.
+    'Source': source || 'Website form ',
+    'Client': client || 'A1 Creative Agency',
   };
 
   if (notesParts.length > 0) fields['Notes'] = notesParts.join('\n');

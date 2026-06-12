@@ -1,0 +1,98 @@
+<!--
+  A1 CREATIVE — "GET A QUOTE" FORM FIX (drop-in)
+  ================================================
+  Paste this immediately before </body> on a1creativeagency.com.
+  It wires the existing Get A Quote form to the live lead backend so every
+  submission creates an Airtable Lead + Task + Automation Log and emails
+  operations@a1creativeagency.com.
+
+  NO redesign. No new fields. It only intercepts the submit and POSTs JSON.
+
+  SETUP (one line): set FORM_SELECTOR below to match your form.
+  - If the form has id="quote" use '#quote'
+  - Otherwise it falls back to the first <form> on the page.
+
+  FIELD NAMES: the script reads inputs by name. Your inputs must be named
+  (or will be auto-mapped from common variants):
+    name (or full_name / your-name)
+    phone (or tel / phone-number)
+    email (or e-mail)
+    service (optional)   date (optional)   message (optional / comments)
+-->
+<script>
+(function () {
+  var ENDPOINT = 'https://a1-creative-agency.vercel.app/api/submit-lead';
+  var FORM_SELECTOR = '#quote-form'; // <-- change if your form id differs
+
+  var form = document.querySelector(FORM_SELECTOR) || document.querySelector('form');
+  if (!form) { console.error('[A1] No form found to wire.'); return; }
+
+  // Read a field by any of several possible name attributes.
+  function val(names) {
+    for (var i = 0; i < names.length; i++) {
+      var el = form.querySelector('[name="' + names[i] + '"]');
+      if (el && el.value) return el.value.trim();
+    }
+    return '';
+  }
+
+  function setMsg(text, ok) {
+    var box = form.querySelector('.a1-form-msg');
+    if (!box) {
+      box = document.createElement('p');
+      box.className = 'a1-form-msg';
+      box.style.marginTop = '12px';
+      box.style.fontSize = '15px';
+      form.appendChild(box);
+    }
+    box.style.color = ok ? '#1a7f37' : '#c0392b';
+    box.textContent = text;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var payload = {
+      name: val(['name', 'full_name', 'your-name', 'fullname']),
+      phone: val(['phone', 'tel', 'phone-number', 'phonenumber']),
+      email: val(['email', 'e-mail', 'your-email']),
+      service: val(['service', 'services', 'project-type']),
+      date: val(['date', 'preferred-date']),
+      message: val(['message', 'comments', 'details', 'notes']),
+      client: 'A1 Creative Agency',
+      source: 'Website form '
+    };
+
+    if (!payload.name || !payload.phone || !payload.email) {
+      setMsg('Please add your name, phone, and email.', false);
+      return;
+    }
+
+    var btn = form.querySelector('button[type="submit"], input[type="submit"]');
+    var label = btn ? (btn.textContent || btn.value) : '';
+    if (btn) { btn.disabled = true; if (btn.textContent) btn.textContent = 'Sending…'; }
+    setMsg('Sending…', true);
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.d && res.d.error ? res.d.error : 'Submission failed');
+        form.reset();
+        setMsg('Thank you! Your request was received — we will reach out shortly.', true);
+      })
+      .catch(function (err) {
+        console.error('[A1] Lead submit failed:', err);
+        setMsg('Something went wrong. Please call (513) 440-3329 or try again.', false);
+      })
+      .finally(function () {
+        if (btn) { btn.disabled = false; if (btn.textContent && label) btn.textContent = label; }
+      });
+  });
+
+  console.log('[A1] Quote form wired to', ENDPOINT);
+})();
+</script>

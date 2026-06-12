@@ -36,6 +36,8 @@ export default function ContactForm() {
       service: form.service.value,
       date: form.date.value,
       message: form.message.value,
+      client: 'TRHUE Hair Care',
+      source: 'Website form ',
     };
 
     try {
