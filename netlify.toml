@@ -1,0 +1,19 @@
+# Netlify configuration for the A1 Creative Agency production site
+# (a1creativeagency.com → Netlify project "a1-creative-site").
+#
+# This repo's root builds a different project (TRHUE) on Vercel, which ignores
+# this file. Netlify publishes the static A1 Creative site from the folder below.
+# Clean URLs are handled by Netlify's default pretty-URL behavior, so
+# /privacy-policy and /terms-and-conditions resolve to their .html files.
+
+[build]
+  publish = "projects/a1-creative/missed-call"
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

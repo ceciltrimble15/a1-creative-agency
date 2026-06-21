@@ -1,0 +1,196 @@
+/* A1 Creative Agency — Legal / compliance page styles.
+   Loaded alongside styles.css (which provides tokens, nav, buttons, footer). */
+
+.legal {
+  padding: 64px 0 88px;
+  position: relative;
+  overflow: hidden;
+}
+.legal::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  width: 520px;
+  height: 520px;
+  left: -180px;
+  top: -120px;
+  border-radius: 999px;
+  filter: blur(120px);
+  background: radial-gradient(circle, rgba(42, 130, 255, 0.18), transparent 70%);
+}
+
+.legal-wrap {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 768px) {
+  .legal-wrap { padding: 0 40px; }
+}
+
+.legal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--a1-font-display);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--a1-blue);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(42, 130, 255, 0.35);
+  background: rgba(42, 130, 255, 0.08);
+}
+
+.legal h1 {
+  margin: 22px 0 6px;
+  font-family: var(--a1-font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.legal .updated {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--a1-silver-3);
+  font-family: var(--a1-font-display);
+  font-weight: 600;
+}
+
+.legal .intro {
+  margin: 18px 0 0;
+  font-size: 17px;
+  color: var(--a1-body-text);
+  max-width: 680px;
+}
+
+.legal section { margin-top: 40px; }
+
+.legal h2 {
+  font-family: var(--a1-font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: #fff;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+
+.legal h3 {
+  font-family: var(--a1-font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  margin: 22px 0 8px;
+}
+
+.legal p { margin: 0 0 14px; color: var(--a1-body-text); font-size: 15.5px; }
+.legal a { color: var(--a1-blue-soft); text-decoration: underline; text-underline-offset: 2px; }
+.legal a:hover { color: var(--a1-blue); }
+
+.legal ul { margin: 0 0 16px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.legal ul li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--a1-body-text);
+  font-size: 15.5px;
+}
+.legal ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #2a82ff, #0b3f9d);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+.legal ul li strong { color: #fff; }
+
+/* Highlighted SMS compliance callout */
+.legal .sms-callout {
+  margin: 24px 0;
+  padding: 26px 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(223, 179, 70, 0.3);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(42, 130, 255, 0.10), transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(223, 179, 70, 0.10), transparent 55%),
+    #07101f;
+}
+.legal .sms-callout h2 { margin-bottom: 8px; }
+.legal .sms-callout .kw { color: var(--a1-gold-soft); font-weight: 700; }
+
+.legal .keywords {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.legal .keywords span {
+  font-family: var(--a1-font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--a1-gold-soft);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(223, 179, 70, 0.4);
+  background: rgba(223, 179, 70, 0.08);
+}
+
+/* Business info card */
+.legal .info-card {
+  margin-top: 18px;
+  padding: 24px 26px;
+  border-radius: 16px;
+  border: var(--a1-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+.legal .info-card .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 10px 0;
+  border-bottom: var(--a1-border);
+  font-size: 15px;
+}
+.legal .info-card .row:last-child { border-bottom: 0; }
+.legal .info-card .row .k {
+  font-family: var(--a1-font-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--a1-silver-3);
+  min-width: 130px;
+}
+.legal .info-card .row .v { color: var(--a1-silver-1); }
+
+.legal .back {
+  margin-top: 44px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Cross-link line under the page title */
+.legal .doclinks {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--a1-silver-3);
+}
+.legal .doclinks a { color: var(--a1-blue-soft); }
