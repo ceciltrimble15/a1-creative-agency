@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:inbox": "node scripts/verify-inbox.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.3.19",
