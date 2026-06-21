@@ -2,7 +2,7 @@
 
 **Business**: A1 Creative Agency — Infrastructure · Intelligence · Systems
 **Domain**: a1creativeagency.com
-**Contact**: admin@a1creativeagency.com | (513) 440-3329
+**Contact**: operations@a1creativeagency.com | (513) 440-3329
 
 ## Deployment Lane
 
@@ -18,22 +18,30 @@ Must NOT show: TRHUE Hair Care, Touch of Feather, TVF/TBF/Deep Well content.
 
 ## Structure
 
+The site deploys with **`projects/a1-creative/` as the production root** — the
+homepage and clean URLs resolve with zero rewrites.
+
 ```
 projects/a1-creative/
-├── missed-call/        ← Missed Call Revenue Recovery landing page (standalone HTML)
-│   ├── index.html
-│   └── styles.css
-└── brand/              ← Master logo system and design tokens
-    ├── logo-primary.svg
-    ├── logo-icon.svg
-    ├── logo-dark.svg
+├── index.html                  ← Homepage (Missed Call Revenue Recovery)
+├── privacy-policy.html         ← /privacy-policy
+├── terms-and-conditions.html   ← /terms-and-conditions
+├── styles.css                  ← Site styles
+├── legal.css                   ← Legal-page styles
+├── vercel.json                 ← cleanUrls + security headers
+└── brand/                      ← Master logo system and design tokens
+    ├── a1-logo.png             ← Official master logo (header/footer/favicon/social)
+    ├── og-image.png            ← 1200×630 social-share card
     ├── tokens.css
     ├── preview.html
-    └── README.md
+    └── (legacy: logo-primary.svg, logo-icon.svg, logo-dark.svg)
 ```
+
+> `airtable-automation.md`, `quote-link.md`, `quote-form-fix.html`, and `qr/`
+> are project/dev references, not part of the published site.
 
 ## Next Steps
 
 1. Create a dedicated Vercel project: `a1-creative-agency-site`
 2. Attach domain `a1creativeagency.com` to that project only
-3. Deploy `projects/a1-creative/` as the root for that project
+3. Deploy with **Root Directory = `projects/a1-creative/`** (no rewrites needed)

@@ -17,8 +17,10 @@ vector tool at the size you need.
 
 | File | Use |
 | --- | --- |
-| `logo-primary.svg` | Flagship master logo — full bulb + A/1 + CREATIVE AGENCY plate. |
-| `logo-icon.svg` | Symbol-only — bulb + A/1, no wordmark. App / favicon / social. |
+| `a1-logo.png` | **Official master logo** (1024×1024, transparent) — the canonical mark used across the live site: header, footer, favicon, and social/OG card. Reproduce on a dark surface. |
+| `og-image.png` | 1200×630 social-share card — official logo centered on brand-dark `#04070d`. Wired to `og:image` / `twitter:image`. |
+| `logo-primary.svg` | Legacy vector reproduction — superseded by `a1-logo.png`. Retained as editable source only; do not use on the live site. |
+| `logo-icon.svg` | Legacy symbol-only vector — superseded by `a1-logo.png`. |
 | `logo-dark.svg` | Cinematic dark presentation mockup for decks and hero placements. |
 | `tokens.css` | Brand color, gradient, and typography tokens (CSS custom properties). |
 | `preview.html` | Static preview page rendering the full system. Open in any browser. |
