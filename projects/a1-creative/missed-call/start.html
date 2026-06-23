@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Start — A1 Creative Agency | Stop Losing Jobs From Missed Calls</title>
+    <meta name="description" content="A1 Creative installs websites, SMS recovery, lead capture, and follow-up systems for local service businesses so missed calls turn into booked opportunities. Request your free A1 System Audit." />
+    <meta name="theme-color" content="#04070d" />
+    <link rel="canonical" href="https://a1creativeagency.com/start" />
+    <meta property="og:title" content="Stop Losing Jobs From Missed Calls — A1 Creative Agency" />
+    <meta property="og:description" content="Websites, SMS recovery, lead capture & follow-up for local service businesses. Request your A1 System Audit." />
+    <meta property="og:url" content="https://a1creativeagency.com/start" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stop Losing Jobs From Missed Calls — A1 Creative Agency" />
+    <meta name="twitter:description" content="Websites, SMS recovery, lead capture & follow-up for local service businesses." />
+    <link rel="icon" type="image/svg+xml" href="brand/logo-icon.svg" />
+    <link rel="preload" as="image" href="brand/logo-primary.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* ---------- /start — lead intake ---------- */
+      .start-hero { padding: 64px 0 8px; }
+      @media (min-width: 768px) { .start-hero { padding: 84px 0 12px; } }
+      .start-hero .eyebrow { margin-bottom: 22px; }
+      .start-head { max-width: 760px; }
+      .start-head .h1 { margin-top: 0; }
+      .start-head .sub { margin-top: 20px; max-width: 680px; }
+
+      .intake-section { padding: 36px 0 88px; }
+      @media (min-width: 768px) { .intake-section { padding: 48px 0 104px; } }
+
+      .intake-grid { display: grid; gap: 28px; align-items: start; }
+      @media (min-width: 960px) {
+        .intake-grid { grid-template-columns: 1fr 0.62fr; gap: 48px; }
+      }
+
+      .intake-card {
+        border-radius: 24px;
+        border: 1px solid rgba(223,179,70,0.28);
+        background:
+          radial-gradient(ellipse at 15% 0%, rgba(42,130,255,0.12), transparent 55%),
+          radial-gradient(ellipse at 90% 100%, rgba(223,179,70,0.10), transparent 55%),
+          #07101f;
+        padding: 36px 28px;
+        box-shadow: 0 40px 90px -34px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      }
+      @media (min-width: 768px) { .intake-card { padding: 44px 40px; } }
+
+      .intake-card .pricing-badge { margin-bottom: 18px; }
+      .intake-card h2 {
+        margin: 0 0 6px;
+        font-family: var(--a1-font-display);
+        font-weight: 800;
+        font-size: clamp(22px, 3vw, 30px);
+        color: #fff; line-height: 1.14;
+      }
+      .intake-card .form-lede { margin: 0 0 28px; color: var(--a1-body-text); font-size: 15px; }
+
+      .field-grid { display: grid; gap: 18px; }
+      @media (min-width: 620px) { .field-grid.two { grid-template-columns: 1fr 1fr; } }
+
+      .field { display: flex; flex-direction: column; gap: 8px; }
+      .field label {
+        font-family: var(--a1-font-display);
+        font-weight: 600; font-size: 12px;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--a1-silver-2);
+      }
+      .field label .req { color: var(--a1-gold); margin-left: 2px; }
+
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        font-family: 'Outfit', var(--a1-font-body);
+        font-size: 15px;
+        color: #fff;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--a1-steel);
+        border-radius: 12px;
+        padding: 14px 16px;
+        transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        -webkit-appearance: none; appearance: none;
+      }
+      .field textarea { min-height: 120px; resize: vertical; }
+      .field input::placeholder,
+      .field textarea::placeholder { color: var(--a1-silver-3); }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--a1-blue);
+        box-shadow: 0 0 0 3px rgba(42,130,255,0.18);
+        background: rgba(42,130,255,0.05);
+      }
+      .field select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23a8b0c2' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+        padding-right: 42px;
+        cursor: pointer;
+      }
+      .field select:invalid { color: var(--a1-silver-3); }
+      .field select option { color: #0a1626; background: #e7ecf3; }
+
+      .consent {
+        margin-top: 26px;
+        display: grid; grid-template-columns: auto 1fr; gap: 14px;
+        padding: 18px;
+        border-radius: 14px;
+        border: 1px solid rgba(42,130,255,0.30);
+        background: rgba(42,130,255,0.06);
+      }
+      .consent input[type="checkbox"] {
+        flex: none;
+        width: 22px; height: 22px;
+        margin: 2px 0 0;
+        accent-color: #2a82ff;
+        cursor: pointer;
+      }
+      .consent label { font-size: 12.5px; line-height: 1.55; color: var(--a1-body-text); cursor: pointer; }
+      .consent label .req { color: var(--a1-gold); margin-left: 2px; }
+
+      .form-submit { margin-top: 26px; }
+      .form-submit .btn { width: 100%; justify-content: center; font-size: 15px; }
+      .form-disclaimer {
+        margin: 16px 0 0; text-align: center;
+        font-size: 12px; color: var(--a1-silver-3);
+      }
+
+      /* honeypot */
+      .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+      /* side rail */
+      .intake-aside { display: flex; flex-direction: column; gap: 18px; }
+      .aside-card {
+        border-radius: 18px;
+        border: var(--a1-border);
+        background: rgba(255,255,255,0.02);
+        padding: 26px 24px;
+      }
+      .aside-card h3 {
+        margin: 0 0 16px;
+        font-family: var(--a1-font-display);
+        font-weight: 700; font-size: 16px; color: #fff;
+      }
+      .aside-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+      .aside-list li {
+        display: flex; align-items: flex-start; gap: 12px;
+        font-size: 14px; color: var(--a1-body-text);
+      }
+      .aside-list li::before {
+        content: "✓"; flex: none;
+        width: 22px; height: 22px; border-radius: 6px;
+        background: linear-gradient(135deg, #2a82ff, #0b3f9d);
+        display: grid; place-items: center;
+        color: #fff; font-size: 12px; font-weight: 800; margin-top: 1px;
+      }
+      .aside-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .aside-stat { text-align: center; padding: 14px 8px; border-radius: 12px; border: var(--a1-border); background: rgba(255,255,255,0.02); }
+      .aside-stat .v { font-family: var(--a1-font-display); font-weight: 800; font-size: 20px; color: #fff; }
+      .aside-stat .v.gold { color: var(--a1-gold-soft); }
+      .aside-stat .v.blue { color: var(--a1-blue-soft); }
+      .aside-stat .l { margin-top: 4px; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--a1-silver-3); }
+      .aside-contact { font-size: 13px; color: var(--a1-silver-2); }
+      .aside-contact a { color: var(--a1-blue-soft); }
+      .aside-contact .row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+
+      @media (max-width: 600px) {
+        .start-hero { padding: 44px 0 4px; }
+        .intake-card { padding: 28px 20px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAV -->
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <a href="/" class="nav-logo">
+          <img src="brand/logo-primary.svg" alt="A1 Creative Agency" />
+        </a>
+        <a href="#audit" class="btn btn-primary btn-sm">Request My Audit</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero start-hero">
+        <div class="wrap">
+          <div class="start-head">
+            <span class="eyebrow"><span class="pulse"></span> Free A1 System Audit</span>
+            <h1 class="h1">Stop Losing Jobs From <span class="accent">Missed Calls</span></h1>
+            <p class="sub">
+              A1 Creative installs websites, SMS recovery, lead capture, and
+              follow-up systems for local service businesses so missed calls turn
+              into booked opportunities.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTAKE FORM -->
+      <section id="audit" class="intake-section">
+        <div class="wrap">
+          <div class="intake-grid">
+            <!-- FORM -->
+            <div class="intake-card">
+              <span class="pricing-badge">Lead Intake</span>
+              <h2>Tell us about your business</h2>
+              <p class="form-lede">
+                Answer a few quick questions and A1 Creative will map out exactly
+                where you're losing jobs — and how to plug the leaks.
+              </p>
+
+              <form
+                name="a1-system-audit"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                action="/thank-you"
+              >
+                <!-- Netlify form plumbing -->
+                <input type="hidden" name="form-name" value="a1-system-audit" />
+                <p class="hp-field" aria-hidden="true">
+                  <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+                </p>
+
+                <div class="field-grid two">
+                  <div class="field">
+                    <label for="full_name">Full Name <span class="req">*</span></label>
+                    <input id="full_name" name="full_name" type="text" autocomplete="name" placeholder="Jane Smith" required />
+                  </div>
+                  <div class="field">
+                    <label for="business_name">Business Name <span class="req">*</span></label>
+                    <input id="business_name" name="business_name" type="text" autocomplete="organization" placeholder="Smith Plumbing Co." required />
+                  </div>
+                </div>
+
+                <div class="field-grid two" style="margin-top:18px;">
+                  <div class="field">
+                    <label for="email">Email <span class="req">*</span></label>
+                    <input id="email" name="email" type="email" autocomplete="email" placeholder="jane@business.com" required />
+                  </div>
+                  <div class="field">
+                    <label for="phone">Phone Number <span class="req">*</span></label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567" required />
+                  </div>
+                </div>
+
+                <div class="field-grid two" style="margin-top:18px;">
+                  <div class="field">
+                    <label for="business_type">Business Type <span class="req">*</span></label>
+                    <input id="business_type" name="business_type" type="text" placeholder="HVAC, Plumbing, Roofing…" required />
+                  </div>
+                  <div class="field">
+                    <label for="missed_calls_per_week">Missed Calls Per Week <span class="req">*</span></label>
+                    <select id="missed_calls_per_week" name="missed_calls_per_week" required>
+                      <option value="" disabled selected hidden>How many do you miss?</option>
+                      <option value="0-5">0–5 calls</option>
+                      <option value="6-10">6–10 calls</option>
+                      <option value="11-25">11–25 calls</option>
+                      <option value="26-50">26–50 calls</option>
+                      <option value="50+">50+ calls</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field-grid two" style="margin-top:18px;">
+                  <div class="field">
+                    <label for="help_with">What do you need help with? <span class="req">*</span></label>
+                    <select id="help_with" name="help_with" required>
+                      <option value="" disabled selected hidden>Select an option</option>
+                      <option value="Website">Website</option>
+                      <option value="Missed-call text-back">Missed-call text-back</option>
+                      <option value="Booking system">Booking system</option>
+                      <option value="Lead follow-up">Lead follow-up</option>
+                      <option value="Full business system">Full business system</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="budget">Budget Range <span class="req">*</span></label>
+                    <select id="budget" name="budget" required>
+                      <option value="" disabled selected hidden>Select a range</option>
+                      <option value="$500 QuickLaunch">$500 QuickLaunch</option>
+                      <option value="$1,500 Community Access System">$1,500 Community Access System</option>
+                      <option value="$3,500+ Growth Infrastructure">$3,500+ Growth Infrastructure</option>
+                      <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top:18px;">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Tell us what's happening with your calls, leads, or website…"></textarea>
+                </div>
+
+                <!-- SMS consent — must be unchecked by default -->
+                <div class="consent">
+                  <input
+                    id="sms_consent"
+                    name="sms_consent"
+                    type="checkbox"
+                    value="I agree to receive text messages from A1 Creative Agency about my inquiry, appointments, follow-up, and service updates. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase."
+                    required
+                  />
+                  <label for="sms_consent">
+                    I agree to receive text messages from A1 Creative Agency about my
+                    inquiry, appointments, follow-up, and service updates. Message
+                    frequency varies. Msg &amp; data rates may apply. Reply STOP to opt
+                    out, HELP for help. Consent is not a condition of purchase.
+                    <span class="req">*</span>
+                  </label>
+                </div>
+
+                <div class="form-submit">
+                  <button type="submit" class="btn btn-primary">Request My A1 System Audit →</button>
+                  <p class="form-disclaimer">No spam. No pressure. A1 reviews every request personally.</p>
+                </div>
+              </form>
+            </div>
+
+            <!-- ASIDE -->
+            <aside class="intake-aside">
+              <div class="aside-card">
+                <h3>What you'll get</h3>
+                <ul class="aside-list">
+                  <li>A clear picture of where missed calls are costing you jobs</li>
+                  <li>A recommended A1 system — website, SMS recovery, booking &amp; follow-up</li>
+                  <li>A straight-talk plan with no contracts and no pressure</li>
+                </ul>
+              </div>
+
+              <div class="aside-card">
+                <h3>Why it matters</h3>
+                <div class="aside-stats">
+                  <div class="aside-stat"><div class="v blue">38s</div><div class="l">Reply Time</div></div>
+                  <div class="aside-stat"><div class="v">87%</div><div class="l">Reply Rate</div></div>
+                  <div class="aside-stat"><div class="v gold">$52k</div><div class="l">Lost / Yr</div></div>
+                </div>
+              </div>
+
+              <div class="aside-card">
+                <h3>Rather talk now?</h3>
+                <div class="aside-contact">
+                  <div class="row"><span>📞</span> <a href="tel:+15134403329">(513) 440-3329</a></div>
+                  <div class="row"><span>✉️</span> <a href="mailto:admin@a1creativeagency.com">admin@a1creativeagency.com</a></div>
+                  <div class="row"><span>💬</span> <a href="sms:+15134403329">Text us anytime</a></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <img class="brand-logo" src="brand/logo-primary.svg" alt="A1 Creative Agency" />
+        <div class="footer-contact">
+          <a href="mailto:admin@a1creativeagency.com">admin@a1creativeagency.com</a>
+          <span class="sep">·</span>
+          <a href="tel:+15134403329">(513) 440-3329</a>
+          <span class="sep">·</span>
+          <span>a1creativeagency.com</span>
+        </div>
+        <span>© 2025 A1 Creative Agency · Websites · Branding · Automation · Lead Systems</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
