@@ -574,6 +574,161 @@ footer .footer-contact a { color: var(--a1-silver-2); text-decoration: none; tra
 footer .footer-contact a:hover { color: var(--a1-blue); }
 footer .footer-contact .sep { color: var(--a1-silver-3); }
 
+/* ---------- SERVICES GRID ---------- */
+.svc-grid {
+  margin-top: 48px;
+  display: grid; gap: 18px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.svc-card {
+  padding: 28px 26px;
+  border-radius: 18px;
+  border: var(--a1-border);
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(42,130,255,0.07), transparent 60%),
+    #06090f;
+  transition: border-color .3s ease, transform .3s ease;
+}
+.svc-card:hover { border-color: rgba(42,130,255,0.35); transform: translateY(-2px); }
+.svc-ico {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 22px;
+  background: linear-gradient(135deg, #2a82ff, #0b3f9d);
+  box-shadow: 0 14px 28px -10px rgba(42,130,255,0.55);
+}
+.svc-card.gold .svc-ico {
+  background: linear-gradient(135deg, #dfb346, #876514);
+  box-shadow: 0 14px 28px -10px rgba(223,179,70,0.55);
+}
+.svc-card h3 {
+  margin: 20px 0 8px;
+  font-family: var(--a1-font-display);
+  font-size: 19px; color: #fff; font-weight: 700;
+}
+.svc-card p { margin: 0; color: var(--a1-body-text); font-size: 14.5px; }
+
+/* ---------- WHY A1 ---------- */
+.why {
+  border-top: var(--a1-border); border-bottom: var(--a1-border);
+  background: linear-gradient(180deg, rgba(42,130,255,0.05), rgba(223,179,70,0.04));
+  padding: 84px 0;
+}
+.why-grid { margin-top: 44px; display: grid; gap: 18px; }
+@media (min-width: 760px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .why-grid { grid-template-columns: repeat(4, 1fr); } }
+.why-card {
+  padding: 28px 24px; border-radius: 16px;
+  border: var(--a1-border); background: rgba(255,255,255,0.02);
+}
+.why-card .why-k {
+  font-family: var(--a1-font-display);
+  font-weight: 800; font-size: 30px;
+  background: linear-gradient(135deg, #ffe7a8 0%, #dfb346 60%, #876514 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  line-height: 1;
+}
+.why-card h3 {
+  margin: 16px 0 8px;
+  font-family: var(--a1-font-display);
+  font-size: 17px; color: #fff; font-weight: 700;
+}
+.why-card p { margin: 0; color: var(--a1-body-text); font-size: 14px; }
+
+/* ---------- PROOF OF WORK ---------- */
+.proof-grid { margin-top: 44px; display: grid; gap: 18px; }
+@media (min-width: 820px) { .proof-grid { grid-template-columns: repeat(3, 1fr); } }
+.proof-item {
+  padding: 30px 26px; border-radius: 18px;
+  border: 1px solid rgba(223,179,70,0.22);
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(223,179,70,0.10), transparent 60%),
+    #07101f;
+}
+.proof-item .tag {
+  font-family: var(--a1-font-display);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--a1-gold-soft);
+}
+.proof-item .pv {
+  margin-top: 14px;
+  font-family: var(--a1-font-display);
+  font-weight: 800; font-size: 34px; color: #fff; line-height: 1;
+}
+.proof-item h3 {
+  margin: 14px 0 8px;
+  font-family: var(--a1-font-display);
+  font-size: 17px; color: #fff; font-weight: 700;
+}
+.proof-item p { margin: 0; color: var(--a1-body-text); font-size: 14px; }
+
+/* ---------- PACKAGES (4-up) ---------- */
+.pkg-grid { margin-top: 52px; display: grid; gap: 18px; align-items: stretch; }
+@media (min-width: 720px) { .pkg-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .pkg-grid { grid-template-columns: repeat(4, 1fr); } }
+.pkg {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: 32px 26px;
+  border-radius: 20px;
+  border: var(--a1-border);
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(42,130,255,0.07), transparent 60%),
+    #06090f;
+  transition: border-color .3s ease, transform .3s ease;
+}
+.pkg:hover { transform: translateY(-3px); border-color: rgba(42,130,255,0.3); }
+.pkg.featured {
+  border-color: rgba(223,179,70,0.45);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(42,130,255,0.14), transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(223,179,70,0.16), transparent 55%),
+    #07101f;
+  box-shadow: 0 30px 70px -28px rgba(0,0,0,0.7);
+}
+.pkg-flag {
+  position: absolute; top: -12px; left: 26px;
+  font-family: var(--a1-font-display);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--a1-navy);
+  background: linear-gradient(135deg, #ffe7a8, #dfb346);
+  padding: 6px 12px; border-radius: 999px;
+}
+.pkg-name {
+  font-family: var(--a1-font-display);
+  font-weight: 700; font-size: 18px; color: #fff;
+}
+.pkg-price {
+  margin: 12px 0 4px;
+  font-family: var(--a1-font-display);
+  font-weight: 800; font-size: 38px; color: #fff; line-height: 1;
+}
+.pkg.featured .pkg-price {
+  background: linear-gradient(135deg, #ffe7a8 0%, #dfb346 60%, #876514 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pkg-tagline { font-size: 13px; color: var(--a1-silver-3); min-height: 20px; }
+.pkg-list {
+  list-style: none; padding: 0; margin: 22px 0 26px;
+  display: flex; flex-direction: column; gap: 12px; flex: 1;
+}
+.pkg-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: var(--a1-body-text); line-height: 1.45;
+}
+.pkg-list li::before {
+  content: "✓"; flex: none;
+  width: 20px; height: 20px; border-radius: 6px;
+  background: linear-gradient(135deg, #2a82ff, #0b3f9d);
+  display: grid; place-items: center;
+  color: #fff; font-size: 11px; font-weight: 800; margin-top: 1px;
+}
+.pkg.featured .pkg-list li::before { background: linear-gradient(135deg, #dfb346, #876514); color: var(--a1-navy); }
+.pkg .btn { width: 100%; justify-content: center; }
+
 /* ---------- MOBILE ---------- */
 @media (max-width: 600px) {
   .nav-inner { height: 68px; }
@@ -583,4 +738,5 @@ footer .footer-contact .sep { color: var(--a1-silver-3); }
   .cta-row { width: 100%; }
   .pricing-card { padding: 32px 24px; }
   .final-card { padding: 48px 24px; }
+  .svc-card, .pkg, .proof-item, .why-card { padding: 26px 22px; }
 }
