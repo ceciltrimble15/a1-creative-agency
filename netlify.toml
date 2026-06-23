@@ -1,0 +1,20 @@
+# Netlify config for the A1 Creative Agency site (Netlify project: a1-creative-site).
+# This repo's root is a separate Vite app (TRHUE, deployed on Vercel); Netlify
+# publishes ONLY the self-contained A1 static site in the folder below.
+[build]
+  publish = "projects/a1-creative/missed-call"
+  # Static site — no build step. (Prevents Netlify auto-running the root Vite build.)
+  command = "echo 'A1 Creative static site — no build step'"
+
+# Serve /start and /thank-you without the .html extension.
+[build.processing.html]
+  pretty_urls = true
+
+# Security headers (mirror the standalone vercel.json for this site).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
