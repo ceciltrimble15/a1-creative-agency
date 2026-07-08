@@ -67,7 +67,7 @@ export default async function handler(req, res) {
   // lead is already stored, so none of these should fail the submission.
   const [task, notify] = await Promise.all([
     createTask({
-      'Name': `Follow up with ${name} (${phone})`,
+      'Task Title': `Follow up with ${name} (${phone})`,
       'Status': 'To Do',
       'Notes': `Website lead${service ? ` — ${service}` : ''}${date ? `, preferred date ${date}` : ''}. Email: ${email}`,
     }),

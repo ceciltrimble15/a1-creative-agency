@@ -20,8 +20,8 @@ Audit date: 2026-06-11. Status legend: 🟢 GREEN working · 🟡 YELLOW needs v
 |---|---|---|
 | Active base | 🟡 | Referenced only via `AIRTABLE_BASE_ID` env var on Vercel. No API access from this session to confirm. |
 | Leads table | 🟡 | Code writes fields: `Lead Name`, `Phone`, `Email ` *(trailing space)*, `lead_status`, `Source` *(value has trailing space: `Website form `)*, `Client`, `Notes`, `date`. Confirm these match the base exactly. |
-| Tasks table | 🔴 → code shipped | No code touched it before. New code writes: `Name`, `Status` (`To Do`), `Notes`. Align the table to these fields (or set `AIRTABLE_TASKS_TABLE`). |
-| Automation Logs | 🔴 → code shipped | No code touched it before. New code writes: `Event`, `Details`, `Status`. Align the table (or set `AIRTABLE_LOGS_TABLE`). |
+| Tasks table | 🟢 fixed 2026-07-08 | Code now writes the table's real primary field `Task Title` (previously wrote a non-existent `Name` field, so every follow-up task 422'd silently). Also writes `Status` (`To Do`) and `Notes`. |
+| Automation Logs | 🟢 fixed 2026-07-08 | Table `Automation Logs` (fields `Event`, `Details`, `Status`: `ok`/`partial`/`error`) was missing from the base, so every `logAutomation()` call 404'd silently — created it. Override with `AIRTABLE_LOGS_TABLE` if renamed. |
 | Lead statuses | 🟡 | Code only ever writes `new`. Verify the base's `lead_status` options cover the pipeline you want (new → contacted → booked → closed, etc.). |
 
 ### 3. Website lead capture

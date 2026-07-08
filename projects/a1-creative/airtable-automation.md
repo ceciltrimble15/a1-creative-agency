@@ -69,9 +69,9 @@ if (Object.keys(updates).length) {
   await leads.updateRecordAsync(recordId, updates);
 }
 
-// 2. Follow-up task.
+// 2. Follow-up task. (Tasks primary field is "Task Title", not "Name".)
 await tasks.createRecordAsync({
-  Name: `Follow up with ${name}${phone ? ` (${phone})` : ''}`,
+  'Task Title': `Follow up with ${name}${phone ? ` (${phone})` : ''}`,
   Status: valueFor(tasks, 'Status', 'To Do'),
   Notes: `Lead from Airtable intake form. Email: ${email || '—'}`,
 });
@@ -89,7 +89,8 @@ await logs.createRecordAsync({
 - `Leads.lead_status` (single select) has an option named **New Lead** —
   add it if missing. (The website backend writes `new`; consider renaming one
   of the two so the pipeline uses a single value.)
-- `Tasks` table exists with fields `Name`, `Status` (option `To Do`), `Notes`.
-- `Automation Logs` table exists with fields `Event`, `Details`, `Status`.
+- `Tasks` table exists with fields `Task Title`, `Status` (option `To Do`), `Notes`.
+- `Automation Logs` table exists with fields `Event`, `Details`, `Status`
+  (single-select options `ok` / `partial` / `error`).
 - The Leads email field really is named `Email ` with a trailing space; if
   not, change `EMAIL_FIELD` at the top of the script.
