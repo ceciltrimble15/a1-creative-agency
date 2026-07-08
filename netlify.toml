@@ -1,0 +1,33 @@
+# Netlify configuration for the A1 Creative marketing site (static) + the
+# serverless quote-intake function. Netlify ignores vercel.json.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  # This is a hand-coded static site — there is no bundler step. Setting the
+  # command here (file config overrides the Netlify UI build settings) stops a
+  # leftover "npm run build" from running and failing on a branch that has no
+  # Vite entry point.
+  command = "echo 'A1 Creative static marketing site — no build step required.'"
+
+[build.environment]
+  # Node 18+ is required for the global fetch() used by the function.
+  NODE_VERSION = "20"
+
+# Expose the function at a clean, same-origin path. status = 200 makes this a
+# rewrite (not a redirect), preserving the POST method and keeping the request
+# same-origin so no CORS handling is needed.
+[[redirects]]
+  from = "/api/submit-lead"
+  to = "/.netlify/functions/submit-lead"
+  status = 200
+  force = true
+
+# Baseline security headers for the static site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
