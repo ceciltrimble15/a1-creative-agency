@@ -1,17 +1,28 @@
 /* Shared Airtable helpers for lead capture, tasks, and automation logs.
    Table names are env-overridable so they can be aligned to the live base
-   without a code change. */
+   without a code change.
 
-const LEADS_TABLE = process.env.AIRTABLE_LEADS_TABLE || 'Leads';
-const TASKS_TABLE = process.env.AIRTABLE_TASKS_TABLE || 'Tasks';
-const LOGS_TABLE = process.env.AIRTABLE_LOGS_TABLE || 'Automation Logs';
+   Env-var names are read tolerantly so this code works whether the Netlify
+   site was configured with this repo's names (AIRTABLE_API_KEY,
+   AIRTABLE_LEADS_TABLE) or the older deployed package's names (AIRTABLE_TOKEN,
+   AIRTABLE_LEADS_TBL). Set either; the first defined value wins. */
+
+const LEADS_TABLE =
+  process.env.AIRTABLE_LEADS_TABLE || process.env.AIRTABLE_LEADS_TBL || 'Leads';
+const TASKS_TABLE =
+  process.env.AIRTABLE_TASKS_TABLE || process.env.AIRTABLE_TASKS_TBL || 'Tasks';
+const LOGS_TABLE =
+  process.env.AIRTABLE_LOGS_TABLE || process.env.AIRTABLE_LOGS_TBL || 'Automation Logs';
 
 async function airtableCreate(table, fields) {
-  const apiKey = process.env.AIRTABLE_API_KEY;
+  const apiKey = process.env.AIRTABLE_API_KEY || process.env.AIRTABLE_TOKEN;
   const baseId = process.env.AIRTABLE_BASE_ID;
 
   if (!apiKey || !baseId) {
-    return { ok: false, error: 'Missing AIRTABLE_API_KEY or AIRTABLE_BASE_ID' };
+    return {
+      ok: false,
+      error: 'Missing Airtable credentials (set AIRTABLE_API_KEY/AIRTABLE_TOKEN and AIRTABLE_BASE_ID)',
+    };
   }
 
   try {

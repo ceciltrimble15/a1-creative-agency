@@ -1,0 +1,22 @@
+# Netlify config for the A1 Creative Agency site.
+#
+# The approved baseline homepage is the standalone HTML in
+# projects/a1-creative/, served at the site root. The quote form posts
+# same-origin to /api/submit-lead, which is handled by the Netlify function
+# in netlify/functions/submit-lead.mjs (routed via its `config.path`).
+#
+# Backend env vars (set in the Netlify site → Site settings → Environment).
+# WITHOUT these the function returns HTTP 502 "Missing Airtable credentials".
+#   AIRTABLE_API_KEY (or AIRTABLE_TOKEN)  — required, Airtable PAT
+#   AIRTABLE_BASE_ID                      — required, target base id
+#   RESEND_API_KEY, NOTIFY_FROM           — optional, powers operations@ email
+#   AIRTABLE_LEADS_TABLE (or AIRTABLE_LEADS_TBL) / _TASKS_TABLE / _LOGS_TABLE — optional overrides
+#   NOTIFY_EMAIL                          — optional ops-recipient override
+
+[build]
+  publish = "projects/a1-creative"
+  functions = "netlify/functions"
+
+[functions]
+  # The function imports shared ESM helpers from api/_lib/*; bundle with esbuild.
+  node_bundler = "esbuild"
