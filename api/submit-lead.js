@@ -32,8 +32,10 @@ export default async function handler(req, res) {
 
   const { name, phone, email, service, date, message, client, source } = req.body;
 
-  if (!name || !phone || !email) {
-    return res.status(400).json({ error: 'Name, phone, and email are required' });
+  // Phone is optional: the A1 quote form lets a visitor request a quote by
+  // email only (SMS consent is required client-side only when a phone is given).
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Name and email are required' });
   }
 
   const notesParts = [];
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
 
   const fields = {
     'Lead Name': name,
-    'Phone': phone,
+    'Phone': phone || '',
     'Email ': email,
     'lead_status': 'new',
     // Caller-supplied so each site tags itself; defaults suit the A1 site
@@ -67,13 +69,13 @@ export default async function handler(req, res) {
   // lead is already stored, so none of these should fail the submission.
   const [task, notify] = await Promise.all([
     createTask({
-      'Name': `Follow up with ${name} (${phone})`,
+      'Name': `Follow up with ${name} (${phone || email})`,
       'Status': 'To Do',
       'Notes': `Website lead${service ? ` — ${service}` : ''}${date ? `, preferred date ${date}` : ''}. Email: ${email}`,
     }),
     notifyOps(
       `New website lead: ${name}`,
-      `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service || '—'}\nPreferred date: ${date || '—'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
+      `Name: ${name}\nPhone: ${phone || '—'}\nEmail: ${email}\nService: ${service || '—'}\nPreferred date: ${date || '—'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
     ),
   ]);
 
