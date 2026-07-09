@@ -47,14 +47,19 @@ wiring** are the only additions on top of the baseline — no redesign.
 
 ### Quote form
 
-The scoped `#a1-quote-form` posts JSON to
-`https://a1-creative-agency.vercel.app/api/submit-lead`, which creates an
-Airtable Lead + Task + Automation Log and emails operations@a1creativeagency.com.
-Field mapping: `full name → name`, `email → email`, `mobile → phone`,
-`what you need built → service`; the business name and SMS-consent proof
-(version + source URL) are folded into `message`. Phone is optional (email-only
-requests are accepted); when a phone is provided, SMS consent is required
-client-side for A2P/10DLC compliance.
+The scoped `#a1-quote-form` posts JSON **same-origin** to `/api/submit-lead`,
+served on Netlify by `netlify/functions/submit-lead.mjs` (routed via its
+`config.path`). It creates an Airtable Lead + Task + Automation Log and emails
+operations@a1creativeagency.com. Field mapping: `full name → name`,
+`email → email`, `mobile → phone`, `what you need built → service`; the business
+name and SMS-consent proof (version + source URL) are folded into `message`.
+Phone is optional (email-only requests are accepted); when a phone is provided,
+SMS consent is required client-side for A2P/10DLC compliance.
+
+The Vercel handler (`api/submit-lead.js`) and the Netlify function share one
+core, `api/_lib/lead.js` (`processLead`), so both platforms behave identically.
+Set the backend env vars (`AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID`,
+`RESEND_API_KEY`, …) on the Netlify site — see `netlify.toml`.
 
 ## Next Steps
 

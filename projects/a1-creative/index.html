@@ -547,7 +547,7 @@ footer { background:var(--navy-mid); border-top:1px solid var(--border-silver); 
      styles are added below (scoped under #a1-quote-form).
 
      CONSENT TEXT VERSION: v2026-06b  (must match Twilio campaign)
-     POSTS TO: https://a1-creative-agency.vercel.app/api/submit-lead
+     POSTS TO: /api/submit-lead  (same-origin Netlify function)
 ============================================================ -->
 
 <style>
@@ -788,7 +788,7 @@ footer { background:var(--navy-mid); border-top:1px solid var(--border-silver); 
       source: 'Website form '
     };
 
-    fetch('https://a1-creative-agency.vercel.app/api/submit-lead', {
+    fetch('/api/submit-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
