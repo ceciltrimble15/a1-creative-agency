@@ -5,10 +5,13 @@
 # same-origin to /api/submit-lead, which is handled by the Netlify function
 # in netlify/functions/submit-lead.mjs (routed via its `config.path`).
 #
-# Backend env vars (set in the Netlify site → Site settings → Environment):
-#   AIRTABLE_API_KEY, AIRTABLE_BASE_ID   (required for lead capture)
-#   RESEND_API_KEY, NOTIFY_FROM          (optional — powers operations@ email)
-#   AIRTABLE_LEADS_TABLE / _TASKS_TABLE / _LOGS_TABLE, NOTIFY_EMAIL (optional overrides)
+# Backend env vars (set in the Netlify site → Site settings → Environment).
+# WITHOUT these the function returns HTTP 502 "Missing Airtable credentials".
+#   AIRTABLE_API_KEY (or AIRTABLE_TOKEN)  — required, Airtable PAT
+#   AIRTABLE_BASE_ID                      — required, target base id
+#   RESEND_API_KEY, NOTIFY_FROM           — optional, powers operations@ email
+#   AIRTABLE_LEADS_TABLE (or AIRTABLE_LEADS_TBL) / _TASKS_TABLE / _LOGS_TABLE — optional overrides
+#   NOTIFY_EMAIL                          — optional ops-recipient override
 
 [build]
   publish = "projects/a1-creative"
