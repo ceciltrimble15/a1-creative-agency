@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Business Infrastructure Assessment — A1 Creative Agency</title>
+  <meta name="description" content="A free 2-minute Business Infrastructure Assessment from A1 Creative Agency. Find the gaps in your website, booking, follow-up, and lead systems — and the right build to fix them." />
+  <meta name="robots" content="noindex" />
+  <meta property="og:title" content="Business Infrastructure Assessment — A1 Creative Agency" />
+  <meta property="og:description" content="Find the gaps in your business systems in 2 minutes and get a tailored A1 Creative recommendation." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* A1 Creative Agency master brand tokens (projects/a1-creative/brand/tokens.css) */
+    :root {
+      --a1-black: #04070d;
+      --a1-navy: #0a1626;
+      --a1-coal: #0b1322;
+      --a1-graphite: #1a1d26;
+      --a1-steel: #2a2f3c;
+      --a1-silver-0: #f6f8fc;
+      --a1-silver-1: #e7ecf3;
+      --a1-silver-2: #a8b0c2;
+      --a1-silver-3: #525a6c;
+      --a1-blue-soft: #9cc6ff;
+      --a1-blue: #2a82ff;
+      --a1-blue-deep: #0b3f9d;
+      --a1-gold-soft: #ffe7a8;
+      --a1-gold: #dfb346;
+      --a1-body-text: #cdd3df;
+      --a1-grad-blue: linear-gradient(180deg, #9cc6ff 0%, #2a82ff 50%, #0b3f9d 100%);
+      --a1-grad-gold: linear-gradient(180deg, #ffe7a8 0%, #dfb346 50%, #876514 100%);
+      --a1-font-display: 'Space Grotesk', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --a1-font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--a1-font-body);
+      color: var(--a1-body-text);
+      background:
+        radial-gradient(ellipse at 50% -10%, #0e1a30 0%, #060a12 55%, #04070d 100%) fixed;
+      min-height: 100vh;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 72px; }
+
+    /* Brand mark */
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 34px; }
+    .brand-badge {
+      width: 44px; height: 44px; border-radius: 12px; flex: none;
+      display: grid; place-items: center;
+      font-family: var(--a1-font-display); font-weight: 700; font-size: 20px;
+      color: #05080f;
+      background: var(--a1-grad-chrome, linear-gradient(180deg,#f6f8fc,#a8b0c2));
+      background: linear-gradient(150deg, #e7ecf3, #a8b0c2 55%, #7d8597);
+      box-shadow: 0 6px 24px rgba(42,130,255,.18), inset 0 1px 0 rgba(255,255,255,.6);
+    }
+    .brand-name { font-family: var(--a1-font-display); font-weight: 600; letter-spacing: .06em; color: var(--a1-silver-1); font-size: 14px; text-transform: uppercase; }
+    .brand-sub { font-size: 12px; color: var(--a1-silver-3); letter-spacing: .18em; text-transform: uppercase; }
+
+    /* Header */
+    .eyebrow {
+      display: inline-block; font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--a1-blue-soft); font-weight: 600; margin-bottom: 14px;
+    }
+    h1 {
+      font-family: var(--a1-font-display); font-weight: 700; color: var(--a1-silver-0);
+      font-size: clamp(28px, 6vw, 42px); line-height: 1.08; margin: 0 0 14px;
+      letter-spacing: -.01em;
+    }
+    h1 .grad {
+      background: var(--a1-grad-blue); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lede { color: var(--a1-silver-2); font-size: 16px; max-width: 52ch; margin: 0 0 8px; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 16px; font-size: 13px; color: var(--a1-silver-3); }
+    .meta-row span { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--a1-gold); flex: none; }
+
+    /* Card + sections */
+    form { margin-top: 30px; }
+    .card {
+      background: linear-gradient(180deg, rgba(20,30,50,.55), rgba(10,16,26,.5));
+      border: 1px solid #16202f;
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
+    }
+    .sec-head { display: flex; align-items: baseline; gap: 10px; margin: 2px 0 18px; }
+    .sec-num {
+      font-family: var(--a1-font-display); font-size: 12px; font-weight: 700;
+      color: var(--a1-blue); letter-spacing: .1em;
+    }
+    .sec-title { font-family: var(--a1-font-display); font-weight: 600; color: var(--a1-silver-1); font-size: 17px; margin: 0; }
+
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 540px) { .grid2 { grid-template-columns: 1fr; } }
+
+    label { display: block; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--a1-silver-2); margin-bottom: 8px; }
+    label .req { color: var(--a1-gold); margin-left: 3px; }
+
+    input, select, textarea {
+      width: 100%; font-family: inherit; font-size: 15px; color: var(--a1-silver-0);
+      background: rgba(4,7,13,.55);
+      border: 1px solid #223047; border-radius: 12px;
+      padding: 13px 14px; outline: none; transition: border-color .18s, box-shadow .18s, background .18s;
+      -webkit-appearance: none; appearance: none;
+    }
+    textarea { resize: vertical; min-height: 92px; }
+    input::placeholder, textarea::placeholder { color: #55617a; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--a1-blue);
+      box-shadow: 0 0 0 3px rgba(42,130,255,.16);
+      background: rgba(6,11,20,.75);
+    }
+    select {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239cc6ff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat; background-position: right 13px center; padding-right: 40px;
+    }
+    select:invalid { color: #55617a; }
+    option { color: #10141c; }
+
+    /* Consent */
+    .consent { display: flex; gap: 12px; align-items: flex-start; padding: 16px; border: 1px solid #223047; border-radius: 12px; background: rgba(4,7,13,.4); }
+    .consent input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--a1-blue); }
+    .consent label { text-transform: none; letter-spacing: normal; font-weight: 500; font-size: 13px; color: var(--a1-silver-2); margin: 0; line-height: 1.5; }
+
+    /* Submit */
+    .actions { margin-top: 6px; }
+    button.submit {
+      width: 100%; border: 0; cursor: pointer; font-family: var(--a1-font-display);
+      font-weight: 600; font-size: 16px; letter-spacing: .02em; color: #041225;
+      padding: 16px 20px; border-radius: 13px;
+      background: var(--a1-grad-blue); background-size: 100% 180%; background-position: 0 40%;
+      box-shadow: 0 10px 30px rgba(42,130,255,.28);
+      transition: transform .12s, box-shadow .18s, background-position .2s;
+    }
+    button.submit:hover { background-position: 0 60%; box-shadow: 0 12px 36px rgba(42,130,255,.36); }
+    button.submit:active { transform: translateY(1px); }
+    button.submit:disabled { opacity: .6; cursor: not-allowed; box-shadow: none; }
+    .fine { text-align: center; font-size: 12px; color: var(--a1-silver-3); margin-top: 14px; letter-spacing: .04em; }
+    .err {
+      display: none; margin-top: 14px; padding: 12px 14px; border-radius: 11px;
+      border: 1px solid rgba(223,86,86,.4); background: rgba(223,86,86,.12); color: #ffb4b4; font-size: 14px;
+    }
+    .err.show { display: block; }
+
+    /* Success */
+    .success { display: none; text-align: center; padding: 20px 8px; }
+    .success.show { display: block; }
+    .check { width: 66px; height: 66px; margin: 6px auto 20px; border-radius: 50%; display: grid; place-items: center; color: #041225; background: var(--a1-grad-blue); box-shadow: 0 10px 30px rgba(42,130,255,.3); }
+    .success h2 { font-family: var(--a1-font-display); color: var(--a1-silver-0); font-size: 26px; margin: 0 0 10px; }
+    .success p { color: var(--a1-silver-2); max-width: 46ch; margin: 0 auto 22px; }
+    .result-card { text-align: left; border: 1px solid #223047; border-radius: 14px; padding: 20px; background: rgba(4,7,13,.45); max-width: 420px; margin: 0 auto; }
+    .result-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 9px 0; border-bottom: 1px solid #141d2b; }
+    .result-row:last-child { border-bottom: 0; }
+    .result-row .k { font-size: 13px; color: var(--a1-silver-3); text-transform: uppercase; letter-spacing: .08em; }
+    .result-row .v { font-family: var(--a1-font-display); font-weight: 600; color: var(--a1-silver-0); text-align: right; }
+    .result-row .v.pkg { background: var(--a1-grad-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    footer { margin-top: 30px; text-align: center; font-size: 12px; color: var(--a1-silver-3); letter-spacing: .08em; }
+    footer a { color: var(--a1-blue-soft); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand">
+      <div class="brand-badge">A1</div>
+      <div>
+        <div class="brand-name">A1 Creative Agency</div>
+        <div class="brand-sub">Infrastructure · Intelligence · Systems</div>
+      </div>
+    </div>
+
+    <span class="eyebrow">Free Business Assessment</span>
+    <h1>Business Infrastructure <span class="grad">Assessment</span></h1>
+    <p class="lede">Answer a few quick questions about how your business runs today. We'll pinpoint the gaps and recommend the right A1 Creative build to close them.</p>
+    <div class="meta-row">
+      <span><i class="dot"></i> Takes about 2 minutes</span>
+      <span><i class="dot"></i> No obligation</span>
+      <span><i class="dot"></i> A tailored recommendation</span>
+    </div>
+
+    <form id="assessment-form" novalidate>
+      <!-- Section 1: Contact -->
+      <section class="card">
+        <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Your details</h2></div>
+        <div class="grid2">
+          <div class="field">
+            <label for="fullName">Full name<span class="req">*</span></label>
+            <input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="field">
+            <label for="businessName">Business name<span class="req">*</span></label>
+            <input id="businessName" name="businessName" type="text" autocomplete="organization" placeholder="Your business" required />
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="email">Email<span class="req">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@business.com" required />
+          </div>
+          <div class="field">
+            <label for="phone">Mobile phone<span class="req">*</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(513) 555-0123" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="service">Service requested</label>
+          <select id="service" name="service">
+            <option value="" selected disabled>Select a service</option>
+            <option>Website / Online Presence</option>
+            <option>Branding &amp; Identity</option>
+            <option>Online Booking &amp; Intake</option>
+            <option>Missed-Call Recovery</option>
+            <option>CRM &amp; Lead Systems</option>
+            <option>Automation &amp; Follow-Up</option>
+            <option>Full Infrastructure Build</option>
+            <option>Not sure yet — help me decide</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Section 2: Infrastructure -->
+      <section class="card">
+        <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Your current systems</h2></div>
+
+        <div class="field">
+          <label for="websiteStatus">Website status<span class="req">*</span></label>
+          <select id="websiteStatus" name="websiteStatus" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Modern, fully functional website</option>
+            <option>Basic website</option>
+            <option>Outdated website</option>
+            <option>No website</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="bookingSystem">Online booking / contact process<span class="req">*</span></label>
+          <select id="bookingSystem" name="bookingSystem" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Full online booking system</option>
+            <option>Basic contact form</option>
+            <option>Phone or manual scheduling only</option>
+            <option>No online booking or contact form</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="missedCallHandling">Missed call handling<span class="req">*</span></label>
+          <select id="missedCallHandling" name="missedCallHandling" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Automated missed-call text-back</option>
+            <option>Voicemail only</option>
+            <option>Manual callback when we can</option>
+            <option>Missed calls are lost — no system</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="followUpProcess">Lead follow-up process<span class="req">*</span></label>
+          <select id="followUpProcess" name="followUpProcess" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Fully automated follow-up</option>
+            <option>Some reminders or automation</option>
+            <option>Manual and inconsistent</option>
+            <option>No follow-up process</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="crmStatus">CRM status<span class="req">*</span></label>
+          <select id="crmStatus" name="crmStatus" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Full CRM in active use</option>
+            <option>Basic CRM</option>
+            <option>Spreadsheet or notes</option>
+            <option>No CRM</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="paymentsProcess">Payments / deposit process<span class="req">*</span></label>
+          <select id="paymentsProcess" name="paymentsProcess" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Online payments and deposits</option>
+            <option>Payments accepted, no deposits</option>
+            <option>Manual invoicing</option>
+            <option>No online payments</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Section 3: Goals -->
+      <section class="card">
+        <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Your priorities</h2></div>
+        <div class="field">
+          <label for="biggestProblem">Biggest business problem right now</label>
+          <textarea id="biggestProblem" name="biggestProblem" placeholder="What's slowing you down or costing you customers?"></textarea>
+        </div>
+        <div class="field">
+          <label for="primaryGoal">Primary goal for the next 30–90 days</label>
+          <textarea id="primaryGoal" name="primaryGoal" placeholder="Where do you want the business to be in a few months?"></textarea>
+        </div>
+      </section>
+
+      <!-- Section 4: Consent + submit -->
+      <section class="card">
+        <div class="field consent">
+          <input id="smsConsent" name="smsConsent" type="checkbox" />
+          <label for="smsConsent">
+            I agree to receive text messages from A1 Creative Agency about my assessment and services.
+            Message &amp; data rates may apply; reply STOP to opt out. Consent is not a condition of purchase.
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="submit" id="submitBtn">Get My Assessment</button>
+          <p class="fine">Your information is used only to prepare your assessment and follow up.</p>
+          <div class="err" id="errBox"></div>
+        </div>
+      </section>
+    </form>
+
+    <!-- Success state -->
+    <div class="success" id="successBox">
+      <div class="check">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2>Assessment received</h2>
+      <p>Thank you. Your Business Infrastructure Assessment is in — here's your instant snapshot. A1 Creative will reach out shortly with the details.</p>
+      <div class="result-card" id="resultCard">
+        <div class="result-row"><span class="k">Readiness level</span><span class="v" id="resReadiness">—</span></div>
+        <div class="result-row"><span class="k">Infrastructure score</span><span class="v" id="resScore">—</span></div>
+        <div class="result-row"><span class="k">Recommended build</span><span class="v pkg" id="resPackage">—</span></div>
+      </div>
+    </div>
+
+    <footer>
+      A1 Creative Agency · Websites · Branding · Automation · Lead Systems<br />
+      <a href="https://a1creativeagency.com">a1creativeagency.com</a>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById('assessment-form');
+      var errBox = document.getElementById('errBox');
+      var successBox = document.getElementById('successBox');
+      var submitBtn = document.getElementById('submitBtn');
+
+      // Post to the same-origin Vercel function. If this page is ever embedded
+      // on another host, point ENDPOINT at the absolute Vercel URL instead.
+      var ENDPOINT = '/api/submit-lead';
+
+      function showError(msg) {
+        errBox.textContent = msg;
+        errBox.classList.add('show');
+        errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      function clearError() { errBox.classList.remove('show'); errBox.textContent = ''; }
+
+      function digits(s) { return (s || '').replace(/\D/g, ''); }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearError();
+
+        var f = form.elements;
+        var payload = {
+          type: 'assessment',
+          fullName: f.fullName.value.trim(),
+          businessName: f.businessName.value.trim(),
+          email: f.email.value.trim(),
+          phone: f.phone.value.trim(),
+          service: f.service.value,
+          websiteStatus: f.websiteStatus.value,
+          bookingSystem: f.bookingSystem.value,
+          missedCallHandling: f.missedCallHandling.value,
+          followUpProcess: f.followUpProcess.value,
+          crmStatus: f.crmStatus.value,
+          paymentsProcess: f.paymentsProcess.value,
+          biggestProblem: f.biggestProblem.value.trim(),
+          primaryGoal: f.primaryGoal.value.trim(),
+          smsConsent: f.smsConsent.checked,
+          source: 'A1 Website Assessment',
+          consentSourceUrl: window.location.href
+        };
+
+        // Client-side guardrails mirror the server so users get instant feedback.
+        var required = {
+          'full name': payload.fullName,
+          'business name': payload.businessName,
+          'email': payload.email,
+          'mobile phone': payload.phone,
+          'website status': payload.websiteStatus,
+          'booking process': payload.bookingSystem,
+          'missed call handling': payload.missedCallHandling,
+          'follow-up process': payload.followUpProcess,
+          'CRM status': payload.crmStatus,
+          'payments process': payload.paymentsProcess
+        };
+        var missing = Object.keys(required).filter(function (k) { return !required[k]; });
+        if (missing.length) { showError('Please complete: ' + missing.join(', ') + '.'); return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) { showError('Please enter a valid email address.'); return; }
+        if (digits(payload.phone).length >= 7 && !payload.smsConsent) {
+          showError('Please check the box to agree to receive text messages so we can follow up.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+          .then(function (r) {
+            if (!r.ok) { throw new Error((r.data && r.data.error) || 'Something went wrong. Please try again.'); }
+            var a = (r.data && r.data.assessment) || {};
+            document.getElementById('resReadiness').textContent = a.readiness || '—';
+            document.getElementById('resScore').textContent =
+              (a.score != null ? a.score : '—') + (a.maxScore ? ' / ' + a.maxScore : '');
+            document.getElementById('resPackage').textContent = a.recommendedPackage || '—';
+            form.style.display = 'none';
+            successBox.classList.add('show');
+            successBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          })
+          .catch(function (err) {
+            showError(err.message || 'Something went wrong. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Get My Assessment';
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
