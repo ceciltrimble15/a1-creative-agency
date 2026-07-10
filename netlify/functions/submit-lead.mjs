@@ -230,34 +230,46 @@ async function handleAssessment(body, event) {
     return json(502, { error: 'We could not save your assessment. Please try again in a moment.' });
   }
 
-  // Step 6 — notify ops (best-effort; never blocks the record)
-  const notify = await notifyOps(
-    `New Business Assessment: ${a.businessName} (${result.package})`,
-    [
-      `Lead: ${a.name}`,
-      `Business: ${a.businessName}`,
-      `Phone: ${a.phone}`,
-      `Email: ${a.email}`,
-      `SMS Consent: ${a.smsConsent ? 'Yes' : 'No'}`,
-      '',
-      `Assessment Score: ${result.score} / ${result.maxScore}`,
-      `Readiness Level: ${result.readiness}`,
-      `Recommended Package: ${result.package}`,
-      `Follow-Up Needed: ${result.followUpNeeded ? 'Yes' : 'No'}`,
-      '',
-      `Lead record: ${leadId || 'not linked'}`,
-      `Assessment record: ${assessment.id} (${assessmentId})`,
-      '',
-      '— Full responses —',
-      result.summary,
-    ].join('\n')
-  ).catch((err) => ({ ok: false, error: err.message }));
+  // Step 6 — follow-up task + ops email (best-effort; neither blocks the
+  // record, which is already stored).
+  const [task, notify] = await Promise.all([
+    createTask({
+      'Task Title': `Assessment follow-up: ${a.name} (${a.businessName})`,
+      'Status': 'To Do',
+      'Notes':
+        `Business Infrastructure Assessment — score ${result.score}/${result.maxScore}, ` +
+        `${result.readiness}, recommend ${result.package}. Phone: ${a.phone}, email: ${a.email}. ` +
+        `Assessment ${assessmentId}.`,
+    }),
+    notifyOps(
+      `New Business Assessment: ${a.businessName} (${result.package})`,
+      [
+        `Lead: ${a.name}`,
+        `Business: ${a.businessName}`,
+        `Phone: ${a.phone}`,
+        `Email: ${a.email}`,
+        `SMS Consent: ${a.smsConsent ? 'Yes' : 'No'}`,
+        '',
+        `Assessment Score: ${result.score} / ${result.maxScore}`,
+        `Readiness Level: ${result.readiness}`,
+        `Recommended Package: ${result.package}`,
+        `Follow-Up Needed: ${result.followUpNeeded ? 'Yes' : 'No'}`,
+        '',
+        `Lead record: ${leadId || 'not linked'}`,
+        `Assessment record: ${assessment.id} (${assessmentId})`,
+        '',
+        '— Full responses —',
+        result.summary,
+      ].join('\n')
+    ).catch((err) => ({ ok: false, error: err.message })),
+  ]);
 
   await logAutomation(
     'assessment_submission',
     `Assessment ${assessment.id} (${assessmentId}) for ${a.name} / ${a.businessName}. Lead ${leadId || 'unlinked'} (${leadOutcome}). ` +
-      `Score ${result.score}/${result.maxScore}, ${result.readiness}, ${result.package}. Ops email: ${notify.ok ? 'sent' : `failed (${notify.error})`}`,
-    leadId && notify.ok ? 'ok' : 'partial'
+      `Score ${result.score}/${result.maxScore}, ${result.readiness}, ${result.package}. ` +
+      `Task: ${task.ok ? task.id : `failed (${task.error})`}. Ops email: ${notify.ok ? 'sent' : `failed (${notify.error})`}`,
+    leadId && task.ok && notify.ok ? 'ok' : 'partial'
   );
 
   // Step 7 — safe public response (no tokens/IDs)
