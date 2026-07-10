@@ -29,7 +29,10 @@ export const LEAD_FIELDS = {
 };
 
 function airtableConfig() {
-  const apiKey = process.env.AIRTABLE_API_KEY;
+  // Accept either env var name so a token stored under either key works.
+  // Prefer AIRTABLE_API_KEY; fall back to AIRTABLE_TOKEN. Neither value is
+  // ever logged or returned to the client.
+  const apiKey = process.env.AIRTABLE_API_KEY || process.env.AIRTABLE_TOKEN;
   const baseId = process.env.AIRTABLE_BASE_ID;
   if (!apiKey || !baseId) return null;
   return { apiKey, baseId };
@@ -39,7 +42,7 @@ function airtableConfig() {
    throws — callers decide how to degrade. */
 async function airtableRequest(method, tablePath, { body, query } = {}) {
   const cfg = airtableConfig();
-  if (!cfg) return { ok: false, error: 'Missing AIRTABLE_API_KEY or AIRTABLE_BASE_ID' };
+  if (!cfg) return { ok: false, error: 'Missing Airtable credentials (AIRTABLE_API_KEY or AIRTABLE_TOKEN, and AIRTABLE_BASE_ID)' };
 
   let url = `https://api.airtable.com/v0/${cfg.baseId}/${tablePath}`;
   if (query) url += `?${query}`;
