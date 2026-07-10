@@ -344,6 +344,17 @@
           .bia-msg.ok{color:var(--a1-gold-soft)}
           .bia-msg.err{color:#ff8f8f}
           .bia-note{margin:0;font-size:12px;color:var(--a1-silver-3);text-align:center}
+          .bia-result{display:none;text-align:center;padding:8px 4px}
+          .bia-result.show{display:block}
+          .bia-result .check{width:58px;height:58px;margin:2px auto 16px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#041225;background:var(--a1-grad-blue,linear-gradient(180deg,#9cc6ff,#2a82ff 50%,#0b3f9d));font-size:28px;font-weight:800}
+          .bia-result h3{font-family:var(--a1-font-display);color:var(--a1-silver-0);font-size:22px;margin:0 0 8px}
+          .bia-result p.bia-result-lede{color:var(--a1-silver-2);max-width:42ch;margin:0 auto 20px;font-size:15px}
+          .bia-result .rc{text-align:left;border:var(--a1-border);border-radius:14px;padding:6px 18px;max-width:380px;margin:0 auto;background:rgba(255,255,255,0.02)}
+          .bia-result .rc-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #141d2b}
+          .bia-result .rc-row:last-child{border-bottom:0}
+          .bia-result .rc-k{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--a1-silver-3)}
+          .bia-result .rc-v{font-family:var(--a1-font-display);font-weight:600;color:var(--a1-silver-0);text-align:right}
+          .bia-result .rc-v.pkg{color:var(--a1-gold-soft)}
         </style>
         <div class="wrap">
           <h2 class="title">Business Infrastructure Assessment</h2>
@@ -366,9 +377,15 @@
                 </div>
               </div>
 
-              <div class="bia-field">
-                <label for="bia-email">Email</label>
-                <input id="bia-email" name="email" type="email" autocomplete="email" placeholder="you@business.com" required />
+              <div class="bia-grid bia-grid-2">
+                <div class="bia-field">
+                  <label for="bia-email">Email</label>
+                  <input id="bia-email" name="email" type="email" autocomplete="email" placeholder="you@business.com" required />
+                </div>
+                <div class="bia-field">
+                  <label for="bia-business">Business name</label>
+                  <input id="bia-business" name="business_name" type="text" autocomplete="organization" placeholder="Your business" required />
+                </div>
               </div>
 
               <div class="bia-grid bia-grid-2">
@@ -463,6 +480,17 @@
               <p class="bia-msg" role="status" aria-live="polite"></p>
               <p class="bia-note">Prefer to talk? Call <a href="tel:+15134403329">(513) 440-3329</a>.</p>
             </form>
+
+            <div class="bia-result" id="bia-result" role="status" aria-live="polite">
+              <div class="check">✓</div>
+              <h3>Assessment received</h3>
+              <p class="bia-result-lede">Here's your instant snapshot. A1 Creative will follow up — usually the same day — with the details.</p>
+              <div class="rc">
+                <div class="rc-row"><span class="rc-k">Readiness level</span><span class="rc-v" id="rc-readiness">—</span></div>
+                <div class="rc-row"><span class="rc-k">Infrastructure score</span><span class="rc-v" id="rc-score">—</span></div>
+                <div class="rc-row"><span class="rc-k">Recommended build</span><span class="rc-v pkg" id="rc-package">—</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -471,49 +499,57 @@
             var form = document.getElementById('bia-form');
             var msg = form.querySelector('.bia-msg');
             var btn = form.querySelector('.bia-submit');
+            var result = document.getElementById('bia-result');
 
             function set(text, kind) {
               msg.textContent = text;
               msg.className = 'bia-msg' + (kind ? ' ' + kind : '');
             }
-            function val(name) { return (form.elements[name].value || '').trim(); }
+            function val(name) { return (form.elements[name] && form.elements[name].value || '').trim(); }
+            function digits(s) { return (s || '').replace(/\D/g, ''); }
 
             form.addEventListener('submit', function (e) {
               e.preventDefault();
+              set('', '');
 
-              if (!val('name') || !val('phone') || !val('email')) {
-                set('Please add your name, phone, and email.', 'err');
+              // Client-side guardrails mirror the server for instant feedback.
+              var required = {
+                'name': val('name'), 'business name': val('business_name'),
+                'email': val('email'), 'phone': val('phone'),
+                'website status': val('website'), 'booking process': val('booking'),
+                'missed calls': val('missed_calls'), 'lead follow-up': val('follow_up'),
+                'CRM': val('crm'), 'payments': val('payments')
+              };
+              var miss = Object.keys(required).filter(function (k) { return !required[k]; });
+              if (miss.length) { set('Please complete: ' + miss.join(', ') + '.', 'err'); return; }
+              if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) { set('Please enter a valid email address.', 'err'); return; }
+              if (digits(val('phone')).length >= 7 && !form.elements['sms_consent'].checked) {
+                set('Please check the box to agree to receive text messages so we can follow up.', 'err');
                 return;
               }
 
-              var lines = [
-                ['Website status', val('website')],
-                ['Booking / contact', val('booking')],
-                ['Missed calls', val('missed_calls')],
-                ['Lead follow-up', val('follow_up')],
-                ['CRM', val('crm')],
-                ['Payments / deposits', val('payments')],
-                ['Biggest problem', val('biggest_problem')],
-                ['30-90 day goal', val('goal')],
-                ['SMS consent', form.elements['sms_consent'].checked ? 'Yes (opted in)' : 'No']
-              ];
-              var summary = 'Business Infrastructure Assessment\n' +
-                lines.map(function (p) { return p[0] + ': ' + (p[1] || '—'); }).join('\n');
-
               var payload = {
+                type: 'assessment',
                 name: val('name'),
                 phone: val('phone'),
                 email: val('email'),
-                service: 'Business Infrastructure Assessment',
-                message: summary,
-                client: 'A1 Creative Agency',
-                source: 'Website form — Business Infrastructure Assessment'
+                businessName: val('business_name'),
+                website: val('website'),
+                booking: val('booking'),
+                missed_calls: val('missed_calls'),
+                follow_up: val('follow_up'),
+                crm: val('crm'),
+                payments: val('payments'),
+                biggest_problem: val('biggest_problem'),
+                goal: val('goal'),
+                sms_consent: form.elements['sms_consent'].checked,
+                source: 'Website form — Business Infrastructure Assessment',
+                consentSourceUrl: window.location.href
               };
 
               btn.disabled = true;
               var label = btn.textContent;
               btn.textContent = 'Sending…';
-              set('', '');
 
               fetch('/api/submit-lead', {
                 method: 'POST',
@@ -523,14 +559,18 @@
                 .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
                 .then(function (res) {
                   if (!res.ok) throw new Error((res.d && res.d.error) || 'Submission failed');
-                  form.reset();
-                  set('Thank you! Your assessment was received — we’ll reach out shortly.', 'ok');
+                  var a = (res.d && res.d.assessment) || {};
+                  document.getElementById('rc-readiness').textContent = a.readiness || '—';
+                  document.getElementById('rc-score').textContent =
+                    (a.score != null ? a.score : '—') + (a.maxScore ? ' / ' + a.maxScore : '');
+                  document.getElementById('rc-package').textContent = a.recommendedPackage || '—';
+                  form.style.display = 'none';
+                  result.classList.add('show');
+                  result.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 })
                 .catch(function (err) {
                   console.error('[A1] Assessment submit failed:', err);
                   set('Something went wrong. Please call (513) 440-3329 or try again.', 'err');
-                })
-                .finally(function () {
                   btn.disabled = false;
                   btn.textContent = label;
                 });
