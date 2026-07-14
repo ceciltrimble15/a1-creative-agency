@@ -23,6 +23,14 @@
   status = 200
   force = true
 
+# /quote is the printed / QR-code permalink. Keep it on the production domain
+# by opening the on-site assessment intake — no second site, no external host.
+# 302 (not 301) so it can be repointed later without fighting browser caches.
+[[redirects]]
+  from = "/quote"
+  to = "/#assessment"
+  status = 302
+
 # Baseline security headers for the static site.
 [[headers]]
   for = "/*"
