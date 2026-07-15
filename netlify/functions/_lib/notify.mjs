@@ -1,7 +1,10 @@
-/* Email notification to operations@ via Resend (plain HTTPS API).
-   Self-contained (no Twilio dependency) so the marketing-site lead path
-   has no extra runtime requirements. No-ops with a logged warning until
-   RESEND_API_KEY is set — email is best-effort and never fails the lead. */
+/* Email notification to operations@ via Resend (plain HTTPS API), plus an
+   optional owner SMS alert for the Twilio voice flows. The Resend path stays
+   dependency-light — email is best-effort and never fails the lead. The SMS
+   alert imports the Twilio helper lazily so the marketing-site lead path never
+   loads it. Both no-op with a logged warning until their env vars are set. */
+
+import { sendSms } from './twilio.mjs';
 
 const OPS_EMAIL = process.env.NOTIFY_EMAIL || 'operations@a1creativeagency.com';
 
@@ -34,4 +37,15 @@ export async function notifyOps(subject, text) {
   } catch (err) {
     return { ok: false, error: err.message };
   }
+}
+
+/* SMS alert to the owner's cell (OWNER_CELL) via the Twilio number. Used by the
+   missed-call / voicemail flows. No-ops until OWNER_CELL is set. */
+export async function alertOwner(text) {
+  const ownerCell = process.env.OWNER_CELL;
+  if (!ownerCell) {
+    console.error('alertOwner skipped: OWNER_CELL not set');
+    return { ok: false, error: 'OWNER_CELL not set' };
+  }
+  return sendSms(ownerCell, text);
 }

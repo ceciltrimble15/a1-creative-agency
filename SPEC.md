@@ -31,8 +31,8 @@ Every interactive target on the homepage, audited:
 | Schedule A Discovery Call | Calendly link | ✅ works | confirm it's the right event | 🟧 |
 | Project cards: View Project → | client sites | ✅ | keep | ⬜ |
 | **Assessment CTA** | — | ❌ **missing** | **add a button (hero + assessment teaser) → `#assessment`** so it's discoverable, not scroll-only | 🟦 |
-| Footer: Privacy Policy | `/privacy` **and** `/privacy-policy` | ❌ 404 + inconsistent | **build the page, pick one path, redirect the other** | 🟦 |
-| Footer/consent: Terms | `/terms` **and** `/terms-and-conditions` | ❌ 404 + inconsistent | **build the page, pick one path, redirect the other** | 🟦 |
+| Footer: Privacy Policy | `/privacy` | ✅ built + canonical | page live; `/privacy-policy` → 301 → `/privacy` | ⬜ |
+| Footer/consent: Terms | `/terms` | ✅ built + canonical | page live; `/terms-and-conditions` → 301 → `/terms` | ⬜ |
 | `/quote` | → `/#assessment` (302) | ✅ | keep | ⬜ |
 
 **Fixes I'll make:** add a visible **"Take the Free Assessment"** button (hero and/or
@@ -68,9 +68,9 @@ mention how phone numbers/consent are used, plus STOP/HELP language on the site.
 
 | Page | Path | Status | Action | Owner |
 |---|---|---|---|---|
-| Privacy Policy | `/privacy` | ❌ missing | build page (data use, SMS consent, opt-out, no-sale clause) | 🟦 |
-| Terms & Conditions | `/terms` | ❌ missing | build page (service terms + SMS program terms) | 🟦 |
-| Redirects | `/privacy-policy`, `/terms-and-conditions` | ❌ | 301 → canonical paths | 🟦 |
+| Privacy Policy | `/privacy` | ✅ built (`privacy.html`) | data use + SMS consent, STOP/HELP, no-sale/no-share clause, 2–6/mo, rates | 🟧 review wording |
+| Terms & Conditions | `/terms` | ✅ built (`terms.html`) | service terms + SMS program terms (opt-out keywords, HELP, carrier disclaimer) | 🟧 review wording |
+| Redirects | `/privacy-policy`, `/terms-and-conditions` | ✅ 301 → canonical | in `netlify.toml` | ⬜ |
 
 I'll draft both in the site's design; **you review the wording** (or your attorney) before it's used for A2P. 🟧 review.
 
@@ -84,7 +84,7 @@ This is the biggest piece and it's a **shared** job — some of it only you can 
 | Step | What | Owner |
 |---|---|---|
 | 4.1 | Consent capture on the site (checkbox, unchecked, STOP/HELP/rates + Privacy/Terms) | 🟦 done in assessment; will mirror on quote form |
-| 4.2 | Build Netlify functions for Twilio: inbound **voice** (greet + forward), **missed-call text-back**, **voicemail**, inbound **SMS** (STOP/HELP auto-replies + log) — ported from the existing `api/twilio/*` code to `netlify/functions` | 🟦 |
+| 4.2 | Build Netlify functions for Twilio: inbound **voice** (`twilio-voice`), **missed-call text-back** (`twilio-missed-call`), **voicemail** (`twilio-voicemail`), inbound **SMS** STOP/UNSUBSCRIBE/END/QUIT/CANCEL + HELP + START auto-replies (`twilio-sms`) — signature-verified, at `/api/twilio/*` | ✅ built + unit-tested 🟦 |
 | 4.3 | Twilio account: buy/confirm number, get Account SID + Auth Token | 🟧 |
 | 4.4 | **A2P 10DLC registration** in Twilio console: register Brand, then Campaign (use case = customer care/marketing), submit sample messages + the opt-in screenshot (our consent box) + Privacy/Terms URLs | 🟧 (carrier approval, days) |
 | 4.5 | Point the Twilio number's Voice + Messaging webhooks at the Netlify function URLs | 🟧 (I give exact URLs) |

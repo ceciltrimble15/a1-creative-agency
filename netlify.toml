@@ -31,6 +31,55 @@
   to = "/#assessment"
   status = 302
 
+# Twilio voice + SMS webhooks. Clean, same-origin paths Cecil pastes into the
+# Twilio console. status = 200 (rewrite) preserves the POST + the original URL
+# so the X-Twilio-Signature check validates against the public path.
+[[redirects]]
+  from = "/api/twilio/voice"
+  to = "/.netlify/functions/twilio-voice"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/twilio/missed-call"
+  to = "/.netlify/functions/twilio-missed-call"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/twilio/voicemail"
+  to = "/.netlify/functions/twilio-voicemail"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/twilio/sms"
+  to = "/.netlify/functions/twilio-sms"
+  status = 200
+  force = true
+
+# Canonical legal paths (the consent box + A2P registration link to these).
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+
+# Old/variant legal URLs → canonical, so no link 404s (A2P reviewers check these).
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy"
+  status = 301
+
+[[redirects]]
+  from = "/terms-and-conditions"
+  to = "/terms"
+  status = 301
+
 # Baseline security headers for the static site.
 [[headers]]
   for = "/*"
