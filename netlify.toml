@@ -23,6 +23,14 @@
   status = 200
   force = true
 
+# Diagnostic: reports which env vars are present in THIS deploy context + a live
+# Airtable connectivity test. Booleans/status only — no secret values. Temporary.
+[[redirects]]
+  from = "/api/config-check"
+  to = "/.netlify/functions/config-check"
+  status = 200
+  force = true
+
 # /quote is the printed / QR-code permalink. Keep it on the production domain
 # by opening the on-site assessment intake — no second site, no external host.
 # 302 (not 301) so it can be repointed later without fighting browser caches.
