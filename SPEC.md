@@ -30,7 +30,7 @@ Every interactive target on the homepage, audited:
 | CTAs: Get Systemized / Functional / Visible Fast / Request Quote | `#contact` | ✅ | keep | ⬜ |
 | Schedule A Discovery Call | Calendly link | ✅ works | confirm it's the right event | 🟧 |
 | Project cards: View Project → | client sites | ✅ | keep | ⬜ |
-| **Assessment CTA** | — | ❌ **missing** | **add a button (hero + assessment teaser) → `#assessment`** so it's discoverable, not scroll-only | 🟦 |
+| **Assessment CTA** | `#assessment` | ✅ added | "Take The Free Assessment" button in hero + "Assessment" nav link | ⬜ |
 | Footer: Privacy Policy | `/privacy` | ✅ built + canonical | page live; `/privacy-policy` → 301 → `/privacy` | ⬜ |
 | Footer/consent: Terms | `/terms` | ✅ built + canonical | page live; `/terms-and-conditions` → 301 → `/terms` | ⬜ |
 | `/quote` | → `/#assessment` (302) | ✅ | keep | ⬜ |
@@ -83,7 +83,7 @@ This is the biggest piece and it's a **shared** job — some of it only you can 
 
 | Step | What | Owner |
 |---|---|---|
-| 4.1 | Consent capture on the site (checkbox, unchecked, STOP/HELP/rates + Privacy/Terms) | 🟦 done in assessment; will mirror on quote form |
+| 4.1 | Consent capture on the site (checkbox, unchecked, STOP/HELP/rates + Privacy/Terms) | ✅ done on BOTH the assessment and quote forms |
 | 4.2 | Build Netlify functions for Twilio: inbound **voice** (`twilio-voice`), **missed-call text-back** (`twilio-missed-call`), **voicemail** (`twilio-voicemail`), inbound **SMS** STOP/UNSUBSCRIBE/END/QUIT/CANCEL + HELP + START auto-replies (`twilio-sms`) — signature-verified, at `/api/twilio/*` | ✅ built + unit-tested 🟦 |
 | 4.3 | Twilio account: buy/confirm number, get Account SID + Auth Token | 🟧 |
 | 4.4 | **A2P 10DLC registration** in Twilio console: register Brand, then Campaign (use case = customer care/marketing), submit sample messages + the opt-in screenshot (our consent box) + Privacy/Terms URLs | 🟧 (carrier approval, days) |
