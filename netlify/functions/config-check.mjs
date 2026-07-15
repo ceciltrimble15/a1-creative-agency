@@ -15,6 +15,28 @@ export const handler = async (event) => {
   const airtableToken = env.AIRTABLE_API_KEY || env.AIRTABLE_TOKEN;
   const baseId = env.AIRTABLE_BASE_ID;
 
+  // Which variable is actually in use, and the token FORMAT (not its value).
+  // Airtable killed legacy "key..." API keys in 2024 — only "pat..." Personal
+  // Access Tokens work. Reveals format only; never the secret itself.
+  const tokenFormat = !present(airtableToken)
+    ? 'missing'
+    : airtableToken.startsWith('pat')
+      ? 'pat (Personal Access Token — correct)'
+      : airtableToken.startsWith('key')
+        ? 'legacy key (DEAD — Airtable disabled these; make a pat... token)'
+        : 'unrecognized format';
+  const airtableTokenDiag = {
+    sourceVar: present(env.AIRTABLE_API_KEY)
+      ? 'AIRTABLE_API_KEY'
+      : present(env.AIRTABLE_TOKEN)
+        ? 'AIRTABLE_TOKEN'
+        : 'none',
+    bothVarsSet: present(env.AIRTABLE_API_KEY) && present(env.AIRTABLE_TOKEN),
+    tokenFormat,
+    tokenLength: present(airtableToken) ? airtableToken.trim().length : 0,
+    hasSurroundingWhitespace: present(airtableToken) && airtableToken !== airtableToken.trim(),
+  };
+
   const vars = {
     AIRTABLE_API_KEY_or_TOKEN: present(airtableToken),
     AIRTABLE_BASE_ID: present(baseId),
@@ -55,6 +77,7 @@ export const handler = async (event) => {
     deployContext: env.CONTEXT || 'unknown', // 'production' | 'deploy-preview' | 'branch-deploy'
     branch: env.BRANCH || 'unknown',
     envVarsPresent: vars,
+    airtableToken: airtableTokenDiag,
     airtableLiveTest: airtable,
     note: 'Booleans and status codes only — no secret values are ever returned.',
   };
