@@ -38,6 +38,14 @@ function airtableConfig() {
   return { apiKey, baseId };
 }
 
+/* True when the Airtable token + base id are both present in this deploy
+   context. Lets the intake function return a clear "not configured yet"
+   message (instead of a generic failure) when a context — e.g. Deploy
+   Previews — is missing the env vars. Never exposes the values themselves. */
+export function hasAirtableConfig() {
+  return airtableConfig() !== null;
+}
+
 /* Low-level request wrapper. Returns { ok, status, data, error } and never
    throws — callers decide how to degrade. */
 async function airtableRequest(method, tablePath, { body, query } = {}) {

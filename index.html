@@ -618,7 +618,7 @@ footer { background:var(--navy-mid); border-top:1px solid var(--border-silver); 
           fetch('/api/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
             .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
             .then(function (res) {
-              if (!res.ok) throw new Error((res.d && res.d.error) || 'Submission failed');
+              if (!res.ok) { var e = new Error((res.d && res.d.error) || 'Submission failed'); e.fromServer = true; throw e; }
               var a = (res.d && res.d.assessment) || {};
               document.getElementById('rc-readiness').textContent = a.readiness || '—';
               document.getElementById('rc-score').textContent = (a.score != null ? a.score : '—') + (a.maxScore ? ' / ' + a.maxScore : '');
@@ -626,7 +626,7 @@ footer { background:var(--navy-mid); border-top:1px solid var(--border-silver); 
               form.style.display = 'none'; result.classList.add('show');
               result.scrollIntoView({ behavior: 'smooth', block: 'center' });
             })
-            .catch(function (err) { console.error('[A1] Assessment submit failed:', err); set('Something went wrong. Please call (513) 440-3329 or try again.', 'err'); btn.disabled = false; btn.textContent = label; });
+            .catch(function (err) { console.error('[A1] Assessment submit failed:', err); set((err && err.fromServer && err.message) ? err.message : 'Something went wrong. Please call (513) 440-3329 or try again.', 'err'); btn.disabled = false; btn.textContent = label; });
         });
       })();
     </script>

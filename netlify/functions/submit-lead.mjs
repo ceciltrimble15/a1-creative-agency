@@ -16,6 +16,7 @@ import {
   createAssessment,
   createTask,
   logAutomation,
+  hasAirtableConfig,
   LEAD_FIELDS,
 } from './_lib/airtable.mjs';
 import { notifyOps } from './_lib/notify.mjs';
@@ -48,6 +49,16 @@ async function handleSimpleLead(body) {
 
   if (!name || !phone || !email) {
     return json(400, { error: 'Name, phone, and email are required' });
+  }
+
+  if (!hasAirtableConfig()) {
+    console.error('Quote lead: Airtable env vars missing in this deploy context.');
+    return json(503, {
+      error:
+        "This form isn't fully connected yet (backend not configured for this environment). " +
+        'Please email operations@a1creativeagency.com and we will fix it right away.',
+      code: 'config_missing',
+    });
   }
 
   const notesParts = [];
@@ -140,6 +151,19 @@ async function handleAssessment(body, event) {
   if (missing.length) return json(400, { error: `Please complete: ${missing.join(', ')}.` });
   if (!EMAIL_RE.test(a.email)) return json(400, { error: 'Please enter a valid email address.' });
 
+  // Fail fast with a clear message if this deploy context has no Airtable
+  // credentials (the usual cause: env vars set for Production but not Deploy
+  // previews). Distinct from a real Airtable API error so it's self-diagnosing.
+  if (!hasAirtableConfig()) {
+    console.error('Assessment: Airtable env vars missing in this deploy context.');
+    return json(503, {
+      error:
+        "This form isn't fully connected yet (backend not configured for this environment). " +
+        'Please email operations@a1creativeagency.com and we will fix it right away.',
+      code: 'config_missing',
+    });
+  }
+
   // SMS opt-in only counts when a phone is present AND consent is checked.
   const hasPhone = a.phone.replace(/\D/g, '').length >= 7;
   const smsOptIn = hasPhone && a.smsConsent;
@@ -229,7 +253,12 @@ async function handleAssessment(body, event) {
       `FAILED to store assessment for ${a.name} (${a.businessName}). Lead: ${leadId || 'none'} (${leadOutcome}). Error: ${assessment.error}`,
       'error'
     );
-    return json(502, { error: 'We could not save your assessment. Please try again in a moment.' });
+    // Surface the Airtable reason (safe — no token/IDs) so a failed submission
+    // is diagnosable on-screen instead of a generic "something went wrong".
+    return json(502, {
+      error: `We couldn't save your assessment (reason: ${assessment.error || 'unknown'}). Please email operations@a1creativeagency.com and we'll take care of you.`,
+      code: 'save_failed',
+    });
   }
 
   // Step 6 — follow-up task + ops email (best-effort; neither blocks the record)
