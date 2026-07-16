@@ -47,8 +47,10 @@ export const handler = async (event) => {
 async function handleSimpleLead(body) {
   const { name, phone, email, service, date, message, client, source } = body;
 
-  if (!name || !phone || !email) {
-    return json(400, { error: 'Name, phone, and email are required' });
+  // Phone is OPTIONAL — the quote form marks it optional, and our SMS rule is
+  // that a phone is never required to become a lead. Require only name + email.
+  if (!name || !email) {
+    return json(400, { error: 'Name and email are required' });
   }
 
   if (!hasAirtableConfig()) {
@@ -68,12 +70,12 @@ async function handleSimpleLead(body) {
 
   const fields = {
     'Lead Name': name,
-    'Phone': phone,
     'Email ': email, // Airtable field name has a trailing space (verified in base)
     'lead_status': 'new',
     'Source': source || 'Website form ',
     'Client': client || 'A1 Creative Agency',
   };
+  if (phone) fields['Phone'] = phone; // optional
   if (notesParts.length > 0) fields['Notes'] = notesParts.join('\n');
   if (date) fields['date'] = date;
 
