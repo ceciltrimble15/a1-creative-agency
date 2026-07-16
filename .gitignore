@@ -5,3 +5,6 @@ dist/
 .env.*
 *.log
 .DS_Store
+
+# npm install during audits regenerates this; project has no runtime deps
+package-lock.json
