@@ -10,8 +10,10 @@ var CFG_LOG_TBL   = 'Agent Activity Log';  // Phase 2A log sink (distinct from V
 var CFG_ACOS_BASE = 'appbJeQpEUFRV1Dim';   // ACOS
 var CFG_ACOS_APPRV_TBL = 'tblcgxEvHsyNQujL1'; // 04 – CEO Approval Queue
 
-// Gmail labels
-var LBL_INTAKE     = 'A1C/Intake';
+// Gmail labels. INTAKE label is overridable via Script Property INTAKE_LABEL so a
+// standalone SHADOW project can run on 'A1C/Shadow' without touching the live Phase 1
+// project (which stays on 'A1C/Intake'). Defaults preserve Phase 1 behavior.
+var LBL_INTAKE     = prop_('INTAKE_LABEL', 'A1C/Intake');
 var LBL_PROCESSING = 'A1C/Processing';
 var LBL_CAPTURED   = 'A1C/Captured';
 
