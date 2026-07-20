@@ -19,7 +19,11 @@ the smallest direct architecture that satisfies "capture and reply **from**
 operations@a1creativeagency.com."
 
 ## Files
-- `a1-creative-email-spine.gs` — the whole spine (capture, send, escalate, triggers).
+- `a1-creative-email-spine.gs` — module manifest / orchestration header.
+- **Phase 2A supervised-intelligence layer** (modules + `tests/`) — classify, summarize,
+  draft, route Green/Yellow/Red, PII redaction, fail-closed send guards, sticky thread risk.
+  Not deployed. See `docs/phase2a/` (audit, migration, test results, deployment, security).
+  Nothing auto-sends; `AUTO_SEND_ENABLED` stays false in Phase 2A.
 
 ## Deploy (one time, ~10 min)
 1. Sign in to Google as **operations@a1creativeagency.com**.
