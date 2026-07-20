@@ -16,6 +16,7 @@ function evaluateSendGuards(record, cfg) {
   var f = record.fields || {};
   function blank(v) { return v === undefined || v === null || String(v).trim() === ''; }
 
+  if (cfg.shadowMode) return no_('SHADOW_MODE_LOCK');          // hard lock — never sends in shadow
   if (!cfg.manualSendEnabled) return no_('MANUAL_SEND_DISABLED');
   if (f[FLD.decision] !== 'Approve') return no_('NOT_APPROVED');
   if (f[FLD.agentStatus] !== 'Completed') return no_('AGENT_NOT_COMPLETED');
@@ -65,6 +66,7 @@ function sendApproved() {
 }
 
 function doSendOne_(r, cfg) {
+  if (cfg.shadowMode) throw new Error('SHADOW_MODE_LOCK: sending is physically disabled in the Shadow project');
   var f = r.fields;
   var finalCopy = String(f[FLD.finalCopy]).trim();
   var aiDraft = String(f[FLD.aiDraft] || '');

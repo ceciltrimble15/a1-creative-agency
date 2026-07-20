@@ -50,7 +50,7 @@ const E = [
 ];
 
 let pass=0, fail=0, corrected=0, sendsBlocked=0, piiOk=true; const rows=[];
-const cfgShadow = { manualSendEnabled:false, autoSendEnabled:false, ceoApproverEmail:'cecil.trimble15@gmail.com',
+const cfgShadow = { shadowMode:true, manualSendEnabled:false, autoSendEnabled:false, ceoApproverEmail:'cecil.trimble15@gmail.com',
   greenMinConfidence:95, yellowMinConfidence:75 };
 const FLD = S.FLD;
 
@@ -70,7 +70,7 @@ E.forEach(e => {
   const f={}; f[FLD.decision]='Approve'; f[FLD.agentStatus]='Completed'; f[FLD.finalCopy]='draft';
   f[FLD.gmailThreadId]='t'; f[FLD.decisionTier]=d.tier; f[FLD.approvedByEmail]='cecil.trimble15@gmail.com';
   const g = S.evaluateSendGuards({fields:f}, cfgShadow);
-  if (!g.allowed && g.reason==='MANUAL_SEND_DISABLED') sendsBlocked++;
+  if (!g.allowed && g.reason==='SHADOW_MODE_LOCK') sendsBlocked++;
   if (id===18 && (!masked.pii || masked.text.indexOf('123-45-6789')!==-1 || masked.text.indexOf('4111 1111 1111 1111')!==-1)) piiOk=false;
   const ok = okTier && okOwner && !g.allowed;
   ok?pass++:fail++;

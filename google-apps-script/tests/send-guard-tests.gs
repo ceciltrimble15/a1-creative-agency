@@ -17,6 +17,7 @@ function runSendGuardTests_() {
   T_check(41, 'Already sent cannot resend', evaluateSendGuards(g(setk(FLD.sentAt, '2026-07-20T00:00:00Z')), cfg).reason === 'ALREADY_SENT', null);
   T_check('41b', 'Manual send disabled blocks all', evaluateSendGuards(g(), T_cfg({ manualSendEnabled: false })).reason === 'MANUAL_SEND_DISABLED', null);
   T_check(42, 'AUTO_SEND default false', getConfig().autoSendEnabled === false, null);
+  T_check(43, 'SHADOW_MODE lock blocks send even if MANUAL_SEND on', evaluateSendGuards(g(), T_cfg({ shadowMode: true, manualSendEnabled: true })).reason === 'SHADOW_MODE_LOCK', null);
 
   function setk(k, v) { var o = {}; o[k] = v; return o; }
   function T_two(k1, v1, k2, v2) { var o = {}; o[k1] = v1; o[k2] = v2; return o; }

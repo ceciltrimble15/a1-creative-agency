@@ -47,6 +47,10 @@ function getConfig() {
     agentEnabled:      propBool_('AGENT_ENABLED', true),       // model analysis on/off
     manualSendEnabled: propBool_('MANUAL_SEND_ENABLED', true), // human-approved sending on/off
     autoSendEnabled:   propBool_('AUTO_SEND_ENABLED', false),  // MUST stay false in Phase 2A
+    // Hard shadow lock: when true the agent can think/draft/route/log but can NEVER send,
+    // regardless of any other switch. Set SHADOW_MODE=true in the Shadow project. Earned
+    // authority — a human removes this only after CEO graduation approval.
+    shadowMode:        propBool_('SHADOW_MODE', false),
 
     ceoApproverEmail: prop_('CEO_APPROVER_EMAIL', 'cecil.trimble15@gmail.com'),
 

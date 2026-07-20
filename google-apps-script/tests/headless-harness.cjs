@@ -195,6 +195,11 @@ check(41, 'Already-sent cannot resend', S.evaluateSendGuards(rec(mk({[F.decision
 PROPS = {}; const cfg42 = S.getConfig();
 check(42, 'AUTO_SEND_ENABLED default false', cfg42.autoSendEnabled === false, cfg42.autoSendEnabled);
 
+// 43 SHADOW_MODE hard lock — blocks send even if MANUAL_SEND is enabled and a CEO approves a Red
+check(43, 'SHADOW_MODE lock blocks send regardless of switches',
+  S.evaluateSendGuards(rec(mk({[F.decision]:'Approve',[F.agentStatus]:'Completed',[F.finalCopy]:'hi',[F.gmailThreadId]:'t',[F.decisionTier]:'Red',[F.approvedByEmail]:'cecil.trimble15@gmail.com'})),
+    baseCfg({ shadowMode: true, manualSendEnabled: true })).reason === 'SHADOW_MODE_LOCK', null);
+
 // helpers
 function setF(k, v) { const o = {}; o[k] = v; return o; }
 function mk(o) { return o; }
