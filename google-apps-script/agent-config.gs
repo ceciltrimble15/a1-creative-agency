@@ -6,7 +6,7 @@
 // ── Airtable resource IDs (stable) ───────────────────────────────────────
 var CFG_HUB_BASE  = 'appvfR20qp1dh5bT0';   // A1 Creative Agency Hub
 var CFG_INBOX_TBL = 'tblUFUnImwgHhHyqP';   // Inbox Queue
-var CFG_LOG_TBL   = 'Automation Logs';     // logging sink (by name; migration-documented)
+var CFG_LOG_TBL   = 'Agent Activity Log';  // Phase 2A log sink (distinct from Vercel 'Automation Logs')
 var CFG_ACOS_BASE = 'appbJeQpEUFRV1Dim';   // ACOS
 var CFG_ACOS_APPRV_TBL = 'tblcgxEvHsyNQujL1'; // 04 – CEO Approval Queue
 
