@@ -4,6 +4,16 @@ Built 2026-07-19. **A1 Creative email only.** Runs inside the existing
 Airtable structures and connects back to the existing A1 Colossal ACOS
 command layer. No second operating system was created.
 
+## Direct connection method (no Make.com, no new platforms)
+
+Mailbox **operations@a1creativeagency.com** (Google Workspace/Gmail) is
+connected directly with **Google Apps Script** bound to that account —
+native to the Workspace you already own. It reads Gmail, writes to Airtable
+over the existing Airtable REST connection, and replies **in-thread from
+operations@**. See [`google-apps-script/`](google-apps-script/). The Vercel
+serverless backend stays as-is for the website/Twilio and is not part of the
+email spine (it cannot act as the Gmail mailbox without new Google infra).
+
 ## Where it lives
 
 | Layer | Base | ID |
@@ -62,6 +72,6 @@ Sent At = **blank (not sent)**.
 
 ## Owner actions to go fully live
 
-1. Confirm the exact A1 Creative outbound mailbox address (field option is named for `a1creativeagency.com`).
-2. Share the interface with Krisha (operator) and confirm Cecil's edit access on CEO Review.
-3. Connect the inbound email source (mailbox → Inbox Queue) via the existing Make.com/automation layer when Phase 2 automation is approved.
+1. Deploy the Apps Script under operations@a1creativeagency.com and run `installTriggers` (see [`google-apps-script/README.md`](google-apps-script/README.md)).
+2. Add the `AIRTABLE_TOKEN` script property and apply the `A1C/Intake` Gmail label to test messages.
+3. Share the interface with Krisha (operator) and confirm Cecil's edit access on CEO Review.
