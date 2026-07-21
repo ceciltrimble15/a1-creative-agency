@@ -15,9 +15,15 @@
   /* ============================================================
      A/1 Creative — "Get Plugged In" homepage prototype
      Brand tokens sourced verbatim from /brand/tokens.css.
-     Deliberate single dark "stage" world (the brand identity is a
-     powered-on console). Self-contained: no external requests,
-     no webfonts fetched, no forms, no integrations.
+
+     LOGO STATUS: TEMPORARY PLACEHOLDER.
+     The mark below is a clearly-labeled schematic stand-in — NOT the
+     official A/1 logo. The 6-step assembly is a concept demo only and
+     is NOT finalized. Replace with the official A/1 artwork (SVG
+     preferred) and rebuild the animation from that exact file.
+
+     Deliberate single dark "stage" world. Self-contained: no external
+     requests, no webfonts fetched, no forms, no integrations.
      ============================================================ */
   :root{
     --a1-black:#04070d; --a1-navy:#0a1626; --a1-coal:#0b1322;
@@ -52,7 +58,7 @@
   .bloom.gold{right:-14vw;bottom:-6vw;background:radial-gradient(circle,#dfb346,transparent 62%);opacity:.14}
 
   .wrap{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:clamp(20px,3.2vh,40px);
+    align-items:center;justify-content:center;gap:clamp(18px,3vh,36px);
     padding:calc(env(safe-area-inset-top) + 40px) var(--edge) calc(env(safe-area-inset-bottom) + 40px);
     text-align:center}
 
@@ -64,8 +70,18 @@
   .status .dot{width:7px;height:7px;border-radius:50%;background:#38507a}
   .status .label b{color:var(--a1-blue-soft);font-weight:600}
 
+  /* ---- temporary placeholder logo ---- */
+  .logo-slot{display:flex;flex-direction:column;align-items:center;gap:10px}
   .logo{width:min(38vh,240px);height:auto;display:block;filter:drop-shadow(0 18px 40px rgba(0,0,0,.55))}
   @media (max-width:560px){ .logo{width:min(30vh,190px)} }
+  .logo-note{margin:0;max-width:36ch;font-size:clamp(11px,1.6vw,12.5px);line-height:1.4;
+    letter-spacing:.02em;color:var(--a1-silver-3)}
+  .logo-note b{color:var(--a1-silver-2);font-weight:600}
+  .ph-frame{stroke:#3b465c;stroke-width:2;stroke-dasharray:10 9;fill:none;opacity:.7}
+  .ph-tag{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:.34em;fill:#7f8aa1}
+  .ph-sub{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:.16em;fill:#54607a}
+  .ph-letter{font-family:var(--font-display);font-weight:800;font-size:210px;fill:#d3d9e6}
+  .ph-slash{fill:#8f9ab0}
 
   h1{margin:0;font-family:var(--font-display);font-weight:800;
     font-size:clamp(2.6rem,8.4vw,5.3rem);line-height:.98;letter-spacing:-.035em;
@@ -107,7 +123,11 @@
   .replay:hover{color:#fff;border-color:rgba(156,198,255,.5)}
   .replay:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:2px}
 
-  /* ---- assembly motion (static powered state is default / no-JS safe) ---- */
+  /* ---- assembly motion (CONCEPT DEMO on placeholder — not final) ----
+     Static "powered" state is the default (no-JS safe); .is-animating
+     replays the sequence via animation-fill-mode:both. Element class
+     hooks (lg-*) are stack-agnostic so they carry over to the official
+     artwork unchanged once it lands. */
   .lg-A,.lg-slash,.lg-1,.lg-base{transform-box:fill-box;transform-origin:center}
   .lg-bulb{stroke-dasharray:1;stroke-dashoffset:0}   /* pathLength=1 */
   .lg-traces{opacity:1}
@@ -139,7 +159,6 @@
   @keyframes rise{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
   @keyframes dotBoot{0%{background:#38507a;box-shadow:0 0 0 0 rgba(42,130,255,0)}100%{background:#2a82ff;box-shadow:0 0 12px 2px rgba(42,130,255,.7)}}
 
-  /* idle "breathing" on the powered halo */
   .lg-halo{animation:breathe 5.5s ease-in-out 2.8s infinite}
   @keyframes breathe{0%,100%{opacity:.16}50%{opacity:.32}}
 
@@ -162,94 +181,61 @@
     <p class="status reveal r1"><span class="dot"></span>
       <span class="label">System status:&nbsp;<b>Online</b></span></p>
 
-    <!-- ===================== ANIMATED A/1 LOGO ===================== -->
-    <svg class="logo" viewBox="120 60 784 812" role="img" aria-label="A/1 Creative Agency">
-      <defs>
-        <radialGradient id="g-glass" cx="50%" cy="42%" r="62%">
-          <stop offset="0%" stop-color="#1d2840"/><stop offset="55%" stop-color="#0b1322"/><stop offset="100%" stop-color="#04070d"/>
-        </radialGradient>
-        <radialGradient id="g-power" cx="50%" cy="44%" r="55%">
-          <stop offset="0%" stop-color="#9cc6ff"/><stop offset="45%" stop-color="#2a82ff"/><stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="g-rim" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#f3f6fb"/><stop offset="22%" stop-color="#8d97ac"/><stop offset="50%" stop-color="#e2e7ef"/><stop offset="78%" stop-color="#5c6478"/><stop offset="100%" stop-color="#c5cbd8"/>
-        </linearGradient>
-        <linearGradient id="g-chrome" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#f6f8fc"/><stop offset="14%" stop-color="#a8b0c2"/><stop offset="32%" stop-color="#e7ecf3"/><stop offset="54%" stop-color="#7d8597"/><stop offset="74%" stop-color="#dfe4ee"/><stop offset="100%" stop-color="#525a6c"/>
-        </linearGradient>
-        <linearGradient id="g-blue" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#9cc6ff"/><stop offset="50%" stop-color="#2a82ff"/><stop offset="100%" stop-color="#0b3f9d"/>
-        </linearGradient>
-        <linearGradient id="g-gold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffe7a8"/><stop offset="50%" stop-color="#dfb346"/><stop offset="100%" stop-color="#876514"/>
-        </linearGradient>
-        <linearGradient id="g-base" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3b4253"/><stop offset="30%" stop-color="#181b24"/><stop offset="60%" stop-color="#2a2f3c"/><stop offset="100%" stop-color="#070912"/>
-        </linearGradient>
-        <linearGradient id="g-ring" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#5a6275"/><stop offset="50%" stop-color="#cdd3df"/><stop offset="100%" stop-color="#1a1d26"/>
-        </linearGradient>
-        <linearGradient id="g-blueTint" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#2a82ff" stop-opacity="0.22"/><stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="g-goldTint" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#dfb346" stop-opacity="0"/><stop offset="100%" stop-color="#dfb346" stop-opacity="0.22"/>
-        </linearGradient>
-        <filter id="g-glow" x="-25%" y="-25%" width="150%" height="150%">
-          <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="g-spark" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
-        <clipPath id="g-bulbClip">
-          <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"/>
-        </clipPath>
-      </defs>
+    <!-- =====================================================================
+         TEMPORARY PLACEHOLDER LOGO — NOT THE OFFICIAL A/1 MARK.
+         Schematic stand-in so layout + motion timing can proceed. Replace
+         the entire <svg> below with the official A/1 artwork when provided,
+         reusing the lg-* class hooks to keep the assembly sequence.
+         ===================================================================== -->
+    <div class="logo-slot">
+      <svg class="logo" viewBox="120 60 784 812" role="img"
+           aria-label="Temporary placeholder for the A/1 Creative logo (official artwork pending)">
+        <defs>
+          <radialGradient id="g-power" cx="50%" cy="42%" r="55%">
+            <stop offset="0%" stop-color="#9cc6ff"/><stop offset="45%" stop-color="#2a82ff"/><stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
 
-      <ellipse id="stageGlow" cx="512" cy="400" rx="300" ry="330" fill="url(#g-power)"/>
-      <ellipse class="lg-halo" cx="512" cy="400" rx="240" ry="270" fill="url(#g-power)" opacity=".16"/>
+        <!-- dashed placeholder frame + label -->
+        <rect class="ph-frame" x="238" y="140" width="548" height="700" rx="26"/>
+        <text class="ph-tag" x="512" y="180" text-anchor="middle">PLACEHOLDER</text>
+        <text class="ph-sub" x="512" y="815" text-anchor="middle">OFFICIAL A/1 LOGO PENDING</text>
 
-      <g class="lg-glass">
-        <path d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z" fill="url(#g-glass)"/>
-        <g clip-path="url(#g-bulbClip)">
-          <rect x="180" y="80" width="332" height="620" fill="url(#g-blueTint)"/>
-          <rect x="512" y="80" width="332" height="620" fill="url(#g-goldTint)"/>
-        </g>
-      </g>
-      <path class="lg-bulb" pathLength="1" fill="none" stroke="url(#g-rim)" stroke-width="6"
-        d="M 422 700 C 250 680, 180 530, 180 400 C 180 230, 300 80, 512 80 C 724 80, 844 230, 844 400 C 844 530, 774 680, 602 700 Z"/>
+        <!-- power-on glow -->
+        <ellipse id="stageGlow" cx="512" cy="430" rx="250" ry="250" fill="url(#g-power)"/>
+        <ellipse class="lg-halo" cx="512" cy="430" rx="200" ry="200" fill="url(#g-power)" opacity=".16"/>
 
-      <g class="lg-traces" clip-path="url(#g-bulbClip)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <g stroke="url(#g-blue)" stroke-width="3.2" filter="url(#g-glow)">
-          <path d="M 250 250 L 312 250 L 312 312"/><path d="M 224 420 L 290 420 L 290 484"/><path d="M 268 596 L 332 596"/>
-        </g>
-        <g fill="#9cc6ff" filter="url(#g-spark)">
-          <circle cx="250" cy="250" r="6"/><circle cx="312" cy="312" r="6"/><circle cx="224" cy="420" r="6"/><circle cx="290" cy="484" r="6"/><circle cx="268" cy="596" r="6"/><circle cx="332" cy="596" r="6"/>
-        </g>
-        <g stroke="url(#g-gold)" stroke-width="3.2" filter="url(#g-glow)">
-          <path d="M 774 250 L 712 250 L 712 312"/><path d="M 800 420 L 734 420 L 734 484"/><path d="M 756 596 L 692 596"/>
-        </g>
-        <g fill="#ffe7a8" filter="url(#g-spark)">
-          <circle cx="774" cy="250" r="6"/><circle cx="712" cy="312" r="6"/><circle cx="800" cy="420" r="6"/><circle cx="734" cy="484" r="6"/><circle cx="756" cy="596" r="6"/><circle cx="692" cy="596" r="6"/>
-        </g>
-      </g>
+        <!-- schematic bulb envelope (draws in) -->
+        <g class="lg-glass"><circle cx="512" cy="430" r="196" fill="#0c1524" opacity=".6"/></g>
+        <circle class="lg-bulb" cx="512" cy="430" r="196" pathLength="1" fill="none" stroke="#7f8aa1" stroke-width="5"/>
 
-      <g class="lg-letters">
-        <g class="lg-A" filter="url(#g-glow)">
-          <path fill="url(#g-chrome)" fill-rule="evenodd" d="M 345 570 L 425 310 L 505 570 L 470 570 L 460 540 L 390 540 L 380 570 Z M 405 490 L 425 360 L 445 490 Z"/>
-          <path fill="#e7ecf3" opacity=".85" d="M 397 504 L 453 504 L 449 520 L 401 520 Z"/>
+        <!-- schematic accent nodes (power on) -->
+        <g class="lg-traces" fill="none" stroke-width="4" stroke-linecap="round">
+          <path d="M 392 350 L 392 386 L 428 386" stroke="#2a82ff"/>
+          <path d="M 632 350 L 632 386 L 596 386" stroke="#dfb346"/>
+          <circle cx="392" cy="350" r="6" fill="#9cc6ff" stroke="none"/>
+          <circle cx="632" cy="350" r="6" fill="#ffe7a8" stroke="none"/>
         </g>
-        <path class="lg-slash" filter="url(#g-glow)" fill="url(#g-chrome)" d="M 540 310 L 526 310 L 498 570 L 512 570 Z"/>
-        <path class="lg-1" filter="url(#g-glow)" fill="url(#g-chrome)" d="M 560 310 L 635 310 L 635 540 L 670 540 L 670 570 L 555 570 L 555 540 L 600 540 L 600 360 L 560 310 Z"/>
-      </g>
 
-      <g class="lg-base">
-        <path d="M 410 698 L 614 698 L 624 730 L 400 730 Z" fill="url(#g-base)" stroke="#0a0c12" stroke-width="1"/>
-        <rect x="402" y="734" width="220" height="20" rx="4" fill="url(#g-base)" stroke="url(#g-ring)" stroke-width="1"/>
-        <rect x="402" y="758" width="220" height="20" rx="4" fill="url(#g-base)" stroke="url(#g-ring)" stroke-width="1"/>
-        <rect x="402" y="782" width="220" height="20" rx="4" fill="url(#g-base)" stroke="url(#g-ring)" stroke-width="1"/>
-        <path d="M 410 806 L 614 806 L 596 850 L 428 850 Z" fill="url(#g-base)" stroke="#0a0c12" stroke-width="1"/>
-        <ellipse cx="512" cy="858" rx="60" ry="14" fill="#050609"/>
-      </g>
-    </svg>
+        <!-- placeholder A / 1 glyphs (assemble in order; plain type, not the real mark) -->
+        <g class="lg-letters">
+          <text class="ph-letter lg-A"     x="430" y="500" text-anchor="middle">A</text>
+          <text class="ph-letter ph-slash lg-slash" x="512" y="500" text-anchor="middle">/</text>
+          <text class="ph-letter lg-1"     x="596" y="500" text-anchor="middle">1</text>
+        </g>
+
+        <!-- schematic screw base (screws into place) -->
+        <g class="lg-base" fill="none" stroke="#6b7488" stroke-width="4">
+          <path d="M 452 626 L 572 626 L 560 660 L 464 660 Z"/>
+          <rect x="456" y="666" width="112" height="16" rx="4"/>
+          <rect x="456" y="688" width="112" height="16" rx="4"/>
+          <rect x="456" y="710" width="112" height="16" rx="4"/>
+          <path d="M 470 732 L 554 732 L 540 762 L 484 762 Z"/>
+        </g>
+      </svg>
+      <p class="logo-note"><b>Temporary placeholder.</b> The final mark &amp; animation
+        will be built from the official A/1 logo artwork — not this stand-in.</p>
+    </div>
 
     <h1 class="reveal r2">Get <span class="glow-word">Plugged&nbsp;In</span></h1>
     <p class="lede reveal r2">We build the infrastructure that powers your business.</p>
@@ -265,7 +251,7 @@
     </div>
   </main>
 
-  <button class="replay" type="button" aria-label="Replay the logo build animation">&#8635; Replay build</button>
+  <button class="replay" type="button" aria-label="Replay the placeholder build animation">&#8635; Replay build</button>
 
 <script>
   (function(){
