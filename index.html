@@ -11,19 +11,24 @@
 <meta property="og:title" content="A/1 Creative — Get Plugged In" />
 <meta property="og:description" content="We build the infrastructure that powers your business." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304070d'/%3E%3Ctext x='16' y='22' font-family='system-ui,Arial' font-size='15' font-weight='800' text-anchor='middle' fill='%232a82ff'%3EA%2F1%3C/text%3E%3C/svg%3E" />
+<link rel="preload" as="image" href="brand/a1-logo-official.png" fetchpriority="high" />
 <style>
   /* ============================================================
      A/1 Creative — "Get Plugged In" homepage prototype
      Brand tokens sourced verbatim from /brand/tokens.css.
 
-     LOGO STATUS: TEMPORARY PLACEHOLDER.
-     The mark below is a clearly-labeled schematic stand-in — NOT the
-     official A/1 logo. The 6-step assembly is a concept demo only and
-     is NOT finalized. Replace with the official A/1 artwork (SVG
-     preferred) and rebuild the animation from that exact file.
+     LOGO STATUS: OFFICIAL ARTWORK.
+     The mark is the exact official A/1 Creative logo
+     (brand/a1-logo-official.png, 1024x1024, transparent). The 6-step
+     assembly is built ENTIRELY from that one file: each step is the
+     same PNG revealed through a CSS clip-path window (a masked region),
+     moved/rotated/faded as a rigid unit. Nothing is redrawn, traced,
+     replaced, or reinterpreted. The final resting state is a single,
+     unclipped copy of the exact PNG (.lg-final) — pixel-for-pixel the
+     official mark. See the <picture>/<img> stack in <body>.
 
-     Deliberate single dark "stage" world. Self-contained: no external
-     requests, no webfonts fetched, no forms, no integrations.
+     Deliberate single dark "stage" world. Self-contained: no webfonts,
+     no forms, no integrations; the only asset is the local logo file.
      ============================================================ */
   :root{
     --a1-black:#04070d; --a1-navy:#0a1626; --a1-coal:#0b1322;
@@ -70,18 +75,32 @@
   .status .dot{width:7px;height:7px;border-radius:50%;background:#38507a}
   .status .label b{color:var(--a1-blue-soft);font-weight:600}
 
-  /* ---- temporary placeholder logo ---- */
+  /* ---- official logo (masked-region assembly of ONE PNG) ---- */
   .logo-slot{display:flex;flex-direction:column;align-items:center;gap:10px}
-  .logo{width:min(38vh,240px);height:auto;display:block;filter:drop-shadow(0 18px 40px rgba(0,0,0,.55))}
-  @media (max-width:560px){ .logo{width:min(30vh,190px)} }
-  .logo-note{margin:0;max-width:36ch;font-size:clamp(11px,1.6vw,12.5px);line-height:1.4;
+  .logo{position:relative;width:min(46vh,300px);aspect-ratio:1/1;display:block;
+    filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
+  @media (max-width:560px){ .logo{width:min(34vh,220px)} }
+  /* every layer is the SAME official file, perfectly registered */
+  .logo .lyr{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    display:block;pointer-events:none;-webkit-user-select:none;user-select:none}
+  /* clip windows over the 1024x1024 artwork (percent of the box: top right bottom left) */
+  .lg-A     {clip-path:inset(20.3% 48.4% 55.9% 33.2%)}
+  .lg-slash {clip-path:inset(20.0% 44.7% 55.6% 48.6%)}
+  .lg-1     {clip-path:inset(20.3% 35.4% 55.9% 52.2%)}
+  .lg-globe {clip-path:inset(5.4% 22.9% 38.3% 22.0%)}
+  .lg-socket{clip-path:inset(59.6% 38.5% 29.7% 38.6%);transform-origin:50% 65%}
+  .lg-plate {clip-path:inset(70.1% 16.8% 16.2% 16.4%)}
+  /* power-on glow — a separate overlay; never touches the artwork pixels */
+  .logo .glow{position:absolute;left:50%;top:33%;width:70%;height:70%;
+    transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(156,198,255,.5),rgba(42,130,255,.16) 46%,transparent 70%);
+    mix-blend-mode:screen;opacity:.13}
+  /* RESTING STATE (default / no-JS / reduced-motion) = the exact official PNG */
+  .lg-final{opacity:1}
+  .lg-A,.lg-slash,.lg-1,.lg-globe,.lg-socket,.lg-plate{opacity:0}
+  .logo-note{margin:0;max-width:38ch;font-size:clamp(11px,1.6vw,12.5px);line-height:1.4;
     letter-spacing:.02em;color:var(--a1-silver-3)}
   .logo-note b{color:var(--a1-silver-2);font-weight:600}
-  .ph-frame{stroke:#3b465c;stroke-width:2;stroke-dasharray:10 9;fill:none;opacity:.7}
-  .ph-tag{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:.34em;fill:#7f8aa1}
-  .ph-sub{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:.16em;fill:#54607a}
-  .ph-letter{font-family:var(--font-display);font-weight:800;font-size:210px;fill:#d3d9e6}
-  .ph-slash{fill:#8f9ab0}
 
   h1{margin:0;font-family:var(--font-display);font-weight:800;
     font-size:clamp(2.6rem,8.4vw,5.3rem);line-height:.98;letter-spacing:-.035em;
@@ -123,51 +142,51 @@
   .replay:hover{color:#fff;border-color:rgba(156,198,255,.5)}
   .replay:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:2px}
 
-  /* ---- assembly motion (CONCEPT DEMO on placeholder — not final) ----
-     Static "powered" state is the default (no-JS safe); .is-animating
-     replays the sequence via animation-fill-mode:both. Element class
-     hooks (lg-*) are stack-agnostic so they carry over to the official
-     artwork unchanged once it lands. */
-  .lg-A,.lg-slash,.lg-1,.lg-base{transform-box:fill-box;transform-origin:center}
-  .lg-bulb{stroke-dasharray:1;stroke-dashoffset:0}   /* pathLength=1 */
-  .lg-traces{opacity:1}
-  #stageGlow{opacity:.22}
-
-  .is-animating .lg-A     {animation:lockIn .5s cubic-bezier(.2,.8,.2,1) .10s both}
-  .is-animating .lg-slash {animation:lockIn .48s cubic-bezier(.2,.8,.2,1) .38s both}
-  .is-animating .lg-1     {animation:lockIn .48s cubic-bezier(.2,.8,.2,1) .62s both}
-  .is-animating .lg-bulb  {animation:drawBulb .72s ease-in-out .90s both}
-  .is-animating .lg-glass {animation:fadeIn .6s ease .95s both}
-  .is-animating .lg-base  {animation:screwIn .74s cubic-bezier(.34,1.4,.5,1) 1.34s both}
-  .is-animating .lg-traces{animation:traceOn .7s ease-out 1.92s both}
-  .is-animating #stageGlow{animation:powerPulse 1s ease-out 1.86s both}
-  .is-animating .lg-letters{animation:powerBright 1.1s ease-out 1.92s both}
-  .is-animating .status .dot{animation:dotBoot .5s ease 1.9s both}
+  /* ---- assembly motion — each step reveals a masked region of the ONE
+     official PNG, moving/rotating/fading the clipped slice as a rigid
+     unit so it always lands registered with .lg-final. Static "powered"
+     state is the default (no-JS safe); .is-animating replays the
+     6-step sequence via animation-fill-mode:both.
+       1 A  2 /  3 1  4 bulb/globe  5 base screws in  6 full PNG + power-on
+  */
+  .is-animating .lg-A     {animation:lockIn .52s cubic-bezier(.2,.8,.2,1) .15s both}
+  .is-animating .lg-slash {animation:lockIn .46s cubic-bezier(.2,.8,.2,1) .48s both}
+  .is-animating .lg-1     {animation:lockIn .48s cubic-bezier(.2,.8,.2,1) .74s both}
+  .is-animating .lg-globe {animation:bulbIn .70s ease-out 1.02s both}
+  .is-animating .lg-socket{animation:screwIn .80s cubic-bezier(.34,1.35,.5,1) 1.40s both}
+  .is-animating .lg-plate {animation:plateIn .55s cubic-bezier(.2,.8,.2,1) 1.98s both}
+  .is-animating .lg-final {animation:finalOn 1.05s ease 2.02s both}
+  .is-animating .glow     {animation:powerPulse 1.15s ease-out 1.98s both}
+  .is-animating .status .dot{animation:dotBoot .5s ease 2.15s both}
   .is-animating .reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
-  .is-animating .r1{animation-delay:2.05s}
-  .is-animating .r2{animation-delay:2.18s}
-  .is-animating .r3{animation-delay:2.30s}
-  .is-animating .r4{animation-delay:2.42s}
+  .is-animating .r1{animation-delay:2.30s}
+  .is-animating .r2{animation-delay:2.44s}
+  .is-animating .r3{animation-delay:2.56s}
+  .is-animating .r4{animation-delay:2.68s}
 
-  @keyframes lockIn{0%{opacity:0;transform:translateY(18px) scale(.94);filter:blur(3px)}60%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
-  @keyframes drawBulb{0%{stroke-dashoffset:1;opacity:.25}100%{stroke-dashoffset:0;opacity:1}}
-  @keyframes screwIn{0%{opacity:0;transform:rotate(-70deg) scale(.5)}65%{opacity:1}84%{transform:rotate(7deg) scale(1.03)}100%{opacity:1;transform:none}}
-  @keyframes traceOn{0%{opacity:0}100%{opacity:1}}
-  @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
-  @keyframes powerPulse{0%{opacity:0}42%{opacity:.95}100%{opacity:.22}}
-  @keyframes powerBright{0%{filter:none}42%{filter:drop-shadow(0 0 10px rgba(156,198,255,.85)) drop-shadow(0 0 22px rgba(42,130,255,.6))}100%{filter:drop-shadow(0 0 3px rgba(156,198,255,.25))}}
+  @keyframes lockIn{0%{opacity:0;transform:translateY(20px) scale(.94);filter:blur(3px)}55%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
+  @keyframes bulbIn{0%{opacity:0;transform:scale(.9);filter:blur(4px)}60%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
+  @keyframes screwIn{0%{opacity:0;transform:rotate(-46deg) scale(.5)}55%{opacity:1}82%{transform:rotate(7deg) scale(1.03)}100%{opacity:1;transform:none}}
+  @keyframes plateIn{0%{opacity:0;transform:translateY(16px) scale(.97)}100%{opacity:1;transform:none}}
+  @keyframes finalOn{0%{opacity:0}100%{opacity:1}}
+  @keyframes powerPulse{0%{opacity:.13}44%{opacity:.9}100%{opacity:.15}}
   @keyframes rise{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
   @keyframes dotBoot{0%{background:#38507a;box-shadow:0 0 0 0 rgba(42,130,255,0)}100%{background:#2a82ff;box-shadow:0 0 12px 2px rgba(42,130,255,.7)}}
 
-  .lg-halo{animation:breathe 5.5s ease-in-out 2.8s infinite}
-  @keyframes breathe{0%,100%{opacity:.16}50%{opacity:.32}}
+  /* gentle idle "powered" breathe once assembled */
+  .is-animating .glow{}
+  .glow{animation:breathe 5.5s ease-in-out 3.4s infinite}
+  @keyframes breathe{0%,100%{opacity:.11}50%{opacity:.2}}
 
   @media (prefers-reduced-motion:reduce){
-    .is-animating .lg-A,.is-animating .lg-slash,.is-animating .lg-1,.is-animating .lg-bulb,
-    .is-animating .lg-glass,.is-animating .lg-base,.is-animating .lg-traces,
-    .is-animating #stageGlow,.is-animating .lg-letters,.is-animating .lg-halo,
+    .is-animating .lg-A,.is-animating .lg-slash,.is-animating .lg-1,.is-animating .lg-globe,
+    .is-animating .lg-socket,.is-animating .lg-plate,.is-animating .lg-final,
+    .is-animating .glow,.glow,
     .is-animating .status .dot,.is-animating .reveal{animation:none !important}
-    #stageGlow{opacity:.24}
+    /* resting state: exact official PNG, steady glow, no motion */
+    .lg-final{opacity:1}
+    .lg-A,.lg-slash,.lg-1,.lg-globe,.lg-socket,.lg-plate{opacity:0}
+    .glow{opacity:.13}
     .reveal{opacity:1;transform:none}
     .status .dot{background:#2a82ff;box-shadow:0 0 10px 1px rgba(42,130,255,.6)}
     .replay{display:none}
@@ -182,59 +201,30 @@
       <span class="label">System status:&nbsp;<b>Online</b></span></p>
 
     <!-- =====================================================================
-         TEMPORARY PLACEHOLDER LOGO — NOT THE OFFICIAL A/1 MARK.
-         Schematic stand-in so layout + motion timing can proceed. Replace
-         the entire <svg> below with the official A/1 artwork when provided,
-         reusing the lg-* class hooks to keep the assembly sequence.
+         OFFICIAL A/1 CREATIVE LOGO — exact artwork, animated by masking.
+         Seven <img> layers ALL point at the same file
+         (brand/a1-logo-official.png). Six are clipped to a region (A, /,
+         1, bulb, socket, nameplate) and reveal in sequence; the seventh
+         (.lg-final) is the unclipped, unaltered PNG that forms the final
+         resting state. No redraw, no trace, no substitution.
          ===================================================================== -->
     <div class="logo-slot">
-      <svg class="logo" viewBox="120 60 784 812" role="img"
-           aria-label="Temporary placeholder for the A/1 Creative logo (official artwork pending)">
-        <defs>
-          <radialGradient id="g-power" cx="50%" cy="42%" r="55%">
-            <stop offset="0%" stop-color="#9cc6ff"/><stop offset="45%" stop-color="#2a82ff"/><stop offset="100%" stop-color="#2a82ff" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-
-        <!-- dashed placeholder frame + label -->
-        <rect class="ph-frame" x="238" y="140" width="548" height="700" rx="26"/>
-        <text class="ph-tag" x="512" y="180" text-anchor="middle">PLACEHOLDER</text>
-        <text class="ph-sub" x="512" y="815" text-anchor="middle">OFFICIAL A/1 LOGO PENDING</text>
-
-        <!-- power-on glow -->
-        <ellipse id="stageGlow" cx="512" cy="430" rx="250" ry="250" fill="url(#g-power)"/>
-        <ellipse class="lg-halo" cx="512" cy="430" rx="200" ry="200" fill="url(#g-power)" opacity=".16"/>
-
-        <!-- schematic bulb envelope (draws in) -->
-        <g class="lg-glass"><circle cx="512" cy="430" r="196" fill="#0c1524" opacity=".6"/></g>
-        <circle class="lg-bulb" cx="512" cy="430" r="196" pathLength="1" fill="none" stroke="#7f8aa1" stroke-width="5"/>
-
-        <!-- schematic accent nodes (power on) -->
-        <g class="lg-traces" fill="none" stroke-width="4" stroke-linecap="round">
-          <path d="M 392 350 L 392 386 L 428 386" stroke="#2a82ff"/>
-          <path d="M 632 350 L 632 386 L 596 386" stroke="#dfb346"/>
-          <circle cx="392" cy="350" r="6" fill="#9cc6ff" stroke="none"/>
-          <circle cx="632" cy="350" r="6" fill="#ffe7a8" stroke="none"/>
-        </g>
-
-        <!-- placeholder A / 1 glyphs (assemble in order; plain type, not the real mark) -->
-        <g class="lg-letters">
-          <text class="ph-letter lg-A"     x="430" y="500" text-anchor="middle">A</text>
-          <text class="ph-letter ph-slash lg-slash" x="512" y="500" text-anchor="middle">/</text>
-          <text class="ph-letter lg-1"     x="596" y="500" text-anchor="middle">1</text>
-        </g>
-
-        <!-- schematic screw base (screws into place) -->
-        <g class="lg-base" fill="none" stroke="#6b7488" stroke-width="4">
-          <path d="M 452 626 L 572 626 L 560 660 L 464 660 Z"/>
-          <rect x="456" y="666" width="112" height="16" rx="4"/>
-          <rect x="456" y="688" width="112" height="16" rx="4"/>
-          <rect x="456" y="710" width="112" height="16" rx="4"/>
-          <path d="M 470 732 L 554 732 L 540 762 L 484 762 Z"/>
-        </g>
-      </svg>
-      <p class="logo-note"><b>Temporary placeholder.</b> The final mark &amp; animation
-        will be built from the official A/1 logo artwork — not this stand-in.</p>
+      <div class="logo" role="img" aria-label="A/1 Creative Agency logo">
+        <!-- 1-3: A, slash, 1  |  4: bulb/globe  |  5: socket  |  post: nameplate -->
+        <img class="lyr lg-globe"  src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
+        <img class="lyr lg-A"      src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
+        <img class="lyr lg-slash"  src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
+        <img class="lyr lg-1"      src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
+        <img class="lyr lg-socket" src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
+        <img class="lyr lg-plate"  src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
+        <!-- 6: exact official PNG, unclipped — the true resting state -->
+        <img class="lyr lg-final"  src="brand/a1-logo-official.png"
+             alt="A/1 Creative Agency — lightbulb mark with A/1 and CREATIVE AGENCY nameplate"
+             fetchpriority="high" />
+        <span class="glow" aria-hidden="true"></span>
+      </div>
+      <p class="logo-note"><b>Official A/1 Creative mark.</b> The build sequence is the exact
+        logo revealed region by region — the finished state is the unaltered artwork.</p>
     </div>
 
     <h1 class="reveal r2">Get <span class="glow-word">Plugged&nbsp;In</span></h1>
@@ -251,7 +241,7 @@
     </div>
   </main>
 
-  <button class="replay" type="button" aria-label="Replay the placeholder build animation">&#8635; Replay build</button>
+  <button class="replay" type="button" aria-label="Replay the logo build animation">&#8635; Replay build</button>
 
 <script>
   (function(){
