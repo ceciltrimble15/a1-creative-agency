@@ -194,6 +194,100 @@
     .kicker .dot{background:#2a82ff;box-shadow:0 0 10px 1px rgba(42,130,255,.6)}
     .replay{display:none}
   }
+
+  /* ============================================================
+     HOMEPAGE SECTIONS (below the locked hero).
+     Additive only — same dark navy / electric-blue / silver /
+     restrained-gold system, reusing the hero's tokens, fonts,
+     and .btn styles. Mobile-first; restrained motion (hover only).
+     ============================================================ */
+  .sec{position:relative;z-index:1;padding:clamp(52px,8.5vw,100px) var(--edge);
+    border-top:1px solid rgba(120,150,200,.09)}
+  .sec-in{max-width:1120px;margin:0 auto}
+  .sec-alt{background:linear-gradient(180deg,rgba(9,16,30,.5),rgba(6,11,20,.5))}
+
+  .sec-head{text-align:center;max-width:660px;margin:0 auto clamp(28px,4.5vw,50px)}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);
+    font-size:clamp(10.5px,1.3vw,12px);letter-spacing:.28em;text-transform:uppercase;
+    color:var(--a1-silver-2);margin:0 0 15px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#2a82ff;
+    box-shadow:0 0 8px 1px rgba(42,130,255,.5)}
+  .eyebrow.gold::before{background:#dfb346;box-shadow:0 0 8px 1px rgba(223,179,70,.45)}
+  .sec-title{margin:0;font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.7rem,4.4vw,2.5rem);line-height:1.09;letter-spacing:-.022em;
+    color:var(--a1-silver-0);text-wrap:balance}
+  .sec-sub{margin:15px auto 0;max-width:54ch;font-size:clamp(1rem,1.9vw,1.13rem);
+    line-height:1.5;color:var(--a1-silver-2);text-wrap:balance}
+
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
+  .card{position:relative;background:linear-gradient(180deg,rgba(13,20,34,.92),rgba(9,14,24,.92));
+    border:1px solid var(--line);border-radius:14px;padding:22px 20px;text-align:left;
+    box-shadow:0 18px 50px -30px rgba(0,0,0,.8);
+    transition:transform .2s ease,border-color .25s ease,background .25s ease}
+  .card:hover{transform:translateY(-3px);border-color:rgba(156,198,255,.3)}
+  .card h3{margin:0 0 7px;font-family:var(--font-display);font-weight:600;
+    font-size:1.06rem;line-height:1.25;letter-spacing:-.01em;color:var(--a1-silver-0);
+    display:flex;align-items:baseline;gap:10px}
+  .card p{margin:0;font-size:.94rem;line-height:1.5;color:var(--a1-silver-2)}
+  .card .node{flex:none;width:7px;height:7px;border-radius:50%;transform:translateY(-2px);
+    background:#2a82ff;box-shadow:0 0 8px 1px rgba(42,130,255,.5)}
+  .card .node.g{background:#dfb346;box-shadow:0 0 8px 1px rgba(223,179,70,.45)}
+
+  /* services & pricing tiers */
+  .tiers{grid-template-columns:repeat(auto-fit,minmax(226px,1fr))}
+  .tier{display:flex;flex-direction:column;gap:12px;padding-top:26px}
+  .tier::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    border-radius:14px 14px 0 0}
+  .tier-blue::before{background:linear-gradient(90deg,#2a82ff,#9cc6ff)}
+  .tier-gold::before{background:linear-gradient(90deg,#dfb346,#ffe7a8)}
+  .tier-gold{border-color:rgba(223,179,70,.28)}
+  .tier .price{font-family:var(--font-display);font-weight:700;font-size:1.5rem;
+    line-height:1;color:var(--a1-silver-0)}
+  .tier-gold .price{color:var(--a1-gold-soft)}
+  .tier .price .lead{display:block;font-size:.68rem;font-weight:500;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--a1-silver-3);margin-bottom:6px}
+  .tier p{margin-top:2px}
+
+  /* how it works — numbered steps */
+  .steps{grid-template-columns:repeat(auto-fit,minmax(216px,1fr))}
+  .step .num{font-family:var(--font-display);font-weight:700;font-size:.82rem;
+    letter-spacing:.14em;color:var(--a1-blue-soft)}
+  .step h3{margin-top:10px}
+
+  /* proof of work */
+  .proof{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .proof-card{text-align:center;padding:30px 22px}
+  .proof-card .name{font-family:var(--font-display);font-weight:600;font-size:1.16rem;
+    letter-spacing:-.01em;color:var(--a1-silver-0)}
+  .proof-card .sector{margin-top:8px;font-size:.76rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--a1-silver-3)}
+  .proof-note{margin:clamp(22px,3vw,30px) auto 0;max-width:60ch;text-align:center;
+    font-size:.9rem;line-height:1.5;color:var(--a1-silver-3)}
+
+  /* final CTA */
+  .final{text-align:center}
+  .final .sec-in{max-width:720px;display:flex;flex-direction:column;align-items:center}
+  .final .cta-row{margin-top:clamp(22px,3vw,30px)}
+
+  /* footer */
+  .foot{position:relative;z-index:1;border-top:1px solid var(--line);
+    padding:clamp(40px,6vw,58px) var(--edge) calc(env(safe-area-inset-bottom) + 40px);
+    background:linear-gradient(180deg,rgba(6,10,18,.55),rgba(2,4,9,.9))}
+  .foot-in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;
+    gap:18px 40px;align-items:center;justify-content:space-between}
+  .foot-brand{font-family:var(--font-display);font-weight:700;font-size:1.06rem;
+    color:var(--a1-silver-0)}
+  .foot-brand span{display:block;font-family:var(--font-body);font-weight:400;
+    font-size:.85rem;color:var(--a1-silver-3);margin-top:5px;letter-spacing:0}
+  .foot-nav{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;font-size:.92rem}
+  .foot-nav a{color:var(--a1-silver-2);text-decoration:none;transition:color .2s}
+  .foot-nav a:hover{color:#fff}
+  .foot-copy{width:100%;margin-top:6px;padding-top:18px;border-top:1px solid rgba(120,150,200,.08);
+    font-size:.82rem;color:var(--a1-silver-3)}
+
+  @media (max-width:560px){
+    .foot-in{flex-direction:column;align-items:flex-start;gap:16px}
+  }
 </style>
 </head>
 <body>
@@ -213,7 +307,8 @@
     </svg>
   </div>
 
-  <main class="wrap">
+  <main>
+  <section class="wrap" aria-label="A/1 Creative Agency — Get Plugged In">
     <p class="kicker reveal r1"><span class="dot"></span>Infrastructure&nbsp;·&nbsp;Intelligence&nbsp;·&nbsp;Systems</p>
 
     <!-- OFFICIAL A/1 CREATIVE LOGO — exact artwork, used INTACT (single un-clipped <img>). -->
@@ -238,8 +333,8 @@
     <span class="link reveal r3" aria-hidden="true"></span>
 
     <div class="cta-row reveal r3">
-      <a class="btn btn-primary" href="#" role="button">Start Your Upgrade <span class="arrow">&rarr;</span></a>
-      <a class="btn btn-ghost" href="#" role="button">Take the Assessment</a>
+      <a class="btn btn-primary" href="mailto:operations@a1creativeagency.com?subject=Start%20My%20Upgrade&body=Tell%20us%20about%20your%20business%20and%20what%20you%20want%20built%3A">Start Your Upgrade <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-ghost" href="mailto:operations@a1creativeagency.com?subject=Business%20Infrastructure%20Assessment&body=Tell%20us%20about%20your%20business%20so%20we%20can%20map%20the%20gaps%3A">Take the Assessment</a>
     </div>
 
     <div class="infra reveal r5" role="list" aria-label="The systems we connect and power">
@@ -251,7 +346,203 @@
       <div class="sys" role="listitem"><span class="node"></span>Missed-Call Recovery</div>
       <div class="sys" role="listitem"><span class="node"></span>AI Systems</div>
     </div>
+  </section>
+
+  <!-- ==================== PROBLEM ==================== -->
+  <section class="sec" id="problem" aria-labelledby="problem-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow">The Problem</p>
+        <h2 class="sec-title" id="problem-title">Most businesses lose revenue they never see.</h2>
+        <p class="sec-sub">The gaps usually aren't in the work — they're in the systems around it. This is where deals quietly slip away.</p>
+      </div>
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Outdated or missing website</h3>
+          <p>Buyers judge credibility in seconds. An old or absent site turns them away before you ever hear from them.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Leads slipping through the cracks</h3>
+          <p>Inquiries land in scattered inboxes and DMs, get missed, and never receive a reply.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Missed calls becoming lost revenue</h3>
+          <p>An unanswered call is a customer who moves straight on to the next name on the list.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Disconnected booking and customer systems</h3>
+          <p>Tools that don't talk to each other create manual work, double entry, and dropped handoffs.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>No follow-up automation</h3>
+          <p>Without automatic follow-up, warm leads go cold and never come back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SOLUTION ==================== -->
+  <section class="sec sec-alt" id="solution" aria-labelledby="solution-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow">The Solution</p>
+        <h2 class="sec-title" id="solution-title">A/1 Creative builds the infrastructure behind the business.</h2>
+        <p class="sec-sub">Not just a website — the connected system that captures leads, books customers, and recovers the revenue you're missing.</p>
+      </div>
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Websites</h3>
+          <p>A fast, credible site built to convert — not just to exist.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node g" aria-hidden="true"></span>Lead capture</h3>
+          <p>Every inquiry caught, tagged, and routed into one place.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Automation</h3>
+          <p>The repetitive work runs itself, around the clock.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node g" aria-hidden="true"></span>Booking systems</h3>
+          <p>Customers schedule themselves, straight onto your calendar.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>CRM</h3>
+          <p>One record of every lead, customer, and conversation.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node g" aria-hidden="true"></span>Missed-call recovery</h3>
+          <p>A missed call triggers an instant text-back, so the lead isn't lost.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>AI systems</h3>
+          <p>Intelligent assistance layered onto the systems you already run.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES & PRICING ==================== -->
+  <section class="sec" id="pricing" aria-labelledby="pricing-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow gold">Services &amp; Pricing</p>
+        <h2 class="sec-title" id="pricing-title">Pick the level of infrastructure your business is ready for.</h2>
+        <p class="sec-sub">Start where you are. Each tier is a foundation you can build on as you grow.</p>
+      </div>
+      <div class="grid tiers" role="list">
+        <div class="card tier tier-blue" role="listitem">
+          <h3>QuickLaunch Kit</h3>
+          <p class="price"><span class="lead">Starting at</span>$500</p>
+          <p>A fast, professional web presence that gets your business online and credible.</p>
+        </div>
+        <div class="card tier tier-blue" role="listitem">
+          <h3>Community Access System</h3>
+          <p class="price">$1,500</p>
+          <p>Website plus lead capture and booking — the core system that turns visitors into booked customers.</p>
+        </div>
+        <div class="card tier tier-gold" role="listitem">
+          <h3>Growth Infrastructure</h3>
+          <p class="price">$3,500+</p>
+          <p>Automation, CRM, and missed-call recovery working together to capture and keep revenue.</p>
+        </div>
+        <div class="card tier tier-gold" role="listitem">
+          <h3>Full Infrastructure Build</h3>
+          <p class="price">Custom</p>
+          <p>A complete, end-to-end revenue-infrastructure build tailored to how your business runs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="sec sec-alt" id="how" aria-labelledby="how-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow">How It Works</p>
+        <h2 class="sec-title" id="how-title">From assessment to launch, one clear path.</h2>
+        <p class="sec-sub">No guesswork. You always know what's being built, what it costs, and what it produces.</p>
+      </div>
+      <div class="grid steps" role="list">
+        <div class="card step" role="listitem">
+          <p class="num">01</p>
+          <h3>Assessment</h3>
+          <p>We map your business, your gaps, and where revenue is leaking.</p>
+        </div>
+        <div class="card step" role="listitem">
+          <p class="num">02</p>
+          <h3>Infrastructure plan</h3>
+          <p>You get a clear plan: what gets built, what it costs, and what it produces.</p>
+        </div>
+        <div class="card step" role="listitem">
+          <p class="num">03</p>
+          <h3>Build and connect</h3>
+          <p>We build the systems and wire them together into one workflow.</p>
+        </div>
+        <div class="card step" role="listitem">
+          <p class="num">04</p>
+          <h3>Launch and support</h3>
+          <p>Everything goes live — and we stay on to keep it running.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROOF OF WORK ==================== -->
+  <section class="sec" id="proof" aria-labelledby="proof-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow gold">Proof of Work</p>
+        <h2 class="sec-title" id="proof-title">Businesses we've built and connected.</h2>
+        <p class="sec-sub">Real clients across real industries.</p>
+      </div>
+      <div class="grid proof" role="list">
+        <div class="card proof-card" role="listitem">
+          <p class="name">TRHUE Hair Care</p>
+          <p class="sector">Hair Care</p>
+        </div>
+        <div class="card proof-card" role="listitem">
+          <p class="name">4 Reel Cleaning</p>
+          <p class="sector">Cleaning Services</p>
+        </div>
+        <div class="card proof-card" role="listitem">
+          <p class="name">A Touch of Feather</p>
+          <p class="sector">General Contractor</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="sec sec-alt final" aria-labelledby="cta-title">
+    <div class="sec-in">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">Get Plugged In</p>
+        <h2 class="sec-title" id="cta-title">Upgrade the infrastructure your business runs on.</h2>
+        <p class="sec-sub">Let's find the gaps and build the system that closes them.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:operations@a1creativeagency.com?subject=Start%20My%20Upgrade&body=Tell%20us%20about%20your%20business%20and%20what%20you%20want%20built%3A">Start Your Upgrade <span class="arrow">&rarr;</span></a>
+        <a class="btn btn-ghost" href="mailto:operations@a1creativeagency.com?subject=Business%20Infrastructure%20Assessment&body=Tell%20us%20about%20your%20business%20so%20we%20can%20map%20the%20gaps%3A">Take the Assessment</a>
+      </div>
+    </div>
+  </section>
   </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="foot">
+    <div class="foot-in">
+      <p class="foot-brand">A/1 Creative Agency<span>We build the system behind the brand.</span></p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a href="mailto:operations@a1creativeagency.com">operations@a1creativeagency.com</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+    <div class="foot-in">
+      <p class="foot-copy">© 2026 A/1 Creative Agency LLC. All rights reserved.</p>
+    </div>
+  </footer>
 
 <script>
   (function(){
