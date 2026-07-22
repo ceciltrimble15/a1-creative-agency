@@ -17,15 +17,17 @@
      A/1 Creative — "Get Plugged In" homepage prototype
      Brand tokens sourced verbatim from /brand/tokens.css.
 
-     LOGO STATUS: OFFICIAL ARTWORK.
+     LOGO STATUS: OFFICIAL ARTWORK — INTACT.
      The mark is the exact official A/1 Creative logo
-     (brand/a1-logo-official.png, 1024x1024, transparent). The 6-step
-     assembly is built ENTIRELY from that one file: each step is the
-     same PNG revealed through a CSS clip-path window (a masked region),
-     moved/rotated/faded as a rigid unit. Nothing is redrawn, traced,
-     replaced, or reinterpreted. The final resting state is a single,
-     unclipped copy of the exact PNG (.lg-final) — pixel-for-pixel the
-     official mark. See the <picture>/<img> stack in <body>.
+     (brand/a1-logo-official.png, 1024x1024, transparent), used as ONE
+     single, un-clipped, un-separated <img>. The animation is a premium
+     whole-mark POWER-ON only: the intact image begins dim, an electrical
+     sheen/glow activates, the bulb illuminates, the full mark surges to
+     100%, then the glow settles into a refined resting state. The A,
+     slash, 1, bulb, and socket are NEVER split apart or moved
+     independently — only the whole image's own brightness/opacity and two
+     additive light overlays (glow + one sweep) animate. Nothing is
+     redrawn, traced, sliced, replaced, or reinterpreted.
 
      Deliberate single dark "stage" world. Self-contained: no webfonts,
      no forms, no integrations; the only asset is the local logo file.
@@ -75,29 +77,27 @@
   .status .dot{width:7px;height:7px;border-radius:50%;background:#38507a}
   .status .label b{color:var(--a1-blue-soft);font-weight:600}
 
-  /* ---- official logo (masked-region assembly of ONE PNG) ---- */
+  /* ---- official logo (ONE intact PNG + whole-mark power-on) ---- */
   .logo-slot{display:flex;flex-direction:column;align-items:center;gap:10px}
   .logo{position:relative;width:min(46vh,300px);aspect-ratio:1/1;display:block;
     filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
   @media (max-width:560px){ .logo{width:min(34vh,220px)} }
-  /* every layer is the SAME official file, perfectly registered */
-  .logo .lyr{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  /* the exact official mark — a single, unaltered, un-clipped image */
+  .logo .mark{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
     display:block;pointer-events:none;-webkit-user-select:none;user-select:none}
-  /* clip windows over the 1024x1024 artwork (percent of the box: top right bottom left) */
-  .lg-A     {clip-path:inset(20.3% 48.4% 55.9% 33.2%)}
-  .lg-slash {clip-path:inset(20.0% 44.7% 55.6% 48.6%)}
-  .lg-1     {clip-path:inset(20.3% 35.4% 55.9% 52.2%)}
-  .lg-globe {clip-path:inset(5.4% 22.9% 38.3% 22.0%)}
-  .lg-socket{clip-path:inset(59.6% 38.5% 29.7% 38.6%);transform-origin:50% 65%}
-  .lg-plate {clip-path:inset(70.1% 16.8% 16.2% 16.4%)}
-  /* power-on glow — a separate overlay; never touches the artwork pixels */
-  .logo .glow{position:absolute;left:50%;top:33%;width:70%;height:70%;
+  /* power glow behind the bulb — an additive overlay; never touches artwork pixels */
+  .logo .glow{position:absolute;left:50%;top:34%;width:74%;height:74%;
     transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
-    background:radial-gradient(circle,rgba(156,198,255,.5),rgba(42,130,255,.16) 46%,transparent 70%);
+    background:radial-gradient(circle,rgba(156,198,255,.55),rgba(42,130,255,.18) 46%,transparent 70%);
     mix-blend-mode:screen;opacity:.13}
-  /* RESTING STATE (default / no-JS / reduced-motion) = the exact official PNG */
-  .lg-final{opacity:1}
-  .lg-A,.lg-slash,.lg-1,.lg-globe,.lg-socket,.lg-plate{opacity:0}
+  /* one-pass "energize" sheen, clipped to the logo box — a light pass ON TOP
+     of the intact mark; it reveals no seams and separates nothing */
+  .logo .sweep{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;
+    background:linear-gradient(105deg,transparent 40%,rgba(210,230,255,.55) 50%,
+      rgba(223,179,70,.32) 55%,transparent 64%);
+    background-size:260% 100%;background-position:120% 0}
+  /* RESTING STATE (default / no-JS / reduced-motion) = the exact official PNG, fully lit */
+  .logo .mark{opacity:1;filter:none}
   .logo-note{margin:0;max-width:38ch;font-size:clamp(11px,1.6vw,12.5px);line-height:1.4;
     letter-spacing:.02em;color:var(--a1-silver-3)}
   .logo-note b{color:var(--a1-silver-2);font-weight:600}
@@ -142,51 +142,61 @@
   .replay:hover{color:#fff;border-color:rgba(156,198,255,.5)}
   .replay:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:2px}
 
-  /* ---- assembly motion — each step reveals a masked region of the ONE
-     official PNG, moving/rotating/fading the clipped slice as a rigid
-     unit so it always lands registered with .lg-final. Static "powered"
-     state is the default (no-JS safe); .is-animating replays the
-     6-step sequence via animation-fill-mode:both.
-       1 A  2 /  3 1  4 bulb/globe  5 base screws in  6 full PNG + power-on
+  /* ---- power-on motion (whole INTACT mark; nothing is separated) ----
+     The mark is ONE image. We animate only its own brightness/opacity and
+     two additive light overlays (glow + a single sweep). No part of the A,
+     slash, 1, bulb, or socket ever moves or reveals independently. Static
+     fully-lit state is the default (no-JS safe); .is-animating replays the
+     5-beat power-on via animation-fill-mode:both.
+       1 dim / partially obscured   2 electrical sheen + warm-up flicker
+       3 bulb illuminates           4 full mark surges to 100%
+       5 glow settles into a refined resting state
   */
-  .is-animating .lg-A     {animation:lockIn .52s cubic-bezier(.2,.8,.2,1) .15s both}
-  .is-animating .lg-slash {animation:lockIn .46s cubic-bezier(.2,.8,.2,1) .48s both}
-  .is-animating .lg-1     {animation:lockIn .48s cubic-bezier(.2,.8,.2,1) .74s both}
-  .is-animating .lg-globe {animation:bulbIn .70s ease-out 1.02s both}
-  .is-animating .lg-socket{animation:screwIn .80s cubic-bezier(.34,1.35,.5,1) 1.40s both}
-  .is-animating .lg-plate {animation:plateIn .55s cubic-bezier(.2,.8,.2,1) 1.98s both}
-  .is-animating .lg-final {animation:finalOn 1.05s ease 2.02s both}
-  .is-animating .glow     {animation:powerPulse 1.15s ease-out 1.98s both}
-  .is-animating .status .dot{animation:dotBoot .5s ease 2.15s both}
+  .is-animating .mark  {animation:powerOn 2.15s cubic-bezier(.22,.7,.2,1) .15s both}
+  .is-animating .sweep {animation:energize 1.15s ease-out .55s both}
+  .is-animating .glow  {animation:powerGlow 1.7s ease-out .70s both,
+                                  breathe 5.5s ease-in-out 2.75s infinite}
+  .is-animating .status .dot{animation:dotBoot .5s ease 1.95s both}
   .is-animating .reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
-  .is-animating .r1{animation-delay:2.30s}
-  .is-animating .r2{animation-delay:2.44s}
-  .is-animating .r3{animation-delay:2.56s}
-  .is-animating .r4{animation-delay:2.68s}
+  .is-animating .r1{animation-delay:1.98s}
+  .is-animating .r2{animation-delay:2.12s}
+  .is-animating .r3{animation-delay:2.26s}
+  .is-animating .r4{animation-delay:2.40s}
 
-  @keyframes lockIn{0%{opacity:0;transform:translateY(20px) scale(.94);filter:blur(3px)}55%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
-  @keyframes bulbIn{0%{opacity:0;transform:scale(.9);filter:blur(4px)}60%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
-  @keyframes screwIn{0%{opacity:0;transform:rotate(-46deg) scale(.5)}55%{opacity:1}82%{transform:rotate(7deg) scale(1.03)}100%{opacity:1;transform:none}}
-  @keyframes plateIn{0%{opacity:0;transform:translateY(16px) scale(.97)}100%{opacity:1;transform:none}}
-  @keyframes finalOn{0%{opacity:0}100%{opacity:1}}
-  @keyframes powerPulse{0%{opacity:.13}44%{opacity:.9}100%{opacity:.15}}
+  /* 1 dim -> 2 flicker -> 3 illuminate -> 4 full surge -> 5 refined rest.
+     The whole intact PNG is dimmed/brightened as ONE unit via filter+opacity. */
+  @keyframes powerOn{
+    0%  {opacity:.55;filter:brightness(.26) saturate(.5)  contrast(.9)}
+    16% {opacity:.72;filter:brightness(.46) saturate(.62) contrast(.95)}   /* first catch */
+    24% {opacity:.5; filter:brightness(.3)  saturate(.55) contrast(.92)}   /* flicker down */
+    42% {opacity:.94;filter:brightness(.9)  saturate(.9)  contrast(1)}      /* bulb catches */
+    50% {opacity:.82;filter:brightness(.64) saturate(.82) contrast(.98)}   /* second flicker */
+    72% {opacity:1;  filter:brightness(1.12) saturate(1.07) contrast(1.03)}/* full power surge */
+    100%{opacity:1;  filter:none}                                          /* refined resting state */
+  }
+  /* single light sweep across the intact mark — reads as the circuitry
+     energizing without splitting or redrawing any trace */
+  @keyframes energize{
+    0%  {opacity:0;   background-position:120% 0}
+    30% {opacity:.95}
+    100%{opacity:0;   background-position:-70% 0}
+  }
+  @keyframes powerGlow{
+    0%  {opacity:.04}
+    55% {opacity:.85}   /* illuminate peak */
+    100%{opacity:.16}   /* settle */
+  }
+  @keyframes breathe{0%,100%{opacity:.12}50%{opacity:.2}}
   @keyframes rise{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
   @keyframes dotBoot{0%{background:#38507a;box-shadow:0 0 0 0 rgba(42,130,255,0)}100%{background:#2a82ff;box-shadow:0 0 12px 2px rgba(42,130,255,.7)}}
 
-  /* gentle idle "powered" breathe once assembled */
-  .is-animating .glow{}
-  .glow{animation:breathe 5.5s ease-in-out 3.4s infinite}
-  @keyframes breathe{0%,100%{opacity:.11}50%{opacity:.2}}
-
   @media (prefers-reduced-motion:reduce){
-    .is-animating .lg-A,.is-animating .lg-slash,.is-animating .lg-1,.is-animating .lg-globe,
-    .is-animating .lg-socket,.is-animating .lg-plate,.is-animating .lg-final,
-    .is-animating .glow,.glow,
+    .is-animating .mark,.is-animating .sweep,.is-animating .glow,
     .is-animating .status .dot,.is-animating .reveal{animation:none !important}
-    /* resting state: exact official PNG, steady glow, no motion */
-    .lg-final{opacity:1}
-    .lg-A,.lg-slash,.lg-1,.lg-globe,.lg-socket,.lg-plate{opacity:0}
-    .glow{opacity:.13}
+    /* resting state: exact official PNG fully lit, steady glow, no motion */
+    .logo .mark{opacity:1;filter:none}
+    .glow{opacity:.14}
+    .sweep{opacity:0}
     .reveal{opacity:1;transform:none}
     .status .dot{background:#2a82ff;box-shadow:0 0 10px 1px rgba(42,130,255,.6)}
     .replay{display:none}
@@ -201,30 +211,24 @@
       <span class="label">System status:&nbsp;<b>Online</b></span></p>
 
     <!-- =====================================================================
-         OFFICIAL A/1 CREATIVE LOGO — exact artwork, animated by masking.
-         Seven <img> layers ALL point at the same file
-         (brand/a1-logo-official.png). Six are clipped to a region (A, /,
-         1, bulb, socket, nameplate) and reveal in sequence; the seventh
-         (.lg-final) is the unclipped, unaltered PNG that forms the final
-         resting state. No redraw, no trace, no substitution.
+         OFFICIAL A/1 CREATIVE LOGO — exact artwork, used INTACT.
+         A single, un-clipped, un-separated <img> pointing at the official
+         file (brand/a1-logo-official.png). The A, slash, 1, bulb, and
+         socket are never split apart. The .glow and .sweep spans are
+         additive light overlays only — they sit on top of the mark and
+         drive the whole-mark power-on. No redraw, no trace, no slicing,
+         no substitution.
          ===================================================================== -->
     <div class="logo-slot">
       <div class="logo" role="img" aria-label="A/1 Creative Agency logo">
-        <!-- 1-3: A, slash, 1  |  4: bulb/globe  |  5: socket  |  post: nameplate -->
-        <img class="lyr lg-globe"  src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
-        <img class="lyr lg-A"      src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
-        <img class="lyr lg-slash"  src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
-        <img class="lyr lg-1"      src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
-        <img class="lyr lg-socket" src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
-        <img class="lyr lg-plate"  src="brand/a1-logo-official.png" alt="" aria-hidden="true" decoding="async" />
-        <!-- 6: exact official PNG, unclipped — the true resting state -->
-        <img class="lyr lg-final"  src="brand/a1-logo-official.png"
+        <img class="mark" src="brand/a1-logo-official.png"
              alt="A/1 Creative Agency — lightbulb mark with A/1 and CREATIVE AGENCY nameplate"
-             fetchpriority="high" />
-        <span class="glow" aria-hidden="true"></span>
+             fetchpriority="high" decoding="async" />
+        <span class="glow"  aria-hidden="true"></span>
+        <span class="sweep" aria-hidden="true"></span>
       </div>
-      <p class="logo-note"><b>Official A/1 Creative mark.</b> The build sequence is the exact
-        logo revealed region by region — the finished state is the unaltered artwork.</p>
+      <p class="logo-note"><b>Official A/1 Creative mark.</b> The exact artwork, used intact —
+        powering on as one piece, then settling into its lit resting state.</p>
     </div>
 
     <h1 class="reveal r2">Get <span class="glow-word">Plugged&nbsp;In</span></h1>
@@ -241,7 +245,7 @@
     </div>
   </main>
 
-  <button class="replay" type="button" aria-label="Replay the logo build animation">&#8635; Replay build</button>
+  <button class="replay" type="button" aria-label="Replay the logo power-on animation">&#8635; Replay power-on</button>
 
 <script>
   (function(){
