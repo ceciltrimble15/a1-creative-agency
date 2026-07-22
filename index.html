@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>A/1 Creative — Get Plugged In</title>
-<meta name="description" content="A/1 Creative Agency builds the infrastructure that powers your business — websites, automation, lead capture, bookings, CRM, missed-call recovery, and AI systems." />
+<meta name="description" content="A/1 Creative Agency builds the infrastructure that powers your business — websites, automation, lead capture, booking, CRM, missed-call recovery, and AI systems." />
 <meta name="theme-color" content="#04070d" />
 <meta name="color-scheme" content="dark" />
 <meta name="robots" content="noindex" />
@@ -14,20 +14,15 @@
 <link rel="preload" as="image" href="brand/a1-logo-official.png" fetchpriority="high" />
 <style>
   /* ============================================================
-     A/1 Creative — "Get Plugged In" homepage prototype
+     A/1 Creative — "Get Plugged In" homepage hero.
      Brand tokens sourced verbatim from /brand/tokens.css.
 
-     LOGO STATUS: OFFICIAL ARTWORK — INTACT.
-     The mark is the exact official A/1 Creative logo
-     (brand/a1-logo-official.png, 1024x1024, transparent), used as ONE
-     single, un-clipped, un-separated <img>. The animation is a premium
-     whole-mark POWER-ON only: the intact image begins dim, an electrical
-     sheen/glow activates, the bulb illuminates, the full mark surges to
-     100%, then the glow settles into a refined resting state. The A,
-     slash, 1, bulb, and socket are NEVER split apart or moved
-     independently — only the whole image's own brightness/opacity and two
-     additive light overlays (glow + one sweep) animate. Nothing is
-     redrawn, traced, sliced, replaced, or reinterpreted.
+     LOGO: OFFICIAL ARTWORK — INTACT. The mark is the exact official
+     A/1 Creative logo (brand/a1-logo-official.png, 1024x1024,
+     transparent), used as ONE single, un-clipped, un-separated <img>.
+     Only the whole image's own brightness/opacity and two additive
+     light overlays (glow + one sweep) animate. Nothing is redrawn,
+     traced, sliced, replaced, or reinterpreted.
 
      Deliberate single dark "stage" world. Self-contained: no webfonts,
      no forms, no integrations; the only asset is the local logo file.
@@ -42,183 +37,186 @@
     --font-display:"Space Grotesk","SF Pro Display",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --edge:clamp(20px,5vw,64px);
+    --line:rgba(120,150,200,.16);
   }
   *,*::before,*::after{box-sizing:border-box}
   html,body{margin:0;height:100%}
   body{
-    background:radial-gradient(120% 90% at 50% 8%, #10192b 0%, #070b14 46%, #03050b 78%, #000 100%);
+    background:radial-gradient(120% 90% at 50% 6%, #10192b 0%, #070b14 46%, #03050b 78%, #000 100%);
     color:var(--a1-body); font-family:var(--font-body);
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     min-height:100svh; overflow-x:hidden;
   }
+
+  /* ---- ambient depth: grid + color blooms + faint corner circuitry ---- */
   .field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .field::before{content:"";position:absolute;inset:-2px;
+  .field .grid{position:absolute;inset:-2px;
     background-image:
       linear-gradient(to right,rgba(120,150,200,.05) 1px,transparent 1px),
       linear-gradient(to bottom,rgba(120,150,200,.05) 1px,transparent 1px);
-    background-size:64px 64px;
-    -webkit-mask-image:radial-gradient(120% 80% at 50% 30%,#000 40%,transparent 78%);
-            mask-image:radial-gradient(120% 80% at 50% 30%,#000 40%,transparent 78%);
+    background-size:60px 60px;
+    -webkit-mask-image:radial-gradient(125% 80% at 50% 26%,#000 38%,transparent 76%);
+            mask-image:radial-gradient(125% 80% at 50% 26%,#000 38%,transparent 76%);
     opacity:.5}
-  .bloom{position:absolute;width:52vw;height:52vw;border-radius:50%;filter:blur(80px);opacity:.20;mix-blend-mode:screen}
-  .bloom.blue{left:-14vw;top:2vw;background:radial-gradient(circle,#2a82ff,transparent 62%)}
-  .bloom.gold{right:-14vw;bottom:-6vw;background:radial-gradient(circle,#dfb346,transparent 62%);opacity:.14}
+  .bloom{position:absolute;width:52vw;height:52vw;border-radius:50%;filter:blur(80px);opacity:.18;mix-blend-mode:screen}
+  .bloom.blue{left:-16vw;top:-4vw;background:radial-gradient(circle,#2a82ff,transparent 62%)}
+  .bloom.gold{right:-16vw;bottom:-8vw;background:radial-gradient(circle,#dfb346,transparent 62%);opacity:.12}
+  .circuit{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+  .circuit path{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+  .circuit .b{stroke:rgba(120,170,255,.5)} .circuit .g{stroke:rgba(223,179,70,.42)}
+  .circuit circle{stroke:none}
 
+  /* ---- layout: one tight, connected hero column ---- */
   .wrap{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:clamp(18px,3vh,36px);
-    padding:calc(env(safe-area-inset-top) + 40px) var(--edge) calc(env(safe-area-inset-bottom) + 40px);
+    align-items:center;justify-content:center;gap:clamp(10px,1.4vh,15px);
+    padding:calc(env(safe-area-inset-top) + 26px) var(--edge) calc(env(safe-area-inset-bottom) + 26px);
     text-align:center}
 
-  .status{display:inline-flex;align-items:center;gap:10px;
-    font-family:var(--font-display);font-size:clamp(11px,1.4vw,13px);
-    letter-spacing:.28em;text-transform:uppercase;color:var(--a1-silver-2);
-    padding:8px 16px;border:1px solid rgba(156,198,255,.16);border-radius:999px;
+  /* brand kicker (not a status label) */
+  .kicker{display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--font-display);font-size:clamp(10px,1.35vw,12px);
+    letter-spacing:.32em;text-transform:uppercase;color:var(--a1-silver-2);
+    padding:7px 15px;border:1px solid var(--line);border-radius:999px;
     background:linear-gradient(180deg,rgba(20,30,48,.5),rgba(8,12,22,.5));backdrop-filter:blur(4px)}
-  .status .dot{width:7px;height:7px;border-radius:50%;background:#38507a}
-  .status .label b{color:var(--a1-blue-soft);font-weight:600}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:#2a82ff;box-shadow:0 0 9px 1px rgba(42,130,255,.6)}
+
+  /* connective spine node between hero beats */
+  .link{position:relative;width:1px;height:clamp(13px,1.9vh,20px);
+    background:linear-gradient(180deg,transparent,rgba(120,150,200,.32),transparent)}
+  .link::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;
+    transform:translate(-50%,-50%);border-radius:50%;background:#20304c;
+    box-shadow:0 0 0 1px rgba(120,150,200,.25);transition:background .4s,box-shadow .4s}
+  .is-animating .link::after,.no-js .link::after{background:#2a82ff;box-shadow:0 0 9px 1px rgba(42,130,255,.55)}
 
   /* ---- official logo (ONE intact PNG + whole-mark power-on) ---- */
-  .logo-slot{display:flex;flex-direction:column;align-items:center;gap:10px}
-  .logo{position:relative;width:min(46vh,300px);aspect-ratio:1/1;display:block;
+  .logo-slot{position:relative;display:flex;flex-direction:column;align-items:center}
+  .logo{position:relative;width:min(38vh,264px);aspect-ratio:1/1;display:block;
     filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
-  @media (max-width:560px){ .logo{width:min(34vh,220px)} }
-  /* the exact official mark — a single, unaltered, un-clipped image */
+  @media (max-width:560px){ .logo{width:min(27vh,188px)} }
   .logo .mark{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
-    display:block;pointer-events:none;-webkit-user-select:none;user-select:none}
-  /* power glow behind the bulb — an additive overlay; never touches artwork pixels */
-  .logo .glow{position:absolute;left:50%;top:34%;width:74%;height:74%;
+    display:block;pointer-events:none;-webkit-user-select:none;user-select:none;opacity:1;filter:none}
+  .logo .glow{position:absolute;left:50%;top:33%;width:74%;height:74%;
     transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
     background:radial-gradient(circle,rgba(156,198,255,.55),rgba(42,130,255,.18) 46%,transparent 70%);
     mix-blend-mode:screen;opacity:.13}
-  /* one-pass "energize" sheen, clipped to the logo box — a light pass ON TOP
-     of the intact mark; it reveals no seams and separates nothing */
   .logo .sweep{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;
-    background:linear-gradient(105deg,transparent 40%,rgba(210,230,255,.55) 50%,
-      rgba(223,179,70,.32) 55%,transparent 64%);
+    background:linear-gradient(105deg,transparent 40%,rgba(210,230,255,.55) 50%,rgba(223,179,70,.32) 55%,transparent 64%);
     background-size:260% 100%;background-position:120% 0}
-  /* RESTING STATE (default / no-JS / reduced-motion) = the exact official PNG, fully lit */
-  .logo .mark{opacity:1;filter:none}
-  .logo-note{margin:0;max-width:38ch;font-size:clamp(11px,1.6vw,12.5px);line-height:1.4;
-    letter-spacing:.02em;color:var(--a1-silver-3)}
-  .logo-note b{color:var(--a1-silver-2);font-weight:600}
+
+  /* subtle icon-only replay — hidden until the logo is hovered/focused */
+  .replay{position:absolute;top:0;right:0;z-index:4;width:30px;height:30px;padding:0;
+    display:grid;place-items:center;appearance:none;cursor:pointer;
+    color:var(--a1-silver-2);background:rgba(10,16,28,.72);border:1px solid var(--line);
+    border-radius:50%;opacity:0;transform:scale(.9);transition:opacity .22s,transform .22s,color .2s,border-color .2s}
+  .logo-slot:hover .replay,.replay:focus-visible{opacity:1;transform:none}
+  .replay:hover{color:#fff;border-color:rgba(156,198,255,.55)}
+  .replay:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:2px}
+  .replay svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
   h1{margin:0;font-family:var(--font-display);font-weight:800;
-    font-size:clamp(2.6rem,8.4vw,5.3rem);line-height:.98;letter-spacing:-.035em;
+    font-size:clamp(2.5rem,7.8vw,4.9rem);line-height:.98;letter-spacing:-.035em;
     text-wrap:balance;color:var(--a1-silver-0)}
   h1 .glow-word{background:linear-gradient(180deg,#eaf3ff 0%,#9cc6ff 55%,#2a82ff 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .lede{margin:0;font-size:clamp(1.05rem,2.4vw,1.5rem);color:var(--a1-silver-1);
-    font-weight:500;max-width:34ch;line-height:1.35;text-wrap:balance}
-  .caps{margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px;justify-content:center;max-width:62ch}
-  .caps li{list-style:none;font-family:var(--font-display);font-size:clamp(11px,1.5vw,13px);
-    letter-spacing:.04em;color:var(--a1-silver-2);
-    padding:5px 12px;border:1px solid rgba(120,150,200,.16);border-radius:8px;background:rgba(14,22,38,.45)}
-  .caps li b{color:var(--a1-body);font-weight:600}
+  .lede{margin:0;font-size:clamp(1.02rem,2.2vw,1.42rem);color:var(--a1-silver-1);
+    font-weight:500;max-width:32ch;line-height:1.32;text-wrap:balance}
 
-  .cta-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:4px}
+  /* ---- CTAs: one related pair, tightly grouped ---- */
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
   .btn{appearance:none;cursor:pointer;font-family:var(--font-display);font-weight:600;
-    font-size:clamp(.95rem,1.7vw,1.05rem);letter-spacing:.01em;
-    padding:15px 26px;border-radius:12px;min-height:52px;display:inline-flex;align-items:center;gap:10px;
+    font-size:clamp(.95rem,1.6vw,1.02rem);letter-spacing:.01em;
+    padding:14px 24px;border-radius:12px;min-height:52px;display:inline-flex;align-items:center;gap:10px;
     text-decoration:none;transition:transform .16s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease}
   .btn:active{transform:translateY(1px)}
   .btn-primary{color:#eaf3ff;border:1px solid #2a82ff;
     background:linear-gradient(180deg,#3a8dff 0%,#2a82ff 46%,#0b3f9d 100%);
     box-shadow:0 10px 30px -8px rgba(42,130,255,.6),inset 0 1px 0 rgba(255,255,255,.25)}
-  .btn-primary:hover{transform:translateY(-2px);
-    box-shadow:0 16px 40px -8px rgba(42,130,255,.8),inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px rgba(42,130,255,.8),inset 0 1px 0 rgba(255,255,255,.3)}
   .btn-ghost{color:var(--a1-silver-1);border:1px solid rgba(156,198,255,.28);
     background:linear-gradient(180deg,rgba(22,32,52,.6),rgba(10,16,28,.6))}
-  .btn-ghost:hover{transform:translateY(-2px);border-color:rgba(156,198,255,.55);color:#fff;
-    box-shadow:0 12px 30px -12px rgba(42,130,255,.4)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:rgba(156,198,255,.55);color:#fff;box-shadow:0 12px 30px -12px rgba(42,130,255,.4)}
   .btn .arrow{transition:transform .18s ease}
   .btn-primary:hover .arrow{transform:translateX(3px)}
   .btn:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:3px}
 
-  .replay{position:fixed;right:16px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:3;
-    appearance:none;cursor:pointer;font-family:var(--font-display);font-size:12px;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--a1-silver-2);background:rgba(10,16,28,.6);
-    border:1px solid rgba(120,150,200,.2);border-radius:999px;padding:9px 14px;
-    display:inline-flex;align-items:center;gap:7px;transition:color .2s,border-color .2s}
-  .replay:hover{color:#fff;border-color:rgba(156,198,255,.5)}
-  .replay:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:2px}
+  /* ---- infrastructure strip: 7 connected system modules (one panel) ---- */
+  .infra{width:min(720px,100%);margin-top:clamp(2px,1vh,8px);
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;
+    background:#0a1120;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 18px 50px -24px rgba(0,0,0,.7)}
+  .infra .sys{display:flex;align-items:center;justify-content:center;gap:9px;
+    padding:13px 14px;background:linear-gradient(180deg,rgba(13,20,34,.95),rgba(9,14,24,.95));
+    box-shadow:0 0 0 1px var(--line);
+    font-family:var(--font-display);font-size:clamp(12px,1.5vw,13.5px);letter-spacing:.02em;
+    color:var(--a1-silver-1);transition:background .25s,color .25s}
+  .infra .sys .node{width:6px;height:6px;border-radius:50%;flex:none;background:#2a82ff;
+    box-shadow:0 0 8px 1px rgba(42,130,255,.5)}
+  .infra .sys:nth-child(even) .node{background:#dfb346;box-shadow:0 0 8px 1px rgba(223,179,70,.45)}
+  .infra .sys:hover{background:linear-gradient(180deg,rgba(20,30,50,.95),rgba(12,18,30,.95));color:#fff}
 
-  /* ---- power-on motion (whole INTACT mark; nothing is separated) ----
-     The mark is ONE image. We animate only its own brightness/opacity and
-     two additive light overlays (glow + a single sweep). No part of the A,
-     slash, 1, bulb, or socket ever moves or reveals independently. Static
-     fully-lit state is the default (no-JS safe); .is-animating replays the
-     5-beat power-on via animation-fill-mode:both.
-       1 dim / partially obscured   2 electrical sheen + warm-up flicker
-       3 bulb illuminates           4 full mark surges to 100%
-       5 glow settles into a refined resting state
-  */
+  /* =========================================================
+     POWER-ON MOTION — whole INTACT mark; nothing is separated.
+     Static fully-lit state is the default (no-JS safe).
+     ========================================================= */
   .is-animating .mark  {animation:powerOn 2.15s cubic-bezier(.22,.7,.2,1) .15s both}
   .is-animating .sweep {animation:energize 1.15s ease-out .55s both}
-  .is-animating .glow  {animation:powerGlow 1.7s ease-out .70s both,
-                                  breathe 5.5s ease-in-out 2.75s infinite}
-  .is-animating .status .dot{animation:dotBoot .5s ease 1.95s both}
+  .is-animating .glow  {animation:powerGlow 1.7s ease-out .70s both, breathe 5.5s ease-in-out 2.75s infinite}
+  .is-animating .kicker .dot{animation:dotBoot .5s ease 1.9s both}
   .is-animating .reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
-  .is-animating .r1{animation-delay:1.98s}
-  .is-animating .r2{animation-delay:2.12s}
-  .is-animating .r3{animation-delay:2.26s}
-  .is-animating .r4{animation-delay:2.40s}
+  .is-animating .r1{animation-delay:1.92s}
+  .is-animating .r2{animation-delay:2.04s}
+  .is-animating .r3{animation-delay:2.16s}
+  .is-animating .r4{animation-delay:2.28s}
+  .is-animating .r5{animation-delay:2.40s}
+  .is-animating .circuit{animation:traceUp 2.2s ease-out .2s both}
 
-  /* 1 dim -> 2 flicker -> 3 illuminate -> 4 full surge -> 5 refined rest.
-     The whole intact PNG is dimmed/brightened as ONE unit via filter+opacity. */
   @keyframes powerOn{
     0%  {opacity:.55;filter:brightness(.26) saturate(.5)  contrast(.9)}
-    16% {opacity:.72;filter:brightness(.46) saturate(.62) contrast(.95)}   /* first catch */
-    24% {opacity:.5; filter:brightness(.3)  saturate(.55) contrast(.92)}   /* flicker down */
-    42% {opacity:.94;filter:brightness(.9)  saturate(.9)  contrast(1)}      /* bulb catches */
-    50% {opacity:.82;filter:brightness(.64) saturate(.82) contrast(.98)}   /* second flicker */
-    72% {opacity:1;  filter:brightness(1.12) saturate(1.07) contrast(1.03)}/* full power surge */
-    100%{opacity:1;  filter:none}                                          /* refined resting state */
+    16% {opacity:.72;filter:brightness(.46) saturate(.62) contrast(.95)}
+    24% {opacity:.5; filter:brightness(.3)  saturate(.55) contrast(.92)}
+    42% {opacity:.94;filter:brightness(.9)  saturate(.9)  contrast(1)}
+    50% {opacity:.82;filter:brightness(.64) saturate(.82) contrast(.98)}
+    72% {opacity:1;  filter:brightness(1.12) saturate(1.07) contrast(1.03)}
+    100%{opacity:1;  filter:none}
   }
-  /* single light sweep across the intact mark — reads as the circuitry
-     energizing without splitting or redrawing any trace */
-  @keyframes energize{
-    0%  {opacity:0;   background-position:120% 0}
-    30% {opacity:.95}
-    100%{opacity:0;   background-position:-70% 0}
-  }
-  @keyframes powerGlow{
-    0%  {opacity:.04}
-    55% {opacity:.85}   /* illuminate peak */
-    100%{opacity:.16}   /* settle */
-  }
+  @keyframes energize{0%{opacity:0;background-position:120% 0}30%{opacity:.95}100%{opacity:0;background-position:-70% 0}}
+  @keyframes powerGlow{0%{opacity:.04}55%{opacity:.85}100%{opacity:.16}}
   @keyframes breathe{0%,100%{opacity:.12}50%{opacity:.2}}
-  @keyframes rise{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
-  @keyframes dotBoot{0%{background:#38507a;box-shadow:0 0 0 0 rgba(42,130,255,0)}100%{background:#2a82ff;box-shadow:0 0 12px 2px rgba(42,130,255,.7)}}
+  @keyframes rise{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+  @keyframes dotBoot{0%{background:#20304c;box-shadow:0 0 0 0 rgba(42,130,255,0)}100%{background:#2a82ff;box-shadow:0 0 10px 2px rgba(42,130,255,.6)}}
+  @keyframes traceUp{0%{opacity:0}100%{opacity:.5}}
 
   @media (prefers-reduced-motion:reduce){
     .is-animating .mark,.is-animating .sweep,.is-animating .glow,
-    .is-animating .status .dot,.is-animating .reveal{animation:none !important}
-    /* resting state: exact official PNG fully lit, steady glow, no motion */
-    .logo .mark{opacity:1;filter:none}
-    .glow{opacity:.14}
-    .sweep{opacity:0}
+    .is-animating .kicker .dot,.is-animating .reveal,.is-animating .circuit{animation:none !important}
+    .logo .mark{opacity:1;filter:none}.glow{opacity:.14}.sweep{opacity:0}
     .reveal{opacity:1;transform:none}
-    .status .dot{background:#2a82ff;box-shadow:0 0 10px 1px rgba(42,130,255,.6)}
+    .kicker .dot{background:#2a82ff;box-shadow:0 0 10px 1px rgba(42,130,255,.6)}
     .replay{display:none}
   }
 </style>
 </head>
 <body>
-  <div class="field" aria-hidden="true"><span class="bloom blue"></span><span class="bloom gold"></span></div>
+  <div class="field" aria-hidden="true">
+    <span class="grid"></span><span class="bloom blue"></span><span class="bloom gold"></span>
+    <svg class="circuit" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="b">
+        <path d="M60 150 H210 V250 H300"/><path d="M120 150 V70"/><path d="M60 360 H180 V300"/>
+        <circle cx="60" cy="150" r="4" fill="#9cc6ff"/><circle cx="300" cy="250" r="4" fill="#9cc6ff"/>
+        <circle cx="120" cy="70" r="3.5" fill="#9cc6ff"/><circle cx="60" cy="360" r="3.5" fill="#9cc6ff"/>
+      </g>
+      <g class="g">
+        <path d="M1380 760 H1230 V660 H1140"/><path d="M1320 760 V840"/><path d="M1380 560 H1260 V620"/>
+        <circle cx="1380" cy="760" r="4" fill="#ffe7a8"/><circle cx="1140" cy="660" r="4" fill="#ffe7a8"/>
+        <circle cx="1320" cy="840" r="3.5" fill="#ffe7a8"/><circle cx="1380" cy="560" r="3.5" fill="#ffe7a8"/>
+      </g>
+    </svg>
+  </div>
 
   <main class="wrap">
-    <p class="status reveal r1"><span class="dot"></span>
-      <span class="label">System status:&nbsp;<b>Online</b></span></p>
+    <p class="kicker reveal r1"><span class="dot"></span>Infrastructure&nbsp;·&nbsp;Intelligence&nbsp;·&nbsp;Systems</p>
 
-    <!-- =====================================================================
-         OFFICIAL A/1 CREATIVE LOGO — exact artwork, used INTACT.
-         A single, un-clipped, un-separated <img> pointing at the official
-         file (brand/a1-logo-official.png). The A, slash, 1, bulb, and
-         socket are never split apart. The .glow and .sweep spans are
-         additive light overlays only — they sit on top of the mark and
-         drive the whole-mark power-on. No redraw, no trace, no slicing,
-         no substitution.
-         ===================================================================== -->
+    <!-- OFFICIAL A/1 CREATIVE LOGO — exact artwork, used INTACT (single un-clipped <img>). -->
     <div class="logo-slot">
       <div class="logo" role="img" aria-label="A/1 Creative Agency logo">
         <img class="mark" src="brand/a1-logo-official.png"
@@ -227,33 +225,41 @@
         <span class="glow"  aria-hidden="true"></span>
         <span class="sweep" aria-hidden="true"></span>
       </div>
-      <p class="logo-note"><b>Official A/1 Creative mark.</b> The exact artwork, used intact —
-        powering on as one piece, then settling into its lit resting state.</p>
+      <button class="replay" type="button" aria-label="Replay logo power-on">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+      </button>
     </div>
+
+    <span class="link" aria-hidden="true"></span>
 
     <h1 class="reveal r2">Get <span class="glow-word">Plugged&nbsp;In</span></h1>
     <p class="lede reveal r2">We build the infrastructure that powers your business.</p>
 
-    <ul class="caps reveal r3" aria-label="What we build">
-      <li><b>Websites</b></li><li>Automation</li><li>Lead capture</li><li>Bookings</li>
-      <li>CRM</li><li>Missed-call recovery</li><li>AI systems</li>
-    </ul>
+    <span class="link reveal r3" aria-hidden="true"></span>
 
-    <div class="cta-row reveal r4">
+    <div class="cta-row reveal r3">
       <a class="btn btn-primary" href="#" role="button">Start Your Upgrade <span class="arrow">&rarr;</span></a>
       <a class="btn btn-ghost" href="#" role="button">Take the Assessment</a>
     </div>
-  </main>
 
-  <button class="replay" type="button" aria-label="Replay the logo power-on animation">&#8635; Replay power-on</button>
+    <div class="infra reveal r5" role="list" aria-label="The systems we connect and power">
+      <div class="sys" role="listitem"><span class="node"></span>Websites</div>
+      <div class="sys" role="listitem"><span class="node"></span>Automation</div>
+      <div class="sys" role="listitem"><span class="node"></span>Lead Capture</div>
+      <div class="sys" role="listitem"><span class="node"></span>Booking</div>
+      <div class="sys" role="listitem"><span class="node"></span>CRM</div>
+      <div class="sys" role="listitem"><span class="node"></span>Missed-Call Recovery</div>
+      <div class="sys" role="listitem"><span class="node"></span>AI Systems</div>
+    </div>
+  </main>
 
 <script>
   (function(){
     var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
     function play(){
-      if(reduce.matches)return;              /* static powered state; no motion */
+      if(reduce.matches)return;
       document.body.classList.remove('is-animating');
-      void document.body.offsetWidth;         /* force reflow to restart timeline */
+      void document.body.offsetWidth;
       document.body.classList.add('is-animating');
     }
     if('requestAnimationFrame' in window){requestAnimationFrame(function(){requestAnimationFrame(play);});}
