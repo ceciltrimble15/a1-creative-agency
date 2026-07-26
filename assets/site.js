@@ -37,6 +37,14 @@
     window.addEventListener('resize', function () { if (window.innerWidth > 900) setOpen(false); });
   }
 
+  /* ---- add a mobile-only legal-access row (Privacy / Terms) to the menu ---- */
+  if (links && !links.querySelector('.nav-legal')) {
+    var legal = doc.createElement('li');
+    legal.className = 'nav-legal';
+    legal.innerHTML = '<a href="/privacy">Privacy Policy</a><a href="/terms">Terms</a>';
+    links.appendChild(legal);
+  }
+
   /* ---- mark the active nav link by pathname ---- */
   var path = location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
   if (path === '') path = '/';
