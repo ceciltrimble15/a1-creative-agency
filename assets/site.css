@@ -264,3 +264,40 @@ main{position:relative;z-index:1;display:block}
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ============================ PORTFOLIO / PROOF OF WORK ============================ */
+.pgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.pcard{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(13,20,34,.92),rgba(9,14,24,.92));
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 18px 50px -30px rgba(0,0,0,.8);transition:transform .2s,border-color .25s,box-shadow .25s}
+.pcard:hover{transform:translateY(-4px);border-color:rgba(156,198,255,.35);box-shadow:0 26px 60px -30px rgba(0,0,0,.9)}
+.pcard:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:3px}
+.pcard .shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0a1120;border-bottom:1px solid var(--line)}
+.pcard .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .4s ease}
+.pcard:hover .shot img{transform:scale(1.03)}
+.pcard .shot.brandtile{display:grid;place-items:center;background:radial-gradient(120% 120% at 50% 0%,#eef2f8,#cdd6e4)}
+.pcard .shot.brandtile img{width:60%;height:60%;object-fit:contain;transform:none}
+.pcard:hover .shot.brandtile img{transform:none}
+.pcard .ptag{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--font-display);font-size:10px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--a1-gold-soft);
+  background:rgba(6,10,18,.74);border:1px solid rgba(223,179,70,.4);border-radius:999px;padding:5px 10px;backdrop-filter:blur(4px)}
+.pcard .pbody{display:flex;flex-direction:column;gap:8px;padding:20px}
+.pcard .pindustry{font-family:var(--font-display);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--a1-silver-3)}
+.pcard h3{margin:0;font-family:var(--font-display);font-weight:700;font-size:1.2rem;letter-spacing:-.015em;color:var(--a1-silver-0)}
+.pcard .pwhat{margin:0;font-size:.92rem;line-height:1.5;color:var(--a1-silver-2)}
+.pcard .pchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.pcard .pchips span{font-size:11px;letter-spacing:.02em;color:var(--a1-silver-1);
+  border:1px solid var(--line);border-radius:6px;padding:3px 8px;background:rgba(14,22,38,.5)}
+.pcard .pcta{margin-top:6px;font-family:var(--font-display);font-weight:600;font-size:.92rem;color:var(--a1-blue-soft);display:inline-flex;align-items:center;gap:7px}
+.pcard .pcta .arrow{transition:transform .18s}
+.pcard:hover .pcta .arrow{transform:translateX(3px)}
+
+/* case-study screenshot frame + secondary link */
+.shot-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 18px 50px -30px rgba(0,0,0,.8);background:#0a1120;margin:0 auto;max-width:900px}
+.shot-frame img{display:block;width:100%;height:auto}
+.shot-frame.brandtile{display:grid;place-items:center;aspect-ratio:16/9;background:radial-gradient(120% 120% at 50% 0%,#eef2f8,#cdd6e4)}
+.shot-frame.brandtile img{width:44%;height:auto}
+.ext-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:600;font-size:.95rem;color:var(--a1-blue-soft);text-decoration:none}
+.ext-link:hover{color:#fff;text-decoration:underline}

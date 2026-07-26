@@ -267,6 +267,31 @@
   .proof-note{margin:clamp(22px,3vw,30px) auto 0;max-width:60ch;text-align:center;
     font-size:.9rem;line-height:1.5;color:var(--a1-silver-3)}
 
+  /* portfolio cards (Proof of Work) */
+  .pgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .pcard{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,rgba(13,20,34,.92),rgba(9,14,24,.92));
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 18px 50px -30px rgba(0,0,0,.8);transition:transform .2s,border-color .25s,box-shadow .25s}
+  .pcard:hover{transform:translateY(-4px);border-color:rgba(156,198,255,.35);box-shadow:0 26px 60px -30px rgba(0,0,0,.9)}
+  .pcard:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:3px}
+  .pcard .shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0a1120;border-bottom:1px solid var(--line)}
+  .pcard .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .4s ease}
+  .pcard:hover .shot img{transform:scale(1.03)}
+  .pcard .shot.brandtile{display:grid;place-items:center;background:radial-gradient(120% 120% at 50% 0%,#eef2f8,#cdd6e4)}
+  .pcard .shot.brandtile img{width:60%;height:60%;object-fit:contain;transform:none}
+  .pcard:hover .shot.brandtile img{transform:none}
+  .pcard .ptag{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--font-display);font-size:10px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--a1-gold-soft);
+    background:rgba(6,10,18,.74);border:1px solid rgba(223,179,70,.4);border-radius:999px;padding:5px 10px;backdrop-filter:blur(4px)}
+  .pcard .pbody{display:flex;flex-direction:column;gap:8px;padding:20px;text-align:left}
+  .pcard .pindustry{font-family:var(--font-display);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--a1-silver-3)}
+  .pcard h3{margin:0;font-family:var(--font-display);font-weight:700;font-size:1.2rem;letter-spacing:-.015em;color:var(--a1-silver-0)}
+  .pcard .pwhat{margin:0;font-size:.92rem;line-height:1.5;color:var(--a1-silver-2)}
+  .pcard .pcta{margin-top:6px;font-family:var(--font-display);font-weight:600;font-size:.92rem;color:var(--a1-blue-soft);display:inline-flex;align-items:center;gap:7px}
+  .pcard .pcta .arrow{transition:transform .18s}
+  .pcard:hover .pcta .arrow{transform:translateX(3px)}
+
   /* final CTA */
   .final{text-align:center}
   .final .sec-in{max-width:720px;display:flex;flex-direction:column;align-items:center}
@@ -562,23 +587,49 @@
     <div class="sec-in">
       <div class="sec-head">
         <p class="eyebrow gold">Proof of Work</p>
-        <h2 class="sec-title" id="proof-title">Businesses we've built and connected.</h2>
-        <p class="sec-sub">Real clients across real industries.</p>
+        <h2 class="sec-title" id="proof-title">Real businesses, running on real builds.</h2>
+        <p class="sec-sub">A look at what we've actually built and connected — open any project to see the work.</p>
       </div>
-      <div class="grid proof" role="list">
-        <div class="card proof-card" role="listitem">
-          <p class="name">TRHUE Hair Care</p>
-          <p class="sector">Hair Care</p>
-        </div>
-        <div class="card proof-card" role="listitem">
-          <p class="name">4 Reel Cleaning</p>
-          <p class="sector">Cleaning Services</p>
-        </div>
-        <div class="card proof-card" role="listitem">
-          <p class="name">A Touch of Feather</p>
-          <p class="sector">General Contractor</p>
-        </div>
+      <div class="pgrid">
+        <a class="pcard" href="/work/trhue-hair-care">
+          <span class="shot"><img src="assets/portfolio/trhue-hair-care.jpg" alt="TRHUE Hair Care website — Where Beauty Meets Confidence" loading="lazy" width="800" height="517" /></span>
+          <span class="pbody">
+            <span class="pindustry">Hair Care / Beauty</span>
+            <h3>TRHUE Hair Care</h3>
+            <span class="pwhat">Website, brand, service menu, and booking — a premium presence that converts lookers into clients.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+        <a class="pcard" href="/work/4-reel-cleaning">
+          <span class="shot"><img src="assets/portfolio/4-reel-cleaning.jpg" alt="4 Reel Cleaning website — Clean Spaces. Clear Minds." loading="lazy" width="800" height="470" /></span>
+          <span class="pbody">
+            <span class="pindustry">Cleaning Services</span>
+            <h3>4 Reel Cleaning</h3>
+            <span class="pwhat">A credible service site with a fast quote pathway and lead capture that turns visitors into booked jobs.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+        <a class="pcard" href="/work/a-touch-of-feather">
+          <span class="shot"><img src="assets/portfolio/a-touch-of-feather.jpg" alt="A Touch of Feather website — Craftsmanship Built To Last" loading="lazy" width="800" height="433" /></span>
+          <span class="pbody">
+            <span class="pindustry">General Contractor</span>
+            <h3>A Touch of Feather</h3>
+            <span class="pwhat">A portfolio-driven website that matches high-end craftsmanship and opens an inquiry pathway for estimates.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+        <a class="pcard" href="/work/a1-suppliers">
+          <span class="shot brandtile"><img src="assets/portfolio/a1-suppliers-logo.png" alt="A/1 Suppliers logo" loading="lazy" width="500" height="500" /></span>
+          <span class="ptag">Affiliated Project</span>
+          <span class="pbody">
+            <span class="pindustry">Nonprofit / Youth &amp; Community Outreach</span>
+            <h3>A/1 Suppliers</h3>
+            <span class="pwhat">Affiliated Community Infrastructure Project — website, enrollment and donation pathways, and the operational systems behind the scenes.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
       </div>
+      <p class="center" style="margin-top:26px"><a class="btn btn-ghost" href="/work">View all work <span class="arrow">&rarr;</span></a></p>
     </div>
   </section>
 
