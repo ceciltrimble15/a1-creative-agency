@@ -104,9 +104,24 @@ registered as a Sole Proprietor)*.
 ---
 
 ## Notes
-- These URLs are live at `a1creativeagency.com` only **after** this build is
-  approved and deployed to production. Nothing here has been merged or deployed —
-  it's on the PR #15 preview awaiting your approval.
+- **Status: the rejection fixes are LIVE on production (`a1creativeagency.com`).**
+  The `a1-creative-production` branch already ships the inbound SMS handler
+  (`netlify/functions/twilio-sms.mjs`), the `/privacy` and `/terms` pages, and the
+  `/api/twilio/sms` + legal-variant redirects in `netlify.toml`. The handler's
+  STOP / HELP / START replies match the "Opt-out / Help / Opt-in message" copy in
+  Part B word-for-word. So the two things that caused the rejection — a dead STOP
+  path and 404 legal links — are resolved on the live site. What remains is the
+  console + carrier work in Part A (env vars, webhook, opt-out test, resubmit).
+- The remaining Part A steps require the Twilio account credentials and the Twilio
+  console, and A2P resubmission is a carrier process — those are owner actions and
+  cannot be done from the codebase.
+- **Website 2.0 note:** the redesigned site (branch `claude/a1-creative-website-2-fresh`)
+  moves the opt-in forms to `/quote`, `/assessment`, and `/contact` and brands them
+  "A/1 Creative Agency"; the required disclosures (sender, message types, frequency,
+  rates, STOP, HELP, consent-not-a-condition, Privacy/Terms links) are materially the
+  same. If you resubmit now, do it against the current production copy above. If you'd
+  rather submit against 2.0, deploy it first and I'll align this kit's opt-in wording
+  and URLs to the 2.0 forms.
 - Until the campaign is carrier-approved, the missed-call text-back may be
   filtered. Voice greeting/forward/voicemail work regardless of A2P.
 - Legal wording is a first draft in the site's design — have you or your attorney
