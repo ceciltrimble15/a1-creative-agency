@@ -1,20 +1,28 @@
 /* Inbound SMS webhook for the A1 Creative number (513) 440-3329.
-   THIS IS THE A2P OPT-OUT FIX: it guarantees STOP unsubscribes and HELP returns
-   help, with branded confirmations, so carrier review can verify the opt-out
-   path works. Also records the consent change in Airtable and forwards genuine
-   replies (e.g. answers to a missed-call text-back) to operations@.
+
+   Twilio Advanced Opt-Out is ENABLED on the Messaging Service and is the SOLE
+   owner of the STOP / START / HELP replies (and any configured secondary opt-out
+   keyword replies). When Advanced Opt-Out processes one of those keywords it:
+     (a) sends the single, carrier-compliant reply itself, and
+     (b) forwards the inbound message to this webhook with an `OptOutType`
+         parameter set to STOP, START, or HELP.
+
+   To avoid sending a DUPLICATE confirmation, this webhook NEVER sends an SMS of
+   its own. On an OptOutType event it only records/logs the consent change and
+   returns an empty 200 TwiML (no <Message>). Ordinary inbound messages (no
+   OptOutType — e.g. a reply to a missed-call text-back) are logged and forwarded
+   to operations@, also without an auto-reply. The handler imports no SMS-send
+   helper, so it is structurally incapable of generating an outbound message.
 
    Point the number's Messaging webhook (A Message Comes In) here:
      https://a1creativeagency.com/api/twilio/sms   (HTTP POST)
 
-   Keep Twilio "Advanced Opt-Out" enabled at the Messaging Service too — that is
-   the carrier-level guarantee. This handler is the application-level backup and
-   the branded copy carriers look for. */
+   Keep Twilio "Advanced Opt-Out" enabled at the Messaging Service — that is the
+   carrier-level guarantee and the single source of the compliant reply copy. */
 
 import {
   parseTwilioBody,
   isValidTwilioRequest,
-  smsReply,
   emptyTwiml,
   methodNotAllowed,
   forbidden,
@@ -22,29 +30,9 @@ import {
 import { findLead, updateLead, logAutomation, LEAD_FIELDS } from './_lib/airtable.mjs';
 import { notifyOps } from './_lib/notify.mjs';
 
-const BRAND = 'A1 Creative Agency';
-const HELP_PHONE = '(513) 440-3329';
-const HELP_EMAIL = 'operations@a1creativeagency.com';
-
-// Carrier-recognized keyword sets (case-insensitive, whitespace-trimmed).
-const STOP_WORDS = new Set(['STOP', 'STOPALL', 'UNSUBSCRIBE', 'END', 'QUIT', 'CANCEL']);
-const HELP_WORDS = new Set(['HELP', 'INFO']);
-const START_WORDS = new Set(['START', 'YES', 'UNSTOP']);
-
-const STOP_REPLY =
-  `You are unsubscribed from ${BRAND} and will receive no further messages. ` +
-  `Reply HELP for help or START to resubscribe.`;
-const HELP_REPLY =
-  `${BRAND}: help at ${HELP_PHONE} or ${HELP_EMAIL}. ` +
-  `Msg frequency varies (about 2-6/month). Msg & data rates may apply. ` +
-  `Reply STOP to unsubscribe.`;
-const START_REPLY =
-  `You are re-subscribed to ${BRAND} messages (about 2-6/month). ` +
-  `Msg & data rates may apply. Reply HELP for help, STOP to unsubscribe.`;
-
 /* Flip the Lead's SMS Consent flag when a known contact opts in/out, so the
    record reflects the caller's latest choice. Best-effort — never blocks the
-   TwiML reply the carrier is waiting for. */
+   TwiML response and never sends a message. */
 async function recordConsentChange(from, optedIn) {
   try {
     const found = await findLead({ phone: from });
@@ -52,7 +40,7 @@ async function recordConsentChange(from, optedIn) {
       await updateLead(found.record.id, {
         [LEAD_FIELDS.smsConsent]: optedIn,
         [LEAD_FIELDS.smsConsentAt]: new Date().toISOString(),
-        [LEAD_FIELDS.consentSourceUrl]: 'SMS keyword reply',
+        [LEAD_FIELDS.consentSourceUrl]: 'SMS keyword reply (Twilio Advanced Opt-Out)',
       });
     }
   } catch (err) {
@@ -68,31 +56,36 @@ export const handler = async (event) => {
 
   const from = params.From || '';
   const bodyText = (params.Body || '').trim();
-  const keyword = bodyText.toUpperCase().replace(/[^A-Z]/g, '');
 
-  if (STOP_WORDS.has(keyword)) {
-    await Promise.all([
-      recordConsentChange(from, false),
-      logAutomation('sms_opt_out', `${from} sent "${bodyText}" — unsubscribed`),
-    ]);
-    return smsReply(STOP_REPLY);
+  // Advanced Opt-Out sets OptOutType (STOP | START | HELP, or a configured
+  // secondary keyword's category) once it has handled the keyword and sent its
+  // own reply. When present, Twilio owns the reply — we must NOT send a second
+  // message. Record/log the event and acknowledge with an empty 200.
+  const optOutType = (params.OptOutType || '').trim().toUpperCase();
+
+  if (optOutType) {
+    if (optOutType === 'STOP') {
+      await Promise.all([
+        recordConsentChange(from, false),
+        logAutomation('sms_opt_out', `${from} opted out — Twilio Advanced Opt-Out sent the reply`),
+      ]);
+    } else if (optOutType === 'START') {
+      await Promise.all([
+        recordConsentChange(from, true),
+        logAutomation('sms_opt_in', `${from} re-subscribed — Twilio Advanced Opt-Out sent the reply`),
+      ]);
+    } else if (optOutType === 'HELP') {
+      await logAutomation('sms_help', `${from} requested help — Twilio Advanced Opt-Out sent the reply`);
+    } else {
+      await logAutomation('sms_optout_other', `${from} OptOutType=${optOutType} — Twilio Advanced Opt-Out sent the reply`);
+    }
+    // Twilio Advanced Opt-Out owns the reply. Send nothing; acknowledge with 200.
+    return emptyTwiml();
   }
 
-  if (HELP_WORDS.has(keyword)) {
-    await logAutomation('sms_help', `${from} requested help`);
-    return smsReply(HELP_REPLY);
-  }
-
-  if (START_WORDS.has(keyword)) {
-    await Promise.all([
-      recordConsentChange(from, true),
-      logAutomation('sms_opt_in', `${from} sent "${bodyText}" — resubscribed`),
-    ]);
-    return smsReply(START_REPLY);
-  }
-
-  // A genuine reply (e.g. answering a missed-call text-back). Forward to ops and
-  // log it; do not auto-reply, to avoid unsolicited messaging.
+  // Ordinary inbound message (no OptOutType) — e.g. a reply to a missed-call
+  // text-back. Forward to ops and log; do not auto-reply (avoids unsolicited
+  // messaging and any duplicate).
   await Promise.all([
     notifyOps(
       `SMS reply from ${from}`,
