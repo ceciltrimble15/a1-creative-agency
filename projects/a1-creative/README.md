@@ -60,9 +60,26 @@ Deploy paths assume `projects/a1-creative/` is the site root with clean URLs
 (`/privacy`, `/terms`, `/sms-consent`). Adjust link paths if the publish root
 differs.
 
+## Drag-ready deploy bundle (`site/`)
+
+The live `a1creativeagency.com` site is on Netlify and deploys by **manual
+drag-and-drop** (see `quote-link.md`), so a git push here does **not** publish.
+To make publishing one step, `build-site.sh` assembles a self-contained bundle:
+
+```
+cd projects/a1-creative && bash build-site.sh   # regenerates ./site/
+```
+
+`site/` contains the landing page as `index.html`, the compliance pages
+(`/privacy`, `/terms`, `/sms-consent`), `legal.css`, brand assets, and a
+`_redirects` file that (a) keeps `/quote` pointing at the Vercel quote endpoint
+and (b) proxies `/api/*` to the Vercel functions so the consent form POSTs
+same-origin to `/api/submit-lead`. **To publish: drag the `site/` folder onto
+the Netlify Deploys page** for the production site.
+
 ## Next Steps
 
-1. Confirm the production deploy source/root for `a1-creative-site` (Netlify).
-2. Deploy `projects/a1-creative/` as the root with clean URLs.
-3. Attach domain `a1creativeagency.com` to that project only.
-4. Screenshot the live `/sms-consent` opt-in for the A2P campaign submission.
+1. Drag `site/` onto Netlify to publish the compliance gate to a1creativeagency.com.
+2. Verify `/privacy`, `/terms`, `/sms-consent` load and a test opt-in lands in Airtable with the consent fields set.
+3. Screenshot the live `/sms-consent` opt-in for the A2P campaign submission.
+4. (Optional) Repoint `/quote` to `/sms-consent` if you want the branded quote link to use the new compliant form.

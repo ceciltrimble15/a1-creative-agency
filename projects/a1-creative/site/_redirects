@@ -1,0 +1,2 @@
+/quote   https://a1-creative-agency.vercel.app/quote            302
+/api/*   https://a1-creative-agency.vercel.app/api/:splat       200
