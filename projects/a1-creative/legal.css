@@ -1,0 +1,195 @@
+/* A/1 Creative Agency — Legal / compliance page styling.
+   Light-background, high-readability. Brand system: Space Grotesk + Inter,
+   Black-Navy structure, electric-blue accents. Kept deliberately minimal so
+   Privacy, Terms, and the SMS consent form read as one clean system. */
+
+:root {
+  --ac-black-navy: #0b0e16;
+  --ac-navy: #0e1b33;
+  --ac-blue: #3b82d9;
+  --ac-blue-bright: #c6e4fd;
+  --ac-gold: #d5aa47;
+  --ac-white: #ffffff;
+  --ac-charcoal: #0b0b0f;
+  --ac-surface: #f4f6fa;
+  --ac-border: #c9d2e0;
+  --ac-text-secondary: #4a5468;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ac-white);
+  color: var(--ac-charcoal);
+  font-family: 'Inter', system-ui, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.wrap { width: 100%; max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+/* Header / footer share the navy field */
+.legal-nav {
+  background: var(--ac-black-navy);
+  border-bottom: 1px solid #11151f;
+}
+.legal-nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+.legal-nav a.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ac-white);
+  text-decoration: none;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  font-size: 18px;
+}
+.legal-nav a.brand img { height: 34px; width: auto; display: block; }
+.legal-nav a.home {
+  color: var(--ac-blue-bright);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Hero band */
+.legal-hero {
+  background: var(--ac-navy);
+  color: var(--ac-white);
+  padding: 56px 0 44px;
+}
+.legal-hero h1 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-size: clamp(30px, 6vw, 44px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+.legal-hero .meta { color: #aeb9cc; font-size: 14px; margin: 0; }
+.legal-hero .meta strong { color: var(--ac-blue-bright); font-weight: 600; }
+
+/* Body */
+main.legal { padding: 48px 0 72px; }
+main.legal h2 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 40px 0 12px;
+  color: var(--ac-black-navy);
+}
+main.legal h3 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  margin: 24px 0 8px;
+  color: var(--ac-navy);
+}
+main.legal p, main.legal li { color: #1e2430; }
+main.legal a { color: var(--ac-blue); }
+main.legal ul { padding-left: 22px; }
+main.legal li { margin: 6px 0; }
+main.legal .lede { font-size: 18px; color: var(--ac-text-secondary); }
+
+.callout {
+  border: 1px solid var(--ac-border);
+  border-left: 4px solid var(--ac-blue);
+  background: var(--ac-surface);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 24px 0;
+}
+.callout.gold { border-left-color: var(--ac-gold); }
+.callout p { margin: 0; }
+.callout strong { color: var(--ac-black-navy); }
+
+.kw { font-weight: 700; letter-spacing: 0.5px; }
+
+hr.rule { border: none; border-top: 1px solid var(--ac-border); margin: 40px 0; }
+
+/* Footer */
+.legal-foot {
+  background: var(--ac-black-navy);
+  color: #aeb9cc;
+  padding: 32px 0;
+  font-size: 14px;
+}
+.legal-foot .wrap { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.legal-foot a { color: var(--ac-blue-bright); text-decoration: none; }
+.legal-foot .sep { color: #3a465c; }
+.legal-foot .links { margin-left: auto; display: flex; gap: 14px; }
+
+/* Consent form specifics */
+.form-card {
+  border: 1px solid var(--ac-border);
+  border-radius: 14px;
+  background: var(--ac-white);
+  box-shadow: 0 4px 24px rgba(10,31,68,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  padding: 28px;
+  margin: 8px 0 0;
+}
+.field { margin: 0 0 18px; }
+.field label { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ac-text-secondary); margin: 0 0 6px; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ac-charcoal);
+  padding: 12px 14px;
+  border: 1px solid var(--ac-border);
+  border-radius: 8px;
+  background: #fff;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--ac-blue);
+  box-shadow: 0 0 0 3px rgba(59,130,217,0.15);
+}
+.consent-block {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid var(--ac-border);
+  border-radius: 10px;
+  background: var(--ac-surface);
+  padding: 16px;
+  margin: 4px 0 20px;
+}
+.consent-block input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; flex: 0 0 auto; }
+.consent-block .consent-text { font-size: 13.5px; line-height: 1.55; color: #26303f; }
+.consent-block .consent-text a { color: var(--ac-blue); }
+.btn-primary {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background: var(--ac-blue);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 15px;
+  padding: 14px 22px;
+  border-radius: 8px;
+  min-height: 48px;
+  width: 100%;
+  transition: transform .12s ease, background .12s ease;
+}
+.btn-primary:hover { transform: translateY(-1px); background: #2f74cc; }
+.btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.form-note { font-size: 12.5px; color: var(--ac-text-secondary); margin: 14px 0 0; }
+.form-status { margin: 16px 0 0; font-size: 14px; font-weight: 600; }
+.form-status.ok { color: #12805c; }
+.form-status.err { color: #d32f2f; }

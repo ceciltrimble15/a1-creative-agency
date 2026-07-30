@@ -6,6 +6,7 @@ import { notifyOps } from './_lib/notify.js';
 const ALLOWED_ORIGINS = [
   'https://a1creativeagency.com',
   'https://www.a1creativeagency.com',
+  'https://a1-creative-site.netlify.app',
   'https://a1creativeagency4.netlify.app',
 ];
 
@@ -30,7 +31,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, phone, email, service, date, message, client, source } = req.body;
+  const {
+    name, phone, email, service, date, message, client, source, business,
+    smsConsent, consentTextVersion, consentSourceUrl,
+  } = req.body;
 
   if (!name || !phone || !email) {
     return res.status(400).json({ error: 'Name, phone, and email are required' });
@@ -52,8 +56,25 @@ export default async function handler(req, res) {
     'Client': client || 'A1 Creative Agency',
   };
 
+  if (business) fields['Business Name'] = business;
   if (notesParts.length > 0) fields['Notes'] = notesParts.join('\n');
   if (date) fields['date'] = date;
+
+  // SMS consent audit trail (TCPA / A2P proof). Only stamp the consent fields
+  // when the user actually checked the box; the checkbox itself records the
+  // yes/no either way. Timestamp + IP are captured server-side and cannot be
+  // spoofed by the client.
+  const consentGiven = smsConsent === true || smsConsent === 'yes' || smsConsent === 'true';
+  fields['SMS Consent'] = consentGiven;
+  if (consentGiven) {
+    const forwarded = req.headers['x-forwarded-for'];
+    const ip = (Array.isArray(forwarded) ? forwarded[0] : forwarded || '')
+      .split(',')[0].trim() || req.socket?.remoteAddress || '';
+    fields['SMS Consent Timestamp'] = new Date().toISOString();
+    if (consentTextVersion) fields['SMS Consent Text Version'] = consentTextVersion;
+    if (consentSourceUrl) fields['Consent Source URL'] = consentSourceUrl;
+    if (ip) fields['Consent IP'] = ip;
+  }
 
   const lead = await createLead(fields);
 
