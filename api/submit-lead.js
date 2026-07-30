@@ -53,7 +53,7 @@ export default async function handler(req, res) {
     // Caller-supplied so each site tags itself; defaults suit the A1 site
     // since a1creativeagency.com is this project's production domain.
     'Source': source || 'Website form ',
-    'Client': client || 'A1 Creative Agency',
+    'Client': client || 'A/1 Creative Agency',
   };
 
   if (business) fields['Business Name'] = business;

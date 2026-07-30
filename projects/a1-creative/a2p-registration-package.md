@@ -18,9 +18,9 @@ Legend: ✅ = confirmed from records · ⚠️ = **Cecil must confirm/supply** b
 
 | Field | Value | Source |
 |---|---|---|
-| Legal business name | **A/1 Creative Agency LLC** ✅ (forward slash, **no comma** before LLC) | Brand system / legal filing |
+| Legal business name | **A/1 Creative Agency** ✅ (forward slash, **no "LLC"** — confirmed by owner 2026-07-30; add "LLC" only if the IRS EIN letter shows it) | Owner-confirmed |
 | DBA / brand name | A/1 Creative Agency | Brand system |
-| Business type | Private company — LLC ✅ | Brand system |
+| Business type | Private company ⚠️ (confirm sole-prop vs LLC against the EIN letter) | Cecil |
 | EIN / U.S. Tax ID | ⚠️ **PROVIDE** — must match the IRS EIN letter exactly | Cecil |
 | Business registration country | United States ✅ | — |
 | Business industry | Professional Services (Marketing / Advertising / Technology) ✅ | — |
@@ -32,11 +32,13 @@ Legend: ✅ = confirmed from records · ⚠️ = **Cecil must confirm/supply** b
 | Business contact — phone | +1 513 440 3329 ✅ | Brand system |
 | Stock symbol / exchange | N/A (private) ✅ | — |
 
-**Critical match note:** The Brand legal name + EIN + address must match the IRS
-EIN record **exactly** or the Brand fails vetting. Confirm whether the EIN was
-filed as `A/1 Creative Agency LLC` (with slash) or `A1 Creative Agency LLC` (no
-slash) and register the Brand with whatever the IRS has on file — that string
-wins over brand styling for this one purpose.
+**Critical match note:** The owner has confirmed the legal business name is
+**`A/1 Creative Agency`** — with the slash, and **no "LLC"**. Register the Brand
+with this exact string across the Twilio Customer Profile, A2P Brand, and
+Campaign. Do **not** use "A1 Creative Agency" and do **not** append "LLC" unless
+the IRS EIN letter itself shows it. The Brand legal name + EIN + address must
+match the IRS EIN record exactly or the Brand fails vetting, so verify the EIN
+letter letter-for-letter before submitting.
 
 ---
 

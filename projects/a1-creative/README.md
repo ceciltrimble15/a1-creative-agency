@@ -1,6 +1,6 @@
-# A1 Creative Agency
+# A/1 Creative Agency
 
-**Business**: A1 Creative Agency — Infrastructure · Intelligence · Systems
+**Business**: A/1 Creative Agency — Infrastructure · Intelligence · Systems
 **Domain**: a1creativeagency.com
 **Contact**: admin@a1creativeagency.com | (513) 440-3329
 
