@@ -39,6 +39,15 @@
   to = "/#assessment"
   status = 302
 
+# /get-a-quote is registered on the Twilio A2P campaign; make it valid by
+# resolving it exactly like /quote — to the on-site assessment intake (which
+# carries the unchecked SMS consent checkbox + Privacy/Terms links). 302 so it
+# stays repointable alongside /quote without fighting browser caches.
+[[redirects]]
+  from = "/get-a-quote"
+  to = "/#assessment"
+  status = 302
+
 # Twilio voice + SMS webhooks. Clean, same-origin paths Cecil pastes into the
 # Twilio console. status = 200 (rewrite) preserves the POST + the original URL
 # so the X-Twilio-Signature check validates against the public path.
