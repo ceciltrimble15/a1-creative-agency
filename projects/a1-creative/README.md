@@ -77,6 +77,19 @@ and (b) proxies `/api/*` to the Vercel functions so the consent form POSTs
 same-origin to `/api/submit-lead`. **To publish: drag the `site/` folder onto
 the Netlify Deploys page** for the production site.
 
+### A2P URL-compatibility aliases
+
+Twilio already has Privacy/Terms/quote URLs registered on the campaign and they
+can't be edited reliably, so the build emits **real 200 route aliases** that serve
+byte-for-byte identical content (also declared as 200 rewrites in `_redirects` as
+backup). The originals are untouched.
+
+| Alias (registered in Twilio) | Serves | Same content as |
+|---|---|---|
+| `/privacy-policy` | `privacy-policy.html` | `/privacy` |
+| `/terms-and-conditions` | `terms-and-conditions.html` | `/terms` |
+| `/get-a-quote` | `get-a-quote.html` | `/sms-consent` (compliant quote form) |
+
 ## Next Steps
 
 1. Drag `site/` onto Netlify to publish the compliance gate to a1creativeagency.com.

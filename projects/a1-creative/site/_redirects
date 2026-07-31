@@ -1,2 +1,5 @@
+/privacy-policy          /privacy.html            200
+/terms-and-conditions    /terms.html              200
+/get-a-quote             /sms-consent.html        200
 /quote   https://a1-creative-agency.vercel.app/quote            302
 /api/*   https://a1-creative-agency.vercel.app/api/:splat       200

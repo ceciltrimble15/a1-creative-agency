@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Request a Quote &amp; SMS Updates — A/1 Creative Agency</title>
+    <meta name="description" content="Request a quote from A/1 Creative Agency and opt in to SMS updates about your inquiry. Consent is not a condition of purchase." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0b0e16" />
+    <link rel="canonical" href="https://a1creativeagency.com/sms-consent" />
+    <link rel="icon" type="image/svg+xml" href="brand/logo-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./legal.css" />
+  </head>
+  <body>
+    <header class="legal-nav">
+      <div class="wrap">
+        <a href="/" class="brand"><img src="brand/logo-primary.svg" alt="A/1 Creative Agency" /></a>
+        <a href="/" class="home">← Home</a>
+      </div>
+    </header>
+
+    <section class="legal-hero">
+      <div class="wrap">
+        <h1>Request a Quote</h1>
+        <p class="meta">Tell us what you need. We'll follow up fast — and, if you opt in, keep you posted by text.</p>
+      </div>
+    </section>
+
+    <main class="legal">
+      <div class="wrap">
+        <form id="quote-form" class="form-card" novalidate>
+          <div class="field">
+            <label for="name">Your name *</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="business">Business name</label>
+            <input id="business" name="business" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="phone">Mobile phone *</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(513) 555-0123" required />
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="service">What do you need?</label>
+            <select id="service" name="service">
+              <option value="">Select a service…</option>
+              <option>QuickLaunch Kit — website</option>
+              <option>Community Access System — leads + booking</option>
+              <option>Growth Infrastructure — automation + CRM</option>
+              <option>Full Infrastructure Build</option>
+              <option>Missed-call recovery</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="3" placeholder="A sentence or two about your business and what you're after."></textarea>
+          </div>
+
+          <!-- SMS CONSENT — checkbox is NOT pre-checked. This exact wording is the
+               canonical consent disclosure (version v2026-07-30) and must match the
+               A2P campaign opt-in description. -->
+          <div class="consent-block">
+            <input id="sms_consent" name="sms_consent" type="checkbox" value="yes" />
+            <label for="sms_consent" class="consent-text" style="text-transform:none;letter-spacing:0;font-weight:400;color:#26303f;">
+              I agree to receive SMS text messages from <strong>A/1 Creative Agency</strong>
+              at the mobile number I provided, including quote and appointment updates,
+              lead follow-up, missed-call recovery, and account or service notifications.
+              Message frequency varies. Message &amp; data rates may apply. Reply STOP to
+              opt out or HELP for help. Consent is not a condition of purchase. See our
+              <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
+              <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>.
+            </label>
+          </div>
+
+          <button id="submit-btn" class="btn-primary" type="submit">Send my request</button>
+          <p class="form-note">
+            * Required. We use your details only to respond to your request and, if you
+            opt in above, to text you about it. We never sell your information.
+          </p>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </main>
+
+    <footer class="legal-foot">
+      <div class="wrap">
+        <span>© 2026 A/1 Creative Agency</span>
+        <span class="sep">·</span>
+        <span>a1creativeagency.com</span>
+        <div class="links">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Canonical consent text version tag. Bump this whenever the checkbox
+      // wording above changes, so stored consent proves the exact disclosure shown.
+      var CONSENT_TEXT_VERSION = 'v2026-07-30';
+      // Intake endpoint. Same-origin '/api/submit-lead' when this page is served
+      // from the same deployment as the API; override by setting window.A1_INTAKE_URL.
+      var INTAKE_URL = window.A1_INTAKE_URL || '/api/submit-lead';
+
+      var form = document.getElementById('quote-form');
+      var statusEl = document.getElementById('form-status');
+      var btn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        statusEl.className = 'form-status';
+        statusEl.textContent = '';
+
+        var name = form.name.value.trim();
+        var phone = form.phone.value.trim();
+        var email = form.email.value.trim();
+        if (!name || !phone || !email) {
+          statusEl.className = 'form-status err';
+          statusEl.textContent = 'Please enter your name, mobile phone, and email.';
+          return;
+        }
+
+        var payload = {
+          name: name,
+          business: form.business.value.trim(),
+          phone: phone,
+          email: email,
+          service: form.service.value,
+          message: form.message.value.trim(),
+          client: 'A/1 Creative Agency',
+          source: 'Website SMS consent form',
+          // Consent audit trail. Timestamp + IP are stamped server-side.
+          smsConsent: form.sms_consent.checked,
+          consentTextVersion: CONSENT_TEXT_VERSION,
+          consentSourceUrl: window.location.href
+        };
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        fetch(INTAKE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) { return res.json().then(function (b) { return { ok: res.ok, body: b }; }); })
+          .then(function (r) {
+            if (!r.ok) throw new Error((r.body && r.body.error) || 'Something went wrong.');
+            statusEl.className = 'form-status ok';
+            statusEl.textContent = form.sms_consent.checked
+              ? 'Thanks! Your request is in. We’ll be in touch by text and email shortly.'
+              : 'Thanks! Your request is in. We’ll email you shortly.';
+            form.reset();
+          })
+          .catch(function (err) {
+            statusEl.className = 'form-status err';
+            statusEl.textContent = err.message || 'Could not send. Please call (513) 440-3329.';
+          })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = 'Send my request';
+          });
+      });
+    </script>
+  </body>
+</html>
