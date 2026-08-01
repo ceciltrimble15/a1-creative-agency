@@ -42,16 +42,26 @@ Messaging Service → **Opt-Out Management**: leave **Advanced Opt-Out enabled**
 That is the carrier-level guarantee; our handler is the application-level backup
 and provides the branded confirmation copy carriers look for.
 
-### 4. Verify the opt-out actually works (this is what got you rejected)
-From any phone, text the number:
-- **STOP** → you should get: *"You are unsubscribed from A1 Creative Agency and
-  will receive no further messages. Reply HELP for help or START to resubscribe."*
-- **HELP** → *"A1 Creative Agency: help at (513) 440-3329 or
-  operations@a1creativeagency.com. Msg frequency varies (about 2-6/month). Msg &
-  data rates may apply. Reply STOP to unsubscribe."*
-- **START** → resubscribe confirmation.
+### 4. Verify the opt-out cycle — in this exact order
+Advanced Opt-Out sends the replies. **Deploy the `OptOutType` dedup fix first**
+(see step 0 below) so each keyword produces exactly ONE reply. Then, from any
+phone, text the number in THIS order — do **not** lead with STOP, because after
+an opt-out Twilio may suppress further outbound (including HELP) to that number:
 
-Only resubmit once STOP replies correctly.
+1. **HELP** → one branded help reply.
+2. **STOP** → confirm **exactly one** opt-out reply.
+3. **START** → confirm **exactly one** re-subscribe reply.
+4. **HELP** again → confirms the number can receive messages after re-subscribing.
+
+Only resubmit once each keyword returns exactly one reply.
+
+### 0. Deploy the webhook dedup fix BEFORE testing (prerequisite)
+With Advanced Opt-Out enabled, Twilio sends its own STOP/START/HELP reply **and**
+forwards the inbound message to the webhook with `OptOutType=STOP|START|HELP`.
+The webhook must NOT send a second reply. Rule: **if `OptOutType` is present →
+record/log if needed, return HTTP 200, send no application response.** This is
+implemented in `netlify/functions/twilio-sms.mjs` and must be live on production
+before the phone test, or STOP/HELP/START each produce two replies.
 
 ### 5. Edit the campaign — do NOT delete it
 Messaging → Regulatory Compliance → A2P 10DLC → your Campaign → **Edit**
@@ -62,8 +72,14 @@ then **Resubmit**.
 
 ## Part B — Exact copy to paste into the A2P Campaign
 
-**Campaign use case:** Customer Care  *(or "Low Volume Mixed" if you're
-registered as a Sole Proprietor)*.
+**Campaign use case:** use the type the **approved Brand is permitted to run** —
+do not change it casually on resubmission:
+- **Customer Care** — if messages are strictly inquiry responses, appointment
+  reminders/confirmations, project follow-ups, and support (this is A1's case).
+- **Low Volume Mixed** — only if the Brand is eligible AND messages also include
+  promotional/mixed content. Not an automatic option for Sole Proprietors.
+- **Sole Proprietor** — only if the Brand was registered as a Sole Proprietor
+  (that registration is limited to the Sole Proprietor use case).
 
 **Campaign description:**
 > A1 Creative Agency sends customer-care and account messages to people who
@@ -72,23 +88,27 @@ registered as a Sole Proprietor)*.
 > missed-call callbacks. Recipients opt in on our web forms or by replying to a
 > text, and can opt out anytime by replying STOP.
 
-**How do end users consent (opt-in)?**
-> End users opt in by checking an unchecked consent checkbox on the forms at
-> https://a1creativeagency.com (the "Request a Build Quote" form and the Business
-> Infrastructure Assessment). The box reads: "By checking this box I agree to
-> receive SMS messages from A1 Creative Agency about my assessment and services
-> (appointment, follow-up, and account messages), about 2–6 messages/month. Msg &
-> data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a
-> condition of any purchase." Consent is stored with a timestamp. Callers may also
-> opt in by replying to a message we send. Mobile opt-in data is never shared with
-> third parties. Opt-in details: https://a1creativeagency.com/privacy
+**How do end users consent (opt-in)?**  *(Web-form opt-in only — there is no
+text-to-join keyword, so do not describe or list one.)*
+> End users opt in by voluntarily checking a separate, unchecked SMS-consent
+> checkbox on A1 Creative Agency's public quote form or Business Infrastructure
+> Assessment form at https://a1creativeagency.com. The box reads: "By checking
+> this box I agree to receive SMS messages from A1 Creative Agency about my
+> assessment and services (appointment, follow-up, and account messages), about
+> 2–6 messages/month. Msg & data rates may apply. Reply STOP to opt out, HELP for
+> help. Consent is not a condition of any purchase." The box sits beside links to
+> the Privacy Policy and Terms, and consent is stored with a timestamp. Mobile
+> opt-in data is never shared with third parties. Details:
+> https://a1creativeagency.com/privacy
 
 **Sample messages** (paste 2–3):
 1. `A1 Creative Agency: Hi Jordan, thanks for requesting a build quote! Based on your assessment we recommend our Growth Infrastructure package. Reply here or call (513) 440-3329. Reply STOP to opt out, HELP for help.`
 2. `A1 Creative Agency: Reminder — your discovery call is tomorrow at 2:00 PM. Reply C to confirm or R to reschedule. Msg & data rates may apply. Reply STOP to opt out.`
 3. `Hi, this is A1 Creative Agency — sorry we missed your call! We'll call you right back, or reply to this text and we'll take care of you here. Reply STOP to opt out.`
 
-**Opt-in keywords / message (START):** START, YES, UNSTOP →
+**Re-subscribe keywords / message (START):** START, YES, UNSTOP — these let a
+*previously opted-out* person opt back in; they are NOT the initial enrollment
+method (enrollment is the web checkbox above) →
 > `You are re-subscribed to A1 Creative Agency messages (about 2-6/month). Msg & data rates may apply. Reply HELP for help, STOP to unsubscribe.`
 
 **Opt-out keywords / message (STOP):** STOP, UNSUBSCRIBE, END, QUIT, CANCEL →
@@ -104,9 +124,24 @@ registered as a Sole Proprietor)*.
 ---
 
 ## Notes
-- These URLs are live at `a1creativeagency.com` only **after** this build is
-  approved and deployed to production. Nothing here has been merged or deployed —
-  it's on the PR #15 preview awaiting your approval.
+- **Status: the rejection fixes are LIVE on production (`a1creativeagency.com`).**
+  The `a1-creative-production` branch already ships the inbound SMS handler
+  (`netlify/functions/twilio-sms.mjs`), the `/privacy` and `/terms` pages, and the
+  `/api/twilio/sms` + legal-variant redirects in `netlify.toml`. The handler's
+  STOP / HELP / START replies match the "Opt-out / Help / Opt-in message" copy in
+  Part B word-for-word. So the two things that caused the rejection — a dead STOP
+  path and 404 legal links — are resolved on the live site. What remains is the
+  console + carrier work in Part A (env vars, webhook, opt-out test, resubmit).
+- The remaining Part A steps require the Twilio account credentials and the Twilio
+  console, and A2P resubmission is a carrier process — those are owner actions and
+  cannot be done from the codebase.
+- **Website 2.0 note:** the redesigned site (branch `claude/a1-creative-website-2-fresh`)
+  moves the opt-in forms to `/quote`, `/assessment`, and `/contact` and brands them
+  "A/1 Creative Agency"; the required disclosures (sender, message types, frequency,
+  rates, STOP, HELP, consent-not-a-condition, Privacy/Terms links) are materially the
+  same. If you resubmit now, do it against the current production copy above. If you'd
+  rather submit against 2.0, deploy it first and I'll align this kit's opt-in wording
+  and URLs to the 2.0 forms.
 - Until the campaign is carrier-approved, the missed-call text-back may be
   filtered. Voice greeting/forward/voicemail work regardless of A2P.
 - Legal wording is a first draft in the site's design — have you or your attorney

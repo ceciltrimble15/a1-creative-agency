@@ -31,13 +31,9 @@
   status = 200
   force = true
 
-# /quote is the printed / QR-code permalink. Keep it on the production domain
-# by opening the on-site assessment intake — no second site, no external host.
-# 302 (not 301) so it can be repointed later without fighting browser caches.
-[[redirects]]
-  from = "/quote"
-  to = "/#assessment"
-  status = 302
+# /quote and /assessment are now real customer-facing pages (quote.html and
+# assessment.html), served by Netlify's clean-URL handling — no redirect needed.
+# The QR-code permalink /quote therefore opens the branded quote form directly.
 
 # /get-a-quote is registered on the Twilio A2P campaign; make it valid by
 # resolving it exactly like /quote — to the on-site assessment intake (which
@@ -95,6 +91,13 @@
 [[redirects]]
   from = "/terms-and-conditions"
   to = "/terms"
+  status = 301
+
+# /get-a-quote is registered on the Twilio A2P campaign → canonical /quote page
+# (the Request-a-Quote form with the optional, unchecked SMS-consent checkbox).
+[[redirects]]
+  from = "/get-a-quote"
+  to = "/quote"
   status = 301
 
 # Baseline security headers for the static site.
