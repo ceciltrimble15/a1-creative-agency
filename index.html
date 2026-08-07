@@ -888,30 +888,29 @@ footer { background:var(--navy-mid); border-top:1px solid var(--border-silver); 
     submit.disabled = true;
     submit.textContent = 'Sending…';
 
-    // Map the branded form to the A1 lead backend (/api/submit-lead), folding
-    // the business name and SMS-consent proof into the message so nothing is
-    // lost. The backend logs an Airtable Lead + Task + Automation Log and
-    // emails operations@a1creativeagency.com.
+    // Map the branded form to the A1 lead backend (/api/submit-lead). Business
+    // name and SMS consent are sent as their own structured fields (matching
+    // the assessment form's pattern) so the backend can write them to their
+    // own Airtable columns instead of losing them inside free-text Notes.
+    // The backend logs an Airtable Lead + Task + Automation Log and emails
+    // operations@a1creativeagency.com.
     var businessName = form.business_name.value.trim();
     var userMessage  = form.message.value.trim();
     var hasPhoneVal  = phone.value.trim();
-    var msgParts = [];
-    if (businessName) msgParts.push('Business: ' + businessName);
-    if (userMessage)  msgParts.push(userMessage);
-    if (hasPhoneVal) {
-      msgParts.push('SMS consent: ' + (consent.checked ? 'YES' : 'NO') +
-        ' (' + form.sms_consent_text_version.value + ') — source: ' +
-        form.consent_source_url.value);
-    }
+    var smsConsentGiven = hasPhoneVal ? consent.checked : false;
 
     var payload = {
       name: form.full_name.value.trim(),
       email: form.email.value.trim(),
       phone: hasPhoneVal,
+      businessName: businessName,
       service: form.service_interest.value,
-      message: msgParts.join('\n'),
+      message: userMessage,
+      smsConsent: smsConsentGiven,
+      smsConsentTextVersion: form.sms_consent_text_version.value,
+      consentSourceUrl: form.consent_source_url.value,
       client: 'A1 Creative Agency',
-      source: 'Website form '
+      source: 'Website form — Quote request'
     };
 
     fetch('/api/submit-lead', {
