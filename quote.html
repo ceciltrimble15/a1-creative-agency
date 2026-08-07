@@ -168,21 +168,27 @@
       if (!val('name') || !val('email')) { set('Please add your name and email so we can reply.', 'err'); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) { set('Please enter a valid email address.', 'err'); return; }
       var consent = form.elements['sms_consent'].checked;
-      // Structured detail folded into the message/notes (backend records lead + notes).
+      // Structured detail (business type, budget, timeline, contact method,
+      // problem) folded into Notes — the backend has no dedicated columns for
+      // these yet. Business Name and SMS consent are sent as their own
+      // structured fields so they land in their own Airtable columns instead
+      // of being lost inside free-text Notes.
       var detail = [
-        val('business') && 'Business: ' + val('business'),
         val('website') && 'Website: ' + val('website'),
         val('business_type') && 'Business type: ' + val('business_type'),
         val('budget') && 'Budget: ' + val('budget'),
         val('timeline') && 'Timeline: ' + val('timeline'),
         val('contact_method') && 'Preferred contact: ' + val('contact_method'),
         val('problem') && 'Problem: ' + val('problem'),
-        val('message') && 'Notes: ' + val('message'),
-        'SMS consent: ' + (consent ? 'yes' : 'no') + ' (source: ' + window.location.href + ')'
+        val('message') && 'Notes: ' + val('message')
       ].filter(Boolean).join('\n');
       var payload = {
         name: val('name'), email: val('email'), phone: val('phone'),
+        businessName: val('business'),
         service: val('service'), message: detail,
+        smsConsent: consent,
+        smsConsentTextVersion: 'v2026-06b',
+        consentSourceUrl: window.location.href,
         source: 'Website form — Quote request', client: 'A1 Creative Agency'
       };
       btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending…';

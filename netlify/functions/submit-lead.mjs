@@ -40,12 +40,31 @@ export const handler = async (event) => {
   }
 
   if (body && body.type === 'assessment') return handleAssessment(body, event);
-  return handleSimpleLead(body);
+  return handleSimpleLead(body, event);
 };
 
-/* ─── Simple "Get a Quote" lead (existing behaviour — unchanged) ─────────── */
-async function handleSimpleLead(body) {
-  const { name, phone, email, service, date, message, client, source } = body;
+/* ─── Simple "Get a Quote" lead ───────────────────────────────────────────
+   Now captures Business Name and SMS consent evidence, matching the same
+   compliance rules as the assessment path: phone is optional, and SMS
+   consent NEVER blocks a submission — a phone with no consent still
+   becomes a Lead, just not SMS opted-in. */
+const QUOTE_CONSENT_TEXT_VERSION = 'v2026-06b';
+
+async function handleSimpleLead(body, event) {
+  const {
+    name,
+    phone,
+    email,
+    service,
+    date,
+    message,
+    client,
+    source,
+    businessName,
+    smsConsent,
+    smsConsentTextVersion,
+    consentSourceUrl,
+  } = body;
 
   // Phone is OPTIONAL — the quote form marks it optional, and our SMS rule is
   // that a phone is never required to become a lead. Require only name + email.
@@ -64,19 +83,35 @@ async function handleSimpleLead(body) {
   }
 
   const notesParts = [];
-  if (service) notesParts.push(`Service: ${service}`);
   if (date) notesParts.push(`Preferred Date: ${date}`);
   if (message) notesParts.push(`Message: ${message}`);
 
+  // SMS opt-in only counts when a phone is present AND consent is checked —
+  // same rule as the assessment path. Consent is optional and never blocks.
+  const hasPhone = !!(phone && String(phone).replace(/\D/g, '').length >= 7);
+  const smsOptIn = hasPhone && (smsConsent === true || smsConsent === 'true' || smsConsent === 'on');
+  const consentFields = smsOptIn
+    ? {
+        [LEAD_FIELDS.smsConsent]: true,
+        [LEAD_FIELDS.smsConsentAt]: new Date().toISOString(),
+        [LEAD_FIELDS.smsConsentVersion]: smsConsentTextVersion || QUOTE_CONSENT_TEXT_VERSION,
+        [LEAD_FIELDS.consentSourceUrl]: consentSourceUrl || undefined,
+        [LEAD_FIELDS.consentIp]: clientIp(event) || undefined,
+      }
+    : { [LEAD_FIELDS.smsConsent]: false };
+
   const fields = {
-    'Lead Name': name,
-    'Email ': email, // Airtable field name has a trailing space (verified in base)
-    'lead_status': 'new',
-    'Source': source || 'Website form ',
-    'Client': client || 'A1 Creative Agency',
+    [LEAD_FIELDS.name]: name,
+    [LEAD_FIELDS.email]: email,
+    [LEAD_FIELDS.status]: 'new',
+    [LEAD_FIELDS.source]: source || 'Website form ',
+    [LEAD_FIELDS.client]: client || 'A1 Creative Agency',
+    ...consentFields,
   };
-  if (phone) fields['Phone'] = phone; // optional
-  if (notesParts.length > 0) fields['Notes'] = notesParts.join('\n');
+  if (phone) fields[LEAD_FIELDS.phone] = phone; // optional
+  if (businessName) fields[LEAD_FIELDS.business] = businessName;
+  if (service) fields[LEAD_FIELDS.service] = service;
+  if (notesParts.length > 0) fields[LEAD_FIELDS.notes] = notesParts.join('\n');
   if (date) fields['date'] = date;
 
   const lead = await createLead(fields);
@@ -89,13 +124,13 @@ async function handleSimpleLead(body) {
 
   const [task, notify] = await Promise.all([
     createTask({
-      'Task Title': `Follow up with ${name} (${phone})`,
+      'Task Title': `Follow up with ${name}${businessName ? ` (${businessName})` : ''}`,
       'Status': 'To Do',
-      'Notes': `Website lead${service ? ` — ${service}` : ''}${date ? `, preferred date ${date}` : ''}. Email: ${email}`,
+      'Notes': `Website lead${service ? ` — ${service}` : ''}${date ? `, preferred date ${date}` : ''}. Email: ${email}. Phone: ${phone || '—'}. SMS opt-in: ${smsOptIn ? 'Yes' : 'No'}.`,
     }),
     notifyOps(
       `New website lead: ${name}`,
-      `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service || '—'}\nPreferred date: ${date || '—'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
+      `Name: ${name}\nBusiness: ${businessName || '—'}\nPhone: ${phone || '—'}\nEmail: ${email}\nService: ${service || '—'}\nPreferred date: ${date || '—'}\nSMS opt-in: ${smsOptIn ? 'Yes' : 'No'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
     ),
   ]);
 
