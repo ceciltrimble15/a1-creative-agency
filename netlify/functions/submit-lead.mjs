@@ -56,7 +56,6 @@ async function handleSimpleLead(body, event) {
     phone,
     email,
     service,
-    date,
     message,
     client,
     source,
@@ -64,6 +63,12 @@ async function handleSimpleLead(body, event) {
     smsConsent,
     smsConsentTextVersion,
     consentSourceUrl,
+    businessType,
+    budgetRange,
+    projectTimeline,
+    preferredContactMethod,
+    currentWebsite,
+    biggestBusinessProblem,
   } = body;
 
   // Phone is OPTIONAL — the quote form marks it optional, and our SMS rule is
@@ -82,9 +87,12 @@ async function handleSimpleLead(body, event) {
     });
   }
 
+  // Notes is for genuine free-text comments only (per Cecil, Aug 7 2026).
+  // Business type, budget, timeline, contact method, website, and problem
+  // each now have their own column — see fields below — and are no longer
+  // folded in here.
   const notesParts = [];
-  if (date) notesParts.push(`Preferred Date: ${date}`);
-  if (message) notesParts.push(`Message: ${message}`);
+  if (message) notesParts.push(message);
 
   // SMS opt-in only counts when a phone is present AND consent is checked —
   // same rule as the assessment path. Consent is optional and never blocks.
@@ -112,7 +120,17 @@ async function handleSimpleLead(body, event) {
   if (businessName) fields[LEAD_FIELDS.business] = businessName;
   if (service) fields[LEAD_FIELDS.service] = service;
   if (notesParts.length > 0) fields[LEAD_FIELDS.notes] = notesParts.join('\n');
-  if (date) fields['date'] = date;
+  // Structured quote-form answers — each has its own column now. Single-select
+  // values are passed through as-is; they must match the Airtable field's
+  // choice list exactly (case, punctuation, en-dashes), which the frontend's
+  // <option> text already does. typecast:true (in createLead) covers minor
+  // mismatches by adding a new choice rather than failing the write.
+  if (businessType) fields[LEAD_FIELDS.businessType] = businessType;
+  if (budgetRange) fields[LEAD_FIELDS.budgetRange] = budgetRange;
+  if (projectTimeline) fields[LEAD_FIELDS.projectTimeline] = projectTimeline;
+  if (preferredContactMethod) fields[LEAD_FIELDS.preferredContactMethod] = preferredContactMethod;
+  if (currentWebsite) fields[LEAD_FIELDS.currentWebsite] = currentWebsite;
+  if (biggestBusinessProblem) fields[LEAD_FIELDS.biggestBusinessProblem] = biggestBusinessProblem;
 
   const lead = await createLead(fields);
 
@@ -126,11 +144,11 @@ async function handleSimpleLead(body, event) {
     createTask({
       'Task Title': `Follow up with ${name}${businessName ? ` (${businessName})` : ''}`,
       'Status': 'To Do',
-      'Notes': `Website lead${service ? ` — ${service}` : ''}${date ? `, preferred date ${date}` : ''}. Email: ${email}. Phone: ${phone || '—'}. SMS opt-in: ${smsOptIn ? 'Yes' : 'No'}.`,
+      'Notes': `Website lead${service ? ` — ${service}` : ''}. Email: ${email}. Phone: ${phone || '—'}. SMS opt-in: ${smsOptIn ? 'Yes' : 'No'}.`,
     }),
     notifyOps(
       `New website lead: ${name}`,
-      `Name: ${name}\nBusiness: ${businessName || '—'}\nPhone: ${phone || '—'}\nEmail: ${email}\nService: ${service || '—'}\nPreferred date: ${date || '—'}\nSMS opt-in: ${smsOptIn ? 'Yes' : 'No'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
+      `Name: ${name}\nBusiness: ${businessName || '—'}\nPhone: ${phone || '—'}\nEmail: ${email}\nService: ${service || '—'}\nBusiness type: ${businessType || '—'}\nBudget: ${budgetRange || '—'}\nTimeline: ${projectTimeline || '—'}\nPreferred contact: ${preferredContactMethod || '—'}\nCurrent website: ${currentWebsite || '—'}\nBiggest problem: ${biggestBusinessProblem || '—'}\nSMS opt-in: ${smsOptIn ? 'Yes' : 'No'}\nMessage: ${message || '—'}\n\nAirtable lead: ${lead.id}`
     ),
   ]);
 

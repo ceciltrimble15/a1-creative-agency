@@ -26,6 +26,18 @@ export const LEAD_FIELDS = {
   smsConsentVersion: 'SMS Consent Text Version',
   consentSourceUrl: 'Consent Source URL',
   consentIp: 'Consent IP',
+  // Added per Cecil approval (Aug 7 2026): break quote-form answers out of
+  // Notes into their own columns. Single-select values below must match the
+  // Airtable field's choice list exactly (case, punctuation, en-dashes) or
+  // the write silently fails without typecast, or creates an unwanted new
+  // choice with typecast. Choices were pulled directly from the Leads table
+  // schema to guarantee an exact match with quote.html's <option> text.
+  businessType: 'Business Type',
+  budgetRange: 'Budget Range',
+  projectTimeline: 'Project Timeline',
+  preferredContactMethod: 'Preferred Contact Method',
+  currentWebsite: 'Current Website',
+  biggestBusinessProblem: 'Biggest Business Problem',
 };
 
 function airtableConfig() {
