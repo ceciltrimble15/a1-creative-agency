@@ -21,10 +21,6 @@ export async function notifyOps(subject, text) {
   }
 
   const ccRaw = process.env.NOTIFY_CC || '';
-  // TEMPORARY DIAGNOSTIC (remove once NOTIFY_CC is confirmed working) —
-  // logs presence/length only, never the actual value, so this is safe to
-  // leave in function logs even though they may be visible to others.
-  console.log('[notify diagnostic] NOTIFY_CC present:', !!process.env.NOTIFY_CC, '| length:', ccRaw.length);
   const cc = ccRaw
     .split(',')
     .map((s) => s.trim())
