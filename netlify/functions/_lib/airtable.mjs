@@ -20,7 +20,7 @@ export const LEAD_FIELDS = {
   source: 'Source',
   status: 'lead_status',
   client: 'Client',
-  notes: 'Notes',
+  notes: 'Anything Else', // renamed from 'Notes' in Airtable, Aug 11 2026, to match /quote's field naming
   smsConsent: 'SMS Consent',
   smsConsentAt: 'SMS Consent Timestamp',
   smsConsentVersion: 'SMS Consent Text Version',
