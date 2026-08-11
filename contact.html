@@ -124,12 +124,16 @@
       if (!val('name') || !val('email') || !val('message')) { set('Please add your name, email, and a short message.', 'err'); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) { set('Please enter a valid email address.', 'err'); return; }
       var consent = form.elements['sms_consent'].checked;
-      var detail = [
-        val('business') && 'Business: ' + val('business'),
-        'Message: ' + val('message'),
-        'SMS consent: ' + (consent ? 'yes' : 'no') + ' (source: ' + window.location.href + ')'
-      ].filter(Boolean).join('\n');
-      var payload = { name: val('name'), email: val('email'), phone: val('phone'), message: detail,
+      // Business Name and SMS consent sent as their own structured fields
+      // (matching the fix already applied to /quote) so they land in their
+      // own Airtable columns instead of being lost inside free-text Notes.
+      var payload = {
+        name: val('name'), email: val('email'), phone: val('phone'),
+        businessName: val('business'),
+        message: val('message'),
+        smsConsent: consent,
+        smsConsentTextVersion: 'v2026-06b',
+        consentSourceUrl: window.location.href,
         source: 'Website form — Contact', client: 'A1 Creative Agency' };
       btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending…';
       fetch('/api/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
