@@ -50,7 +50,8 @@ function captureInbox() {
         fields[FLD.subject] = thread.getFirstMessageSubject() || '(no subject)';
         fields[FLD.from] = extractEmail_(msg.getFrom());
         fields[FLD.originalRecipient] = originalTo;         // ORIGINAL_TO preserved (section 5)
-        fields[FLD.entity] = ent.needsReview ? 'NEEDS REVIEW' : ent.entityName;      // ENTITY_ID as system data
+        fields[FLD.entityId] = ent.entityId;                // permanent ENTITY_ID (system data, not display name)
+        fields[FLD.entity] = ent.needsReview ? 'NEEDS REVIEW' : ent.entityName;
         fields[FLD.businessLane] = ent.needsReview ? 'NEEDS REVIEW' : ent.businessLane;
         fields[FLD.approvedSendFrom] = ent.approvedSendFrom;                          // never faked
         fields[FLD.sendFromConfigRequired] = ent.sendFromConfigRequired;

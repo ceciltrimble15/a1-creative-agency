@@ -65,17 +65,43 @@ ck(15,'Thread messages resolve same entity',
 ck(16,'Empty original recipient -> NEEDS REVIEW', S.resolveEntity('').needsReview===true);
 // 17 Spam low priority
 ck(17,'Spam -> P4', S.recommendPriority('Low','Green','Spam')==='P4');
-// 18 Reply identity protection (cross-entity)
-const supMismatch = er(row({[F.entity]:'A/1 Suppliers',[F.approvedSendFrom]:'info@a1suppliers.org',
-  [F.sendFromConfigRequired]:false,[F.sendFrom]:'A1 Creative Mailbox (a1creativeagency.com)'}));
-ck(18,'A/1 Suppliers cannot send as A1 Creative', S.evaluateEntityGuards(supMismatch).reason==='ENTITY_SEND_FROM_MISMATCH', S.evaluateEntityGuards(supMismatch));
-const cfgReq = er(row({[F.entity]:'TBF Entertainment',[F.approvedSendFrom]:'',[F.sendFromConfigRequired]:true}));
-ck('18b','Missing send-from -> CONFIGURATION REQUIRED', S.evaluateEntityGuards(cfgReq).reason==='SEND_FROM_CONFIGURATION_REQUIRED');
-const needRev = er(row({[F.entity]:'NEEDS REVIEW'}));
-ck('18c','NEEDS REVIEW entity -> blocked', S.evaluateEntityGuards(needRev).reason==='ENTITY_NEEDS_REVIEW');
-const matchOk = er(row({[F.entity]:'A/1 Suppliers',[F.approvedSendFrom]:'info@a1suppliers.org',
-  [F.sendFromConfigRequired]:false,[F.sendFrom]:'info@a1suppliers.org'}));
-ck('18d','Matching entity send-from allowed', S.evaluateEntityGuards(matchOk).allowed===true, S.evaluateEntityGuards(matchOk));
+// 18 Reply identity protection (cross-entity) — guard is REGISTRY-authoritative:
+// it re-resolves from Original Recipient; row claims alone can never authorize a send.
+const wrongLabel = er(row({[F.originalRecipient]:'inquiry@a1creativeagency.com',[F.entityId]:'A1_CREATIVE',
+  [F.approvedSendFrom]:'operations@a1creativeagency.com',[F.sendFrom]:'info@a1suppliers.org'}));
+ck(18,'Send From label of another entity -> blocked', S.evaluateEntityGuards(wrongLabel).reason==='ENTITY_SEND_FROM_MISMATCH', S.evaluateEntityGuards(wrongLabel));
+const cfgReq = er(row({[F.originalRecipient]:'info@a1suppliers.org',[F.entityId]:'A1_SUPPLIERS'}));
+ck('18b','Registry says Suppliers alias unconfigured -> blocked', S.evaluateEntityGuards(cfgReq).reason==='SEND_FROM_CONFIGURATION_REQUIRED');
+const needRev = er(row({[F.originalRecipient]:'random@gmail.com'}));
+ck('18c','Unknown recipient -> ENTITY_NEEDS_REVIEW blocked', S.evaluateEntityGuards(needRev).reason==='ENTITY_NEEDS_REVIEW');
+const matchOk = er(row({[F.originalRecipient]:'inquiry@a1creativeagency.com',[F.entityId]:'A1_CREATIVE',
+  [F.approvedSendFrom]:'operations@a1creativeagency.com',[F.sendFrom]:'A1 Creative Mailbox (a1creativeagency.com)... operations@a1creativeagency.com'}));
+const okRes = S.evaluateEntityGuards(matchOk);
+ck('18d','Valid A1 Creative row allowed with registry send-from', okRes.allowed===true && okRes.sendFrom==='operations@a1creativeagency.com', okRes);
+
+// 23-series — TAMPERED-ROW tests (Codex QA): a manipulated Airtable row cannot pass.
+const t1 = er(row({[F.originalRecipient]:'info@a1suppliers.org',[F.entityId]:'A1_CREATIVE',
+  [F.approvedSendFrom]:'operations@a1creativeagency.com',[F.sendFrom]:'operations@a1creativeagency.com'}));
+ck('23a','Tampered Entity ID (Suppliers mail relabeled A1_CREATIVE) -> blocked',
+  S.evaluateEntityGuards(t1).reason==='ENTITY_REGISTRY_MISMATCH', S.evaluateEntityGuards(t1));
+const t2 = er(row({[F.originalRecipient]:'inquiry@a1creativeagency.com',[F.entityId]:'A1_CREATIVE',
+  [F.approvedSendFrom]:'attacker@evil.com',[F.sendFrom]:'attacker@evil.com'}));
+ck('23b','Tampered Approved Send From (attacker address) -> blocked',
+  S.evaluateEntityGuards(t2).reason==='APPROVED_SEND_FROM_TAMPERED', S.evaluateEntityGuards(t2));
+const t3 = er(row({[F.originalRecipient]:'info@a1suppliers.org',[F.entityId]:'A1_SUPPLIERS',
+  [F.sendFromConfigRequired]:false,[F.approvedSendFrom]:'info@a1suppliers.org',[F.sendFrom]:'info@a1suppliers.org'}));
+ck('23c','Tampered config-required flag cannot enable unconfigured Suppliers -> blocked',
+  S.evaluateEntityGuards(t3).reason==='SEND_FROM_CONFIGURATION_REQUIRED', S.evaluateEntityGuards(t3));
+const t4 = er(row({[F.entityId]:'A1_CREATIVE',[F.approvedSendFrom]:'operations@a1creativeagency.com'}));
+ck('23d','Missing Original Recipient -> blocked', S.evaluateEntityGuards(t4).reason==='ORIGINAL_RECIPIENT_MISSING');
+const t5 = er(row({[F.originalRecipient]:'inquiry@a1creativeagency.com'}));
+const t5r = S.evaluateEntityGuards(t5);
+ck('23e','Guard returns REGISTRY send-from, ignoring blank row claims', t5r.allowed===true && t5r.sendFrom==='operations@a1creativeagency.com', t5r);
+let sendRefused=false;
+try { S.doSendOne_({fields:{}}, {shadowMode:false}, ''); } catch(e){ sendRefused = /SEND_FROM_CONFIGURATION_REQUIRED/.test(String(e)); }
+ck('23f','doSendOne_ refuses blank validated send-from (no hardcode fallback)', sendRefused);
+const sendSrc = fs.readFileSync(path.join(GAS,'approval-send.gs'),'utf8');
+ck('23g','No hardcoded from-address remains in doSendOne_', sendSrc.indexOf("from: 'operations@") === -1);
 // 19 Human approval gate vocabulary present
 ck(19,'Sensitive actions require human', S.HUMAN_APPROVAL_ACTIONS.indexOf('sign contract')!==-1 && S.HUMAN_APPROVAL_ACTIONS.indexOf('change banking')!==-1);
 // 20 Daily report generation (counts + top5 ordering + CEO decisions)

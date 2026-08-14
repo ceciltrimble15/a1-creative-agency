@@ -64,14 +64,20 @@ function sendApproved() {
         logAgentAction({ action: 'SEND_BLOCKED', functionName: 'sendApproved', recordId: r.id, reason: eguard.reason });
         continue;
       }
-      try { doSendOne_(r, cfg); }
+      try { doSendOne_(r, cfg, eguard.sendFrom); } // validated registry identity, never hardcoded
       catch (e) { logAgentAction({ action: 'SEND_ERROR', functionName: 'sendApproved', recordId: r.id, errorSummary: safeErr_(e) }); }
     }
   } finally { lock.releaseLock(); }
 }
 
-function doSendOne_(r, cfg) {
+/**
+ * validatedSendFrom MUST come from evaluateEntityGuards (registry-resolved) — never a
+ * hardcoded address and never a raw row value. Missing/blank => refuse (fail closed).
+ */
+function doSendOne_(r, cfg, validatedSendFrom) {
   if (cfg.shadowMode) throw new Error('SHADOW_MODE_LOCK: sending is physically disabled in the Shadow project');
+  var sendAs = String(validatedSendFrom || '').trim();
+  if (!sendAs || sendAs.indexOf('@') === -1) throw new Error('SEND_FROM_CONFIGURATION_REQUIRED: no validated send-from identity');
   var f = r.fields;
   var finalCopy = String(f[FLD.finalCopy]).trim();
   var aiDraft = String(f[FLD.aiDraft] || '');
@@ -79,7 +85,7 @@ function doSendOne_(r, cfg) {
   if (!thread) throw new Error('thread not found');
 
   var msgs = thread.getMessages();
-  msgs[msgs.length - 1].reply(finalCopy, { from: 'operations@a1creativeagency.com' }); // single mailbox
+  msgs[msgs.length - 1].reply(finalCopy, { from: sendAs }); // entity-validated identity only
 
   var humanEdited = finalCopy !== aiDraft.trim();
   var audit = (Math.abs(hashInt_(r.id)) % 100) < cfg.postSendAuditPercent;
