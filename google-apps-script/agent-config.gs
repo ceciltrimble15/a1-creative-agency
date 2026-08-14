@@ -106,7 +106,11 @@ var FLD = {
   postSendAuditRequired: 'Post-Send Audit Required',
   reprocessAgent: 'Reprocess Agent', reprocessReason: 'Reprocess Reason',
   modelValidationStatus: 'Model Validation Status', modelValidationDate: 'Model Validation Date',
-  modelApprovedBy: 'Model Approved By'
+  modelApprovedBy: 'Model Approved By',
+  // Module 01 — entity lock + original recipient + response identity
+  entity: 'Entity', businessLane: 'Business Lane', originalRecipient: 'Original Recipient',
+  approvedSendFrom: 'Approved Send From', sendFromConfigRequired: 'Send-From Config Required',
+  opsCategory: 'Ops Category', opsPriority: 'Ops Priority', opsStatus: 'Ops Status'
 };
 
 // ── Controlled enums (any out-of-enum value fails validation) ─────────────

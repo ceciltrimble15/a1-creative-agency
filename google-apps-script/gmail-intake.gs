@@ -42,10 +42,19 @@ function captureInbox() {
         // (4) create the record.
         var body = String(msg.getPlainBody() || '').trim();
         var preview = body.length > 1500 ? body.substring(0, 1500) + '…' : body;
+        // Module 01 ENTITY LOCK: detect the ORIGINAL recipient, resolve+lock the entity.
+        var originalTo = detectOriginalRecipient(msg.getRawContent()) || extractEmail_(msg.getTo());
+        var ent = resolveEntity(originalTo);
+
         var fields = {};
         fields[FLD.subject] = thread.getFirstMessageSubject() || '(no subject)';
         fields[FLD.from] = extractEmail_(msg.getFrom());
-        fields[FLD.brand] = 'A1 Creative';                 // Phase 2A: A1 Creative lane only
+        fields[FLD.originalRecipient] = originalTo;         // ORIGINAL_TO preserved (section 5)
+        fields[FLD.entity] = ent.needsReview ? 'NEEDS REVIEW' : ent.entityName;      // ENTITY_ID as system data
+        fields[FLD.businessLane] = ent.needsReview ? 'NEEDS REVIEW' : ent.businessLane;
+        fields[FLD.approvedSendFrom] = ent.approvedSendFrom;                          // never faked
+        fields[FLD.sendFromConfigRequired] = ent.sendFromConfigRequired;
+        fields[FLD.brand] = ent.needsReview ? 'Personal' : laneToBrand(ent.businessLane);
         fields[FLD.preview] = preview;
         fields[FLD.receivedAt] = msg.getDate().toISOString();
         fields[FLD.status] = 'Pending Review';             // never auto-sends

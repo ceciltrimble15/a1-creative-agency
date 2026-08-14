@@ -59,6 +59,11 @@ function sendApproved() {
         logAgentAction({ action: 'SEND_BLOCKED', functionName: 'sendApproved', recordId: r.id, reason: guard.reason });
         continue;
       }
+      var eguard = evaluateEntityGuards(r); // Module 01 cross-entity identity protection
+      if (!eguard.allowed) {
+        logAgentAction({ action: 'SEND_BLOCKED', functionName: 'sendApproved', recordId: r.id, reason: eguard.reason });
+        continue;
+      }
       try { doSendOne_(r, cfg); }
       catch (e) { logAgentAction({ action: 'SEND_ERROR', functionName: 'sendApproved', recordId: r.id, errorSummary: safeErr_(e) }); }
     }
