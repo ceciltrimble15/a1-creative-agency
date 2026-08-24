@@ -108,13 +108,14 @@
 
         <div class="consent-box">
           <input id="q-sms" name="sms_consent" type="checkbox">
-          <label for="q-sms">Text me about my request. By checking this box I agree to receive SMS messages from A/1 Creative Agency about my quote and services (appointment, follow-up, and account messages). Message frequency varies (about 2–6 messages/month). Message &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase or service. See our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener">Terms</a>.</label>
+          <label for="q-sms">I agree to receive text messages from A/1 Creative Agency about my quote request and appointments. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help.</label>
         </div>
+        <p class="form-legal">SMS consent is optional and is not a condition of receiving a quote or purchasing services. See our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener">Terms</a>.</p>
 
         <button type="submit" class="btn btn-primary form-submit">Request my quote <span class="arrow">&rarr;</span></button>
         <p class="form-msg" role="status" aria-live="polite"></p>
-        <p class="form-legal">Phone is optional. Providing a phone number without checking the box submits your request without SMS messaging — a phone number alone is never treated as SMS consent. Message frequency varies. Message &amp; data rates may apply. Reply STOP to cancel, HELP for help.</p>
-        <p class="form-note">Prefer to talk? Call or text <a href="tel:+15134403329">(513)&nbsp;440-3329</a> · <a href="/booking">book a call</a>.</p>
+        <p class="form-legal">Phone is optional. Providing a phone number without checking the box submits your request without SMS messaging — a phone number alone is never treated as SMS consent.</p>
+        <p class="form-note">Prefer to talk? Call <a href="tel:+15134403329">(513)&nbsp;440-3329</a> · <a href="/booking">book a call</a>.</p>
       </form>
 
       <div id="quote-ok" class="form-ok" role="status" aria-live="polite">
@@ -130,7 +131,7 @@
   <div class="foot-in">
     <div class="foot-col">
       <a class="foot-brand" href="/"><img src="/brand/a1-logo-official.png" alt="" width="40" height="40" /><span class="ft">A/1 Creative Agency</span></a>
-      <p class="foot-pos">We build the infrastructure that powers your business — websites, lead capture, automation, booking, CRM, missed-call recovery, and AI systems.</p>
+      <p class="foot-pos">We build the infrastructure that powers your business — websites, lead capture, automation, booking, CRM, call routing, and AI systems.</p>
     </div>
     <div class="foot-col">
       <h4>Company</h4>
@@ -149,7 +150,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© <span data-year>2026</span> A/1 Creative Agency LLC. All rights reserved.</span>
+    <span>© <span data-year>2026</span> A/1 Creative Agency. All rights reserved.</span>
     <nav aria-label="Legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms</a></nav>
   </div>
 </footer>
@@ -183,9 +184,10 @@
         currentWebsite: val('website'),
         biggestBusinessProblem: val('problem'),
         smsConsent: consent,
-        smsConsentTextVersion: 'v2026-06b',
-        consentSourceUrl: window.location.href,
-        source: 'Website form — Quote request', client: 'A1 Creative Agency'
+        formType: 'quote',
+        smsConsentTextVersion: 'A1-SMS-QUOTE-2026-01',
+        consentSourceUrl: '/quote',
+        source: 'Website form — Quote request', client: 'A/1 Creative Agency'
       };
       btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending…';
       fetch('/api/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
@@ -196,7 +198,7 @@
         })
         .catch(function (err) {
           console.error('[A1] Quote submit failed:', err);
-          set((err && err.fromServer && err.message) ? err.message : 'Something went wrong. Please call or text (513) 440-3329 or email operations@a1creativeagency.com.', 'err');
+          set((err && err.fromServer && err.message) ? err.message : 'Something went wrong. Please call (513) 440-3329 or email operations@a1creativeagency.com.', 'err');
           btn.disabled = false; btn.innerHTML = label;
         });
     });

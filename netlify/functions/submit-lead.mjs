@@ -43,12 +43,10 @@ export const handler = async (event) => {
   return handleSimpleLead(body, event);
 };
 
-/* ─── Simple "Get a Quote" lead ───────────────────────────────────────────
-   Now captures Business Name and SMS consent evidence, matching the same
-   compliance rules as the assessment path: phone is optional, and SMS
-   consent NEVER blocks a submission — a phone with no consent still
-   becomes a Lead, just not SMS opted-in. */
-const QUOTE_CONSENT_TEXT_VERSION = 'v2026-06b';
+/* ─── Quote and contact leads ──────────────────────────────────────────────
+   Only /quote may create SMS consent. Phone remains optional, and consent
+   never blocks a submission. Contact-form submissions are always non-SMS. */
+const QUOTE_CONSENT_TEXT_VERSION = 'A1-SMS-QUOTE-2026-01';
 
 async function handleSimpleLead(body, event) {
   const {
@@ -59,9 +57,9 @@ async function handleSimpleLead(body, event) {
     message,
     client,
     source,
+    formType,
     businessName,
     smsConsent,
-    smsConsentTextVersion,
     consentSourceUrl,
     businessType,
     budgetRange,
@@ -94,16 +92,26 @@ async function handleSimpleLead(body, event) {
   const notesParts = [];
   if (message) notesParts.push(message);
 
-  // SMS opt-in only counts when a phone is present AND consent is checked —
-  // same rule as the assessment path. Consent is optional and never blocks.
+  // Enforce the single-source model server-side. A client-supplied checkbox
+  // is not enough: the declared form, source path, and browser referrer must
+  // all identify /quote. This prevents /contact or /assessment from creating
+  // SMS consent even if a stale or manipulated payload includes the flag.
   const hasPhone = !!(phone && String(phone).replace(/\D/g, '').length >= 7);
-  const smsOptIn = hasPhone && (smsConsent === true || smsConsent === 'true' || smsConsent === 'on');
+  const referrerPath = requestPagePath(event);
+  const isQuoteSource =
+    formType === 'quote' &&
+    consentSourceUrl === '/quote' &&
+    (referrerPath === '/quote' || referrerPath === '/quote.html');
+  const smsOptIn =
+    isQuoteSource &&
+    hasPhone &&
+    (smsConsent === true || smsConsent === 'true' || smsConsent === 'on');
   const consentFields = smsOptIn
     ? {
         [LEAD_FIELDS.smsConsent]: true,
         [LEAD_FIELDS.smsConsentAt]: new Date().toISOString(),
-        [LEAD_FIELDS.smsConsentVersion]: smsConsentTextVersion || QUOTE_CONSENT_TEXT_VERSION,
-        [LEAD_FIELDS.consentSourceUrl]: consentSourceUrl || undefined,
+        [LEAD_FIELDS.smsConsentVersion]: QUOTE_CONSENT_TEXT_VERSION,
+        [LEAD_FIELDS.consentSourceUrl]: '/quote',
         [LEAD_FIELDS.consentIp]: clientIp(event) || undefined,
       }
     : { [LEAD_FIELDS.smsConsent]: false };
@@ -113,7 +121,7 @@ async function handleSimpleLead(body, event) {
     [LEAD_FIELDS.email]: email,
     [LEAD_FIELDS.status]: 'new',
     [LEAD_FIELDS.source]: source || 'Website form ',
-    [LEAD_FIELDS.client]: client || 'A1 Creative Agency',
+    [LEAD_FIELDS.client]: client || 'A/1 Creative Agency',
     ...consentFields,
   };
   if (phone) fields[LEAD_FIELDS.phone] = phone; // optional
@@ -144,7 +152,7 @@ async function handleSimpleLead(body, event) {
     createTask({
       'Task Title': `Follow up with ${name}${businessName ? ` (${businessName})` : ''}`,
       'Status': 'To Do',
-      'Notes': `Website lead${service ? ` — ${service}` : ''}. Email: ${email}. Phone: ${phone || '—'}. SMS opt-in: ${smsOptIn ? 'Yes' : 'No'}.`,
+      'Notes': `Website lead${service ? ` — ${service}` : ''}. Email: ${email}. Phone: ${phone || '—'}. SMS opt-in: ${smsOptIn ? 'Yes' : 'No — do not text'}.`,
     }),
     notifyOps(
       `New website lead: ${name}`,
@@ -163,7 +171,6 @@ async function handleSimpleLead(body, event) {
 
 /* ─── Business Infrastructure Assessment ────────────────────────────────── */
 
-const CONSENT_TEXT_VERSION = 'a1-assessment-v2026-07';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function makeAssessmentId() {
@@ -178,6 +185,17 @@ function clientIp(event) {
   return h['x-nf-client-connection-ip'] || (h['x-forwarded-for'] || '').split(',')[0].trim() || '';
 }
 
+function requestPagePath(event) {
+  const h = event.headers || {};
+  const referrer = h.referer || h.referrer || h.Referer || h.Referrer || '';
+  if (!referrer) return '';
+  try {
+    return new URL(referrer).pathname.replace(/\/+$/, '') || '/';
+  } catch {
+    return '';
+  }
+}
+
 async function handleAssessment(body, event) {
   const a = {
     name: (body.name || '').trim(),
@@ -185,7 +203,6 @@ async function handleAssessment(body, event) {
     phone: (body.phone || '').trim(), // OPTIONAL
     businessName: (body.businessName || '').trim(),
     service: (body.service || 'Business Infrastructure Assessment').trim(),
-    smsConsent: body.sms_consent === true || body.sms_consent === 'true' || body.sms_consent === 'on',
     website: (body.website || '').trim(),
     lead_capture: (body.lead_capture || '').trim(),
     booking: (body.booking || '').trim(),
@@ -195,10 +212,9 @@ async function handleAssessment(body, event) {
     goal: (body.goal || '').trim(),
     biggest_problem: (body.biggest_problem || '').trim(),
     source: (body.source || 'Website form — Business Infrastructure Assessment').trim(),
-    consentSourceUrl: (body.consentSourceUrl || '').trim(),
   };
 
-  // Step 1 — validate. Phone is OPTIONAL; consent is OPTIONAL and never blocks.
+  // Step 1 — validate. Phone is optional and is never treated as SMS consent.
   const missing = [];
   if (!a.name) missing.push('name');
   if (!a.email) missing.push('email');
@@ -219,21 +235,7 @@ async function handleAssessment(body, event) {
     });
   }
 
-  // SMS opt-in only counts when a phone is present AND consent is checked.
-  const hasPhone = a.phone.replace(/\D/g, '').length >= 7;
-  const smsOptIn = hasPhone && a.smsConsent;
-
   const nowIso = new Date().toISOString();
-  // Consent evidence is written only when the user actually opted in.
-  const consentFields = smsOptIn
-    ? {
-        [LEAD_FIELDS.smsConsent]: true,
-        [LEAD_FIELDS.smsConsentAt]: nowIso,
-        [LEAD_FIELDS.smsConsentVersion]: CONSENT_TEXT_VERSION,
-        [LEAD_FIELDS.consentSourceUrl]: a.consentSourceUrl || undefined,
-        [LEAD_FIELDS.consentIp]: clientIp(event) || undefined,
-      }
-    : { [LEAD_FIELDS.smsConsent]: false };
 
   // Step 2 — find or create the Lead
   let leadId = null;
@@ -250,8 +252,8 @@ async function handleAssessment(body, event) {
     if (!existing[LEAD_FIELDS.business] && a.businessName) updates[LEAD_FIELDS.business] = a.businessName;
     updates[LEAD_FIELDS.service] = a.service;
     updates[LEAD_FIELDS.source] = a.source;
-    // Only upgrade consent to true; never overwrite an existing opt-in with false.
-    if (smsOptIn) Object.assign(updates, consentFields);
+    // /assessment is not an SMS consent source. Preserve any existing consent
+    // record without upgrading or downgrading it from this submission.
     const upd = await updateLead(leadId, updates);
     if (!upd.ok) console.error('Assessment: lead update failed:', upd.error);
   } else {
@@ -263,8 +265,8 @@ async function handleAssessment(body, event) {
       [LEAD_FIELDS.service]: a.service,
       [LEAD_FIELDS.status]: 'new',
       [LEAD_FIELDS.source]: a.source,
-      [LEAD_FIELDS.client]: 'A1 Creative Agency',
-      ...consentFields,
+      [LEAD_FIELDS.client]: 'A/1 Creative Agency',
+      [LEAD_FIELDS.smsConsent]: false,
     });
     if (created.ok) leadId = created.id;
     else {
@@ -292,7 +294,7 @@ async function handleAssessment(body, event) {
     'Readiness Level': result.readiness,
     'Recommended Package': result.package,
     'Full Response Summary': result.summary,
-    'SMS Consent': smsOptIn,
+    'SMS Consent': false,
     'Source': a.source,
     'Follow-Up Needed': result.followUpNeeded,
     'CEO Review Status': 'Pending Review',
@@ -324,7 +326,7 @@ async function handleAssessment(body, event) {
       'Notes':
         `Business Infrastructure Assessment — score ${result.score}/${result.maxScore}, ` +
         `${result.readiness}, recommend ${result.package} (${result.price}). ` +
-        `Phone: ${a.phone || '—'}, email: ${a.email}. SMS opt-in: ${smsOptIn ? 'Yes' : 'No'}. Assessment ${assessmentId}.`,
+        `Phone: ${a.phone || '—'}, email: ${a.email}. SMS opt-in: No — assessment is not an opt-in source. Assessment ${assessmentId}.`,
     }),
     notifyOps(
       `New Business Assessment: ${a.businessName} (${result.package})`,
@@ -333,7 +335,7 @@ async function handleAssessment(body, event) {
         `Business: ${a.businessName}`,
         `Phone: ${a.phone || '— (not provided)'}`,
         `Email: ${a.email}`,
-        `SMS opt-in: ${smsOptIn ? 'Yes' : 'No'}`,
+        'SMS opt-in: No — assessment is not an opt-in source',
         '',
         `Assessment Score: ${result.score} / ${result.maxScore}`,
         `Readiness Level: ${result.readiness}`,
@@ -352,7 +354,7 @@ async function handleAssessment(body, event) {
   await logAutomation(
     'assessment_submission',
     `Assessment ${assessment.id} (${assessmentId}) for ${a.name} / ${a.businessName}. Lead ${leadId || 'unlinked'} (${leadOutcome}). ` +
-      `Score ${result.score}/${result.maxScore}, ${result.readiness}, ${result.package}. SMS opt-in ${smsOptIn ? 'yes' : 'no'}. ` +
+      `Score ${result.score}/${result.maxScore}, ${result.readiness}, ${result.package}. SMS opt-in no (assessment is not an opt-in source). ` +
       `Task: ${task.ok ? task.id : `failed (${task.error})`}. Ops email: ${notify.ok ? 'sent' : `failed (${notify.error})`}`,
     leadId && task.ok && notify.ok ? 'ok' : 'partial'
   );

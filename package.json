@@ -2,9 +2,10 @@
   "name": "a1-creative-site",
   "version": "1.0.0",
   "private": true,
-  "description": "A1 Creative Agency marketing site (static HTML/CSS) plus the Netlify quote-intake serverless function. No bundler — served as-is from the repo root.",
+  "description": "A/1 Creative Agency marketing site (static HTML/CSS) plus the Netlify quote-intake serverless function. No bundler — served as-is from the repo root.",
   "scripts": {
-    "build": "echo 'Static site — no build step required.'"
+    "build": "echo 'Static site — no build step required.'",
+    "test": "node scripts/compliance-check.mjs"
   },
   "engines": {
     "node": ">=18"

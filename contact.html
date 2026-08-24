@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Contact · A/1 Creative Agency</title>
-<meta name="description" content="Get in touch with A/1 Creative Agency — call, text, email, or send a message and we'll reply, usually the same day." />
+<meta name="description" content="Get in touch with A/1 Creative Agency — call, email, or send a message and we'll reply, usually the same day." />
 <meta name="theme-color" content="#04070d" />
 <meta name="color-scheme" content="dark" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://a1creativeagency.com/contact" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Contact · A/1 Creative Agency" />
-<meta property="og:description" content="Call, text, email, or send a message — we reply the same day." />
+<meta property="og:description" content="Call, email, or send a message — we reply the same day." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304070d'/%3E%3Ctext x='16' y='22' font-family='system-ui,Arial' font-size='15' font-weight='800' text-anchor='middle' fill='%232a82ff'%3EA%2F1%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="/assets/site.css" />
 </head>
@@ -47,13 +47,13 @@
   <div class="page-hero">
     <p class="eyebrow">Contact</p>
     <h1>Let's talk about your business.</h1>
-    <p class="lede">Call, text, or email — or send a message below. We reply, usually the same day.</p>
+    <p class="lede">Call or email — or send a message below. We reply, usually the same day.</p>
   </div>
 
   <section class="sec" style="border-top:0;padding-top:0">
     <div class="sec-in">
       <div class="grid" style="margin-bottom:clamp(24px,4vw,40px)">
-        <div class="card"><span class="ico" aria-hidden="true">📞</span><h3>Call or text</h3><p><a href="tel:+15134403329">(513)&nbsp;440-3329</a> — reach us directly.</p></div>
+        <div class="card"><span class="ico" aria-hidden="true">📞</span><h3>Call</h3><p><a href="tel:+15134403329">(513)&nbsp;440-3329</a> — reach us directly.</p></div>
         <div class="card"><span class="ico" aria-hidden="true">✉️</span><h3>Email</h3><p><a href="mailto:operations@a1creativeagency.com">operations@a1creativeagency.com</a></p></div>
         <div class="card"><span class="ico" aria-hidden="true">📅</span><h3>Book a call</h3><p>Prefer to schedule? <a href="/booking">Book a call</a> or request a callback.</p></div>
       </div>
@@ -70,14 +70,9 @@
         </div>
         <div class="fld"><label for="c-message">How can we help? <span class="req">*</span></label><textarea id="c-message" name="message" placeholder="Tell us a little about your business and what you need." required></textarea></div>
 
-        <div class="consent-box">
-          <input id="c-sms" name="sms_consent" type="checkbox">
-          <label for="c-sms">Text me back. By checking this box I agree to receive SMS messages from A/1 Creative Agency about my inquiry and services (appointment, follow-up, and account messages). Message frequency varies (about 2–6 messages/month). Message &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase or service. See our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener">Terms</a>.</label>
-        </div>
-
         <button type="submit" class="btn btn-primary form-submit">Send message <span class="arrow">&rarr;</span></button>
         <p class="form-msg" role="status" aria-live="polite"></p>
-        <p class="form-legal">Phone is optional. Providing a phone number without checking the box sends your message without SMS messaging — a phone number alone is never treated as SMS consent. Message frequency varies. Message &amp; data rates may apply. Reply STOP to cancel, HELP for help.</p>
+        <p class="form-legal">Phone is optional. This contact form does not enroll you in SMS messaging.</p>
       </form>
 
       <div id="contact-ok" class="form-ok" role="status" aria-live="polite">
@@ -93,7 +88,7 @@
   <div class="foot-in">
     <div class="foot-col">
       <a class="foot-brand" href="/"><img src="/brand/a1-logo-official.png" alt="" width="40" height="40" /><span class="ft">A/1 Creative Agency</span></a>
-      <p class="foot-pos">We build the infrastructure that powers your business — websites, lead capture, automation, booking, CRM, missed-call recovery, and AI systems.</p>
+      <p class="foot-pos">We build the infrastructure that powers your business — websites, lead capture, automation, booking, CRM, call routing, and AI systems.</p>
     </div>
     <div class="foot-col">
       <h4>Company</h4>
@@ -105,7 +100,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© <span data-year>2026</span> A/1 Creative Agency LLC. All rights reserved.</span>
+    <span>© <span data-year>2026</span> A/1 Creative Agency. All rights reserved.</span>
     <nav aria-label="Legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms</a></nav>
   </div>
 </footer>
@@ -123,18 +118,12 @@
       e.preventDefault(); set('', '');
       if (!val('name') || !val('email') || !val('message')) { set('Please add your name, email, and a short message.', 'err'); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) { set('Please enter a valid email address.', 'err'); return; }
-      var consent = form.elements['sms_consent'].checked;
-      // Business Name and SMS consent sent as their own structured fields
-      // (matching the fix already applied to /quote) so they land in their
-      // own Airtable columns instead of being lost inside free-text Notes.
       var payload = {
         name: val('name'), email: val('email'), phone: val('phone'),
         businessName: val('business'),
         message: val('message'),
-        smsConsent: consent,
-        smsConsentTextVersion: 'v2026-06b',
-        consentSourceUrl: window.location.href,
-        source: 'Website form — Contact', client: 'A1 Creative Agency' };
+        formType: 'contact',
+        source: 'Website form — Contact', client: 'A/1 Creative Agency' };
       btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending…';
       fetch('/api/submit-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
@@ -144,7 +133,7 @@
         })
         .catch(function (err) {
           console.error('[A1] Contact submit failed:', err);
-          set((err && err.fromServer && err.message) ? err.message : 'Something went wrong. Please call or text (513) 440-3329 or email operations@a1creativeagency.com.', 'err');
+          set((err && err.fromServer && err.message) ? err.message : 'Something went wrong. Please call (513) 440-3329 or email operations@a1creativeagency.com.', 'err');
           btn.disabled = false; btn.innerHTML = label;
         });
     });
