@@ -26,6 +26,7 @@ const privacy = html.get('privacy.html');
 const terms = html.get('terms.html');
 const submitLead = readFileSync(join(root, 'netlify/functions/submit-lead.mjs'), 'utf8');
 const missedCall = readFileSync(join(root, 'netlify/functions/twilio-missed-call.mjs'), 'utf8');
+const inboundSms = readFileSync(join(root, 'netlify/functions/twilio-sms.mjs'), 'utf8');
 
 const exactDisclosure =
   'I agree to receive text messages from A/1 Creative Agency about my quote request and appointments. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help.';
@@ -41,7 +42,9 @@ assert(!contact.includes('name="sms_consent"'), 'Contact must not collect SMS co
 assert(quote.includes("formType: 'quote'"), 'Quote payload must identify the quote form.');
 assert(quote.includes("consentSourceUrl: '/quote'"), 'Quote payload must declare /quote as the source.');
 assert(quote.includes("smsConsentTextVersion: 'A1-SMS-QUOTE-2026-01'"), 'Quote must use the locked disclosure version.');
-assert(!/if\s*\([^)]*!?\s*consent/.test(quote), 'Quote submission must not require SMS consent.');
+assert(!/if\s*\(\s*!consent\s*\)/.test(quote), 'Quote submission must not require SMS consent.');
+assert(!/name="sms_consent"[^>]*\brequired\b/.test(quote), 'SMS checkbox must remain optional.');
+assert(quote.includes("if (consent && val('phone').replace(/\\D/g, '').length < 10)"), 'Checked SMS consent must require a usable phone number.');
 
 for (const [path, source] of html) {
   if (path !== 'quote.html') {
@@ -63,5 +66,8 @@ assert(submitLead.includes("consentSourceUrl === '/quote'"), 'Backend must restr
 assert(submitLead.includes("referrerPath === '/quote'"), 'Backend must verify the browser source path.');
 assert(!missedCall.includes('sendSms('), 'Missed-call handler must not text the caller.');
 assert(missedCall.includes('a missed call is not consent'), 'Missed-call handler must document the consent boundary.');
+assert(inboundSms.includes('[LEAD_FIELDS.smsConsent]: false'), 'STOP must downgrade SMS consent.');
+assert(!inboundSms.includes('[LEAD_FIELDS.smsConsentAt]:'), 'STOP must preserve the original consent timestamp.');
+assert(!inboundSms.includes('[LEAD_FIELDS.consentSourceUrl]:'), 'STOP must preserve the original consent source.');
 
 console.log(`Compliance checks passed for ${html.size} HTML pages and the SMS/voice backend.`);

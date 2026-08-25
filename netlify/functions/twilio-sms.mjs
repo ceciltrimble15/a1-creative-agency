@@ -36,10 +36,11 @@ async function recordOptOut(from) {
   try {
     const found = await findLead({ phone: from });
     if (found.ok && found.record) {
+      // Preserve the original consent timestamp, disclosure version, and source.
+      // They are evidence of how consent was obtained and must not be replaced
+      // by the later opt-out event. The Automation Log records the STOP time.
       await updateLead(found.record.id, {
         [LEAD_FIELDS.smsConsent]: false,
-        [LEAD_FIELDS.smsConsentAt]: new Date().toISOString(),
-        [LEAD_FIELDS.consentSourceUrl]: 'SMS keyword reply (Twilio Advanced Opt-Out)',
       });
     }
   } catch (err) {

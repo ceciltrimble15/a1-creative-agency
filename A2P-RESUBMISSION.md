@@ -47,7 +47,7 @@ For quote submissions without consent, SMS consent is false and no consent times
 
 - Keep Twilio Advanced Opt-Out enabled for carrier handling of STOP and HELP.
 - The inbound webhook sends no automatic application reply.
-- STOP downgrades a known lead's consent to false.
+- STOP downgrades a known lead's consent to false while preserving the original consent timestamp, disclosure version, and source as evidence. The opt-out event and time are stored in the Automation Log.
 - START does not create or restore consent in A/1's records.
 - Ordinary inbound texts are routed to operations for review and do not create consent.
 - The missed-call handler creates internal callback work and voicemail only; it does not text the caller.

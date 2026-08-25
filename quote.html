@@ -169,6 +169,11 @@
       if (!val('name') || !val('email')) { set('Please add your name and email so we can reply.', 'err'); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) { set('Please enter a valid email address.', 'err'); return; }
       var consent = form.elements['sms_consent'].checked;
+      if (consent && val('phone').replace(/\D/g, '').length < 10) {
+        set('Please add a valid phone number to receive text messages, or leave the SMS box unchecked.', 'err');
+        form.elements['phone'].focus();
+        return;
+      }
       // Business Name, SMS consent, and the structured quote answers below
       // are each sent as their own field (per Cecil, Aug 7 2026) so they
       // land in their own Airtable columns. "Anything else" is the only

@@ -5,7 +5,7 @@
   "description": "A/1 Creative Agency marketing site (static HTML/CSS) plus the Netlify quote-intake serverless function. No bundler — served as-is from the repo root.",
   "scripts": {
     "build": "echo 'Static site — no build step required.'",
-    "test": "node scripts/compliance-check.mjs"
+    "test": "node scripts/compliance-check.mjs && node scripts/backend-consent-check.mjs && node scripts/twilio-optout-check.mjs"
   },
   "engines": {
     "node": ">=18"
