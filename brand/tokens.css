@@ -23,6 +23,28 @@
   --a1-gold: #dfb346;
   --a1-gold-deep: #876514;
 
+  /* Semantic color layer — mirrors the Figma V1 collections */
+  --a1-bg-page: var(--a1-black);
+  --a1-bg-surface: var(--a1-coal);
+  --a1-bg-elevated: var(--a1-navy);
+  --a1-bg-section: var(--a1-coal);
+  --a1-text-primary: var(--a1-silver-0);
+  --a1-text-secondary: var(--a1-silver-2);
+  --a1-text-muted: var(--a1-silver-3);
+  --a1-text-link: var(--a1-blue-soft);
+  --a1-border-color: var(--a1-graphite);
+  --a1-border-subtle: var(--a1-steel);
+  --a1-border-active: var(--a1-blue);
+  --a1-action-primary-bg: var(--a1-gold);
+  --a1-action-primary-text: var(--a1-navy);
+  --a1-action-secondary-bg: var(--a1-navy);
+  --a1-action-secondary-text: var(--a1-silver-1);
+  --a1-field-bg: var(--a1-coal);
+  --a1-field-border: var(--a1-graphite);
+  --a1-field-border-focus: var(--a1-blue);
+  --a1-field-border-error: #ff4d57;
+  --a1-field-error-text: #ff6b73;
+
   /* UI values */
   --a1-border: 1px solid #11151f;
   --a1-body-text: #cdd3df;
@@ -45,6 +67,21 @@
   --a1-s-2: 16px;
   --a1-s-3: 24px;
   --a1-s-4: 32px;
+  --a1-s-5: 40px;
   --a1-s-6: 48px;
   --a1-s-8: 64px;
+  --a1-s-10: 80px;
+  --a1-s-12: 96px;
+
+  /* Radius, layout, and responsive contracts */
+  --a1-radius-sm: 8px;
+  --a1-radius-md: 12px;
+  --a1-radius-lg: 16px;
+  --a1-radius-xl: 24px;
+  --a1-radius-full: 999px;
+  --a1-container: 1120px;
+  --a1-container-wide: 1280px;
+  --a1-form-max: 760px;
+  --a1-touch-min: 44px;
+  --a1-nav-height: 72px;
 }
