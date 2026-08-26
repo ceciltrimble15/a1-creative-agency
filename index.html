@@ -3,178 +3,710 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>A/1 Creative Agency · Business Infrastructure Systems</title>
-<meta name="description" content="A/1 Creative Agency builds the system behind the brand — websites, lead capture, booking, CRM, automation, and AI infrastructure built to work together." />
+<title>A/1 Creative — Get Plugged In</title>
+<meta name="description" content="A/1 Creative Agency builds the infrastructure that powers your business — websites, automation, lead capture, booking, CRM, call routing, and AI systems." />
 <meta name="theme-color" content="#04070d" />
 <meta name="color-scheme" content="dark" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://a1creativeagency.com/" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="A/1 Creative Agency · Business Infrastructure Systems" />
-<meta property="og:description" content="We build the system behind the brand." />
+<meta property="og:title" content="A/1 Creative — Get Plugged In" />
+<meta property="og:description" content="We build the infrastructure that powers your business." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304070d'/%3E%3Ctext x='16' y='22' font-family='system-ui,Arial' font-size='15' font-weight='800' text-anchor='middle' fill='%232a82ff'%3EA%2F1%3C/text%3E%3C/svg%3E" />
-<link rel="preload" as="image" href="/brand/logo-icon.svg" />
-<link rel="stylesheet" href="/assets/site.css" />
-<link rel="stylesheet" href="/assets/home-v2.css" />
+<link rel="preload" as="image" href="brand/a1-logo-official.png" fetchpriority="high" />
+<style>
+  /* ============================================================
+     A/1 Creative — "Get Plugged In" homepage hero.
+     Brand tokens sourced verbatim from /brand/tokens.css.
+
+     LOGO: OFFICIAL ARTWORK — INTACT. The mark is the exact official
+     A/1 Creative logo (brand/a1-logo-official.png, 1024x1024,
+     transparent), used as ONE single, un-clipped, un-separated <img>.
+     Only the whole image's own brightness/opacity and two additive
+     light overlays (glow + one sweep) animate. Nothing is redrawn,
+     traced, sliced, replaced, or reinterpreted.
+
+     Deliberate single dark "stage" world. Self-contained: no webfonts,
+     no forms, no integrations; the only asset is the local logo file.
+     ============================================================ */
+  :root{
+    --a1-black:#04070d; --a1-navy:#0a1626; --a1-coal:#0b1322;
+    --a1-graphite:#1a1d26; --a1-steel:#2a2f3c;
+    --a1-silver-0:#f6f8fc; --a1-silver-1:#e7ecf3; --a1-silver-2:#a8b0c2; --a1-silver-3:#525a6c;
+    --a1-blue-soft:#9cc6ff; --a1-blue:#2a82ff; --a1-blue-deep:#0b3f9d;
+    --a1-gold-soft:#ffe7a8; --a1-gold:#dfb346; --a1-gold-deep:#876514;
+    --a1-body:#cdd3df;
+    --font-display:"Space Grotesk","SF Pro Display",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --edge:clamp(20px,5vw,64px);
+    --line:rgba(120,150,200,.16);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:radial-gradient(120% 90% at 50% 6%, #10192b 0%, #070b14 46%, #03050b 78%, #000 100%);
+    color:var(--a1-body); font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    min-height:100svh; overflow-x:hidden;
+  }
+
+  /* ---- ambient depth: grid + color blooms + faint corner circuitry ---- */
+  .field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .field .grid{position:absolute;inset:-2px;
+    background-image:
+      linear-gradient(to right,rgba(120,150,200,.05) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(120,150,200,.05) 1px,transparent 1px);
+    background-size:60px 60px;
+    -webkit-mask-image:radial-gradient(125% 80% at 50% 26%,#000 38%,transparent 76%);
+            mask-image:radial-gradient(125% 80% at 50% 26%,#000 38%,transparent 76%);
+    opacity:.5}
+  .bloom{position:absolute;width:52vw;height:52vw;border-radius:50%;filter:blur(80px);opacity:.18;mix-blend-mode:screen}
+  .bloom.blue{left:-16vw;top:-4vw;background:radial-gradient(circle,#2a82ff,transparent 62%)}
+  .bloom.gold{right:-16vw;bottom:-8vw;background:radial-gradient(circle,#dfb346,transparent 62%);opacity:.12}
+  .circuit{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+  .circuit path{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+  .circuit .b{stroke:rgba(120,170,255,.5)} .circuit .g{stroke:rgba(223,179,70,.42)}
+  .circuit circle{stroke:none}
+
+  /* ---- layout: one tight, connected hero column ---- */
+  .wrap{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:clamp(10px,1.4vh,15px);
+    padding:calc(env(safe-area-inset-top) + 26px) var(--edge) calc(env(safe-area-inset-bottom) + 26px);
+    text-align:center}
+
+  /* brand kicker (not a status label) */
+  .kicker{display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--font-display);font-size:clamp(10px,1.35vw,12px);
+    letter-spacing:.32em;text-transform:uppercase;color:var(--a1-silver-2);
+    padding:7px 15px;border:1px solid var(--line);border-radius:999px;
+    background:linear-gradient(180deg,rgba(20,30,48,.5),rgba(8,12,22,.5));backdrop-filter:blur(4px)}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:#2a82ff;box-shadow:0 0 9px 1px rgba(42,130,255,.6)}
+
+  /* connective spine node between hero beats */
+  .link{position:relative;width:1px;height:clamp(13px,1.9vh,20px);
+    background:linear-gradient(180deg,transparent,rgba(120,150,200,.32),transparent)}
+  .link::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;
+    transform:translate(-50%,-50%);border-radius:50%;background:#20304c;
+    box-shadow:0 0 0 1px rgba(120,150,200,.25);transition:background .4s,box-shadow .4s}
+  .is-animating .link::after,.no-js .link::after{background:#2a82ff;box-shadow:0 0 9px 1px rgba(42,130,255,.55)}
+
+  /* ---- official logo (ONE intact PNG + whole-mark power-on) ---- */
+  .logo-slot{position:relative;display:flex;flex-direction:column;align-items:center}
+  .logo{position:relative;width:min(38vh,264px);aspect-ratio:1/1;display:block;
+    filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
+  @media (max-width:560px){ .logo{width:min(27vh,188px)} }
+  .logo .mark{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    display:block;pointer-events:none;-webkit-user-select:none;user-select:none;opacity:1;filter:none}
+  .logo .glow{position:absolute;left:50%;top:33%;width:74%;height:74%;
+    transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(156,198,255,.55),rgba(42,130,255,.18) 46%,transparent 70%);
+    mix-blend-mode:screen;opacity:.13}
+  .logo .sweep{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;
+    background:linear-gradient(105deg,transparent 40%,rgba(210,230,255,.55) 50%,rgba(223,179,70,.32) 55%,transparent 64%);
+    background-size:260% 100%;background-position:120% 0}
+
+  /* subtle icon-only replay — hidden until the logo is hovered/focused */
+  .replay{position:absolute;top:0;right:0;z-index:4;width:30px;height:30px;padding:0;
+    display:grid;place-items:center;appearance:none;cursor:pointer;
+    color:var(--a1-silver-2);background:rgba(10,16,28,.72);border:1px solid var(--line);
+    border-radius:50%;opacity:0;transform:scale(.9);transition:opacity .22s,transform .22s,color .2s,border-color .2s}
+  .logo-slot:hover .replay,.replay:focus-visible{opacity:1;transform:none}
+  .replay:hover{color:#fff;border-color:rgba(156,198,255,.55)}
+  .replay:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:2px}
+  .replay svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  h1{margin:0;font-family:var(--font-display);font-weight:800;
+    font-size:clamp(2.5rem,7.8vw,4.9rem);line-height:.98;letter-spacing:-.035em;
+    text-wrap:balance;color:var(--a1-silver-0)}
+  h1 .glow-word{background:linear-gradient(180deg,#eaf3ff 0%,#9cc6ff 55%,#2a82ff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{margin:0;font-size:clamp(1.02rem,2.2vw,1.42rem);color:var(--a1-silver-1);
+    font-weight:500;max-width:32ch;line-height:1.32;text-wrap:balance}
+
+  /* ---- CTAs: one related pair, tightly grouped ---- */
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .btn{appearance:none;cursor:pointer;font-family:var(--font-display);font-weight:600;
+    font-size:clamp(.95rem,1.6vw,1.02rem);letter-spacing:.01em;
+    padding:14px 24px;border-radius:12px;min-height:52px;display:inline-flex;align-items:center;gap:10px;
+    text-decoration:none;transition:transform .16s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{color:#eaf3ff;border:1px solid #2a82ff;
+    background:linear-gradient(180deg,#3a8dff 0%,#2a82ff 46%,#0b3f9d 100%);
+    box-shadow:0 10px 30px -8px rgba(42,130,255,.6),inset 0 1px 0 rgba(255,255,255,.25)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px rgba(42,130,255,.8),inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn-ghost{color:var(--a1-silver-1);border:1px solid rgba(156,198,255,.28);
+    background:linear-gradient(180deg,rgba(22,32,52,.6),rgba(10,16,28,.6))}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:rgba(156,198,255,.55);color:#fff;box-shadow:0 12px 30px -12px rgba(42,130,255,.4)}
+  .btn .arrow{transition:transform .18s ease}
+  .btn-primary:hover .arrow{transform:translateX(3px)}
+  .btn:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:3px}
+  .btn-sm{min-height:42px;padding:10px 18px;font-size:.9rem;border-radius:10px}
+
+  /* ---- infrastructure strip: 7 connected system modules (one panel) ---- */
+  .infra{width:min(720px,100%);margin-top:clamp(2px,1vh,8px);
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;
+    background:#0a1120;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 18px 50px -24px rgba(0,0,0,.7)}
+  .infra .sys{display:flex;align-items:center;justify-content:center;gap:9px;
+    padding:13px 14px;background:linear-gradient(180deg,rgba(13,20,34,.95),rgba(9,14,24,.95));
+    box-shadow:0 0 0 1px var(--line);
+    font-family:var(--font-display);font-size:clamp(12px,1.5vw,13.5px);letter-spacing:.02em;
+    color:var(--a1-silver-1);transition:background .25s,color .25s}
+  .infra .sys .node{width:6px;height:6px;border-radius:50%;flex:none;background:#2a82ff;
+    box-shadow:0 0 8px 1px rgba(42,130,255,.5)}
+  .infra .sys:nth-child(even) .node{background:#dfb346;box-shadow:0 0 8px 1px rgba(223,179,70,.45)}
+  .infra .sys:hover{background:linear-gradient(180deg,rgba(20,30,50,.95),rgba(12,18,30,.95));color:#fff}
+
+  /* =========================================================
+     POWER-ON MOTION — whole INTACT mark; nothing is separated.
+     Static fully-lit state is the default (no-JS safe).
+     ========================================================= */
+  .is-animating .mark  {animation:powerOn 2.15s cubic-bezier(.22,.7,.2,1) .15s both}
+  .is-animating .sweep {animation:energize 1.15s ease-out .55s both}
+  .is-animating .glow  {animation:powerGlow 1.7s ease-out .70s both, breathe 5.5s ease-in-out 2.75s infinite}
+  .is-animating .kicker .dot{animation:dotBoot .5s ease 1.9s both}
+  .is-animating .reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+  .is-animating .r1{animation-delay:1.92s}
+  .is-animating .r2{animation-delay:2.04s}
+  .is-animating .r3{animation-delay:2.16s}
+  .is-animating .r4{animation-delay:2.28s}
+  .is-animating .r5{animation-delay:2.40s}
+  .is-animating .circuit{animation:traceUp 2.2s ease-out .2s both}
+
+  @keyframes powerOn{
+    0%  {opacity:.55;filter:brightness(.26) saturate(.5)  contrast(.9)}
+    16% {opacity:.72;filter:brightness(.46) saturate(.62) contrast(.95)}
+    24% {opacity:.5; filter:brightness(.3)  saturate(.55) contrast(.92)}
+    42% {opacity:.94;filter:brightness(.9)  saturate(.9)  contrast(1)}
+    50% {opacity:.82;filter:brightness(.64) saturate(.82) contrast(.98)}
+    72% {opacity:1;  filter:brightness(1.12) saturate(1.07) contrast(1.03)}
+    100%{opacity:1;  filter:none}
+  }
+  @keyframes energize{0%{opacity:0;background-position:120% 0}30%{opacity:.95}100%{opacity:0;background-position:-70% 0}}
+  @keyframes powerGlow{0%{opacity:.04}55%{opacity:.85}100%{opacity:.16}}
+  @keyframes breathe{0%,100%{opacity:.12}50%{opacity:.2}}
+  @keyframes rise{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+  @keyframes dotBoot{0%{background:#20304c;box-shadow:0 0 0 0 rgba(42,130,255,0)}100%{background:#2a82ff;box-shadow:0 0 10px 2px rgba(42,130,255,.6)}}
+  @keyframes traceUp{0%{opacity:0}100%{opacity:.5}}
+
+  @media (prefers-reduced-motion:reduce){
+    .is-animating .mark,.is-animating .sweep,.is-animating .glow,
+    .is-animating .kicker .dot,.is-animating .reveal,.is-animating .circuit{animation:none !important}
+    .logo .mark{opacity:1;filter:none}.glow{opacity:.14}.sweep{opacity:0}
+    .reveal{opacity:1;transform:none}
+    .kicker .dot{background:#2a82ff;box-shadow:0 0 10px 1px rgba(42,130,255,.6)}
+    .replay{display:none}
+  }
+
+  /* ============================================================
+     HOMEPAGE SECTIONS (below the locked hero).
+     Additive only — same dark navy / electric-blue / silver /
+     restrained-gold system, reusing the hero's tokens, fonts,
+     and .btn styles. Mobile-first; restrained motion (hover only).
+     ============================================================ */
+  .sec{position:relative;z-index:1;padding:clamp(52px,8.5vw,100px) var(--edge);
+    border-top:1px solid rgba(120,150,200,.09)}
+  .sec-in{max-width:1120px;margin:0 auto}
+  .sec-alt{background:linear-gradient(180deg,rgba(9,16,30,.5),rgba(6,11,20,.5))}
+
+  .sec-head{text-align:center;max-width:660px;margin:0 auto clamp(28px,4.5vw,50px)}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);
+    font-size:clamp(10.5px,1.3vw,12px);letter-spacing:.28em;text-transform:uppercase;
+    color:var(--a1-silver-2);margin:0 0 15px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#2a82ff;
+    box-shadow:0 0 8px 1px rgba(42,130,255,.5)}
+  .eyebrow.gold::before{background:#dfb346;box-shadow:0 0 8px 1px rgba(223,179,70,.45)}
+  .sec-title{margin:0;font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.7rem,4.4vw,2.5rem);line-height:1.09;letter-spacing:-.022em;
+    color:var(--a1-silver-0);text-wrap:balance}
+  .sec-sub{margin:15px auto 0;max-width:54ch;font-size:clamp(1rem,1.9vw,1.13rem);
+    line-height:1.5;color:var(--a1-silver-2);text-wrap:balance}
+
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
+  .card{position:relative;background:linear-gradient(180deg,rgba(13,20,34,.92),rgba(9,14,24,.92));
+    border:1px solid var(--line);border-radius:14px;padding:22px 20px;text-align:left;
+    box-shadow:0 18px 50px -30px rgba(0,0,0,.8);
+    transition:transform .2s ease,border-color .25s ease,background .25s ease}
+  .card:hover{transform:translateY(-3px);border-color:rgba(156,198,255,.3)}
+  .card h3{margin:0 0 7px;font-family:var(--font-display);font-weight:600;
+    font-size:1.06rem;line-height:1.25;letter-spacing:-.01em;color:var(--a1-silver-0);
+    display:flex;align-items:baseline;gap:10px}
+  .card p{margin:0;font-size:.94rem;line-height:1.5;color:var(--a1-silver-2)}
+  .card .node{flex:none;width:7px;height:7px;border-radius:50%;transform:translateY(-2px);
+    background:#2a82ff;box-shadow:0 0 8px 1px rgba(42,130,255,.5)}
+  .card .node.g{background:#dfb346;box-shadow:0 0 8px 1px rgba(223,179,70,.45)}
+
+  /* services & pricing tiers */
+  .tiers{grid-template-columns:repeat(auto-fit,minmax(226px,1fr))}
+  .tier{display:flex;flex-direction:column;gap:12px;padding-top:26px}
+  .tier::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    border-radius:14px 14px 0 0}
+  .tier-blue::before{background:linear-gradient(90deg,#2a82ff,#9cc6ff)}
+  .tier-gold::before{background:linear-gradient(90deg,#dfb346,#ffe7a8)}
+  .tier-gold{border-color:rgba(223,179,70,.28)}
+  .tier .price{font-family:var(--font-display);font-weight:700;font-size:1.5rem;
+    line-height:1;color:var(--a1-silver-0)}
+  .tier-gold .price{color:var(--a1-gold-soft)}
+  .tier .price .lead{display:block;font-size:.68rem;font-weight:500;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--a1-silver-3);margin-bottom:6px}
+  .tier p{margin-top:2px}
+
+  /* how it works — numbered steps */
+  .steps{grid-template-columns:repeat(auto-fit,minmax(216px,1fr))}
+  .step .num{font-family:var(--font-display);font-weight:700;font-size:.82rem;
+    letter-spacing:.14em;color:var(--a1-blue-soft)}
+  .step h3{margin-top:10px}
+
+  /* proof of work */
+  .proof{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .proof-card{text-align:center;padding:30px 22px}
+  .proof-card .name{font-family:var(--font-display);font-weight:600;font-size:1.16rem;
+    letter-spacing:-.01em;color:var(--a1-silver-0)}
+  .proof-card .sector{margin-top:8px;font-size:.76rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--a1-silver-3)}
+  .proof-note{margin:clamp(22px,3vw,30px) auto 0;max-width:60ch;text-align:center;
+    font-size:.9rem;line-height:1.5;color:var(--a1-silver-3)}
+
+  /* portfolio cards (Proof of Work) */
+  .pgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .pcard{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,rgba(13,20,34,.92),rgba(9,14,24,.92));
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 18px 50px -30px rgba(0,0,0,.8);transition:transform .2s,border-color .25s,box-shadow .25s}
+  .pcard:hover{transform:translateY(-4px);border-color:rgba(156,198,255,.35);box-shadow:0 26px 60px -30px rgba(0,0,0,.9)}
+  .pcard:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:3px}
+  .pcard .shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0a1120;border-bottom:1px solid var(--line)}
+  .pcard .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .4s ease}
+  .pcard:hover .shot img{transform:scale(1.03)}
+  .pcard .shot.brandtile{display:grid;place-items:center;background:radial-gradient(120% 120% at 50% 0%,#eef2f8,#cdd6e4)}
+  .pcard .shot.brandtile img{width:60%;height:60%;object-fit:contain;transform:none}
+  .pcard:hover .shot.brandtile img{transform:none}
+  .pcard .ptag{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--font-display);font-size:10px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--a1-gold-soft);
+    background:rgba(6,10,18,.74);border:1px solid rgba(223,179,70,.4);border-radius:999px;padding:5px 10px;backdrop-filter:blur(4px)}
+  .pcard .pbody{display:flex;flex-direction:column;gap:8px;padding:20px;text-align:left}
+  .pcard .pindustry{font-family:var(--font-display);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--a1-silver-3)}
+  .pcard h3{margin:0;font-family:var(--font-display);font-weight:700;font-size:1.2rem;letter-spacing:-.015em;color:var(--a1-silver-0)}
+  .pcard .pwhat{margin:0;font-size:.92rem;line-height:1.5;color:var(--a1-silver-2)}
+  .pcard .pcta{margin-top:6px;font-family:var(--font-display);font-weight:600;font-size:.92rem;color:var(--a1-blue-soft);display:inline-flex;align-items:center;gap:7px}
+  .pcard .pcta .arrow{transition:transform .18s}
+  .pcard:hover .pcta .arrow{transform:translateX(3px)}
+
+  /* final CTA */
+  .final{text-align:center}
+  .final .sec-in{max-width:720px;display:flex;flex-direction:column;align-items:center}
+  .final .cta-row{margin-top:clamp(22px,3vw,30px)}
+
+  /* ---- global sticky header (shared across the site) ---- */
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--a1-blue);color:#fff;
+    padding:10px 16px;border-radius:0 0 8px 0;font-family:var(--font-display);font-weight:600}
+  .skip-link:focus{left:0}
+  .site-header{position:sticky;top:0;z-index:50;background:rgba(6,10,18,.62);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+  .site-header.scrolled{background:rgba(5,8,15,.92);border-bottom-color:var(--line)}
+  .nav{max-width:1120px;margin:0 auto;min-height:64px;display:flex;align-items:center;gap:16px;padding:8px var(--edge)}
+  .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;flex:none;
+    font-family:var(--font-display);font-weight:700;color:var(--a1-silver-0);letter-spacing:-.01em}
+  .brand img{width:34px;height:34px;display:block}
+  .brand .bt{font-size:1.02rem;line-height:1}
+  .brand .bt small{display:block;font-family:var(--font-body);font-weight:500;font-size:.62rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--a1-silver-3);margin-top:2px}
+  .nav-links{display:flex;align-items:center;gap:2px;margin-left:auto;list-style:none;padding:0}
+  .nav-links a{display:inline-flex;align-items:center;height:38px;padding:0 12px;border-radius:8px;
+    font-family:var(--font-display);font-size:.9rem;font-weight:500;color:var(--a1-silver-2);text-decoration:none;transition:color .18s,background .18s}
+  .nav-links a:hover{color:#fff;background:rgba(120,150,200,.08)}
+  .nav-links a[aria-current="page"]{color:var(--a1-blue-soft)}
+  .nav-cta{margin-left:8px}
+  .nav-legal{display:none}
+  .nav-toggle{display:none;flex:none;margin-left:auto;width:44px;height:44px;padding:0;
+    align-items:center;justify-content:center;background:rgba(14,22,38,.6);border:1px solid var(--line);
+    border-radius:10px;cursor:pointer;color:var(--a1-silver-1)}
+  .nav-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+  .nav-toggle .x{display:none}
+  .nav-toggle[aria-expanded="true"] .burger{display:none}
+  .nav-toggle[aria-expanded="true"] .x{display:block}
+  @media (max-width:900px){
+    .nav-links{position:fixed;inset:64px 0 auto 0;flex-direction:column;align-items:stretch;gap:1px;margin:0;
+      padding:8px var(--edge) calc(env(safe-area-inset-bottom) + 16px);background:rgba(5,8,15,.985);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);box-shadow:0 24px 44px -22px rgba(0,0,0,.85);transform:translateY(-8px);opacity:0;visibility:hidden;pointer-events:none;
+      transition:opacity .22s,transform .22s,visibility .22s;max-height:calc(100svh - 64px);overflow:auto}
+    .nav-links.open{transform:none;opacity:1;visibility:visible;pointer-events:auto}
+    .nav-links a{height:46px;padding:0 14px;font-size:1rem;border-radius:10px}
+    .nav-links a[aria-current="page"]{background:rgba(42,130,255,.12);color:var(--a1-blue-soft);box-shadow:inset 3px 0 0 var(--a1-blue)}
+    .nav-links a:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:-2px}
+    .nav-cta{margin:12px 0 0;padding-top:14px;border-top:1px solid var(--line)}.nav-cta .btn{width:100%;justify-content:center}
+    .nav-legal{display:flex;justify-content:center;gap:22px;margin-top:12px;padding-top:14px;border-top:1px solid var(--line)}
+    .nav-legal a{height:auto;padding:8px 6px;font-size:.85rem;color:var(--a1-silver-3);letter-spacing:.04em}
+    .nav-legal a:hover{color:var(--a1-silver-1);background:none}
+    .nav-toggle{display:inline-flex}
+  }
+  @media (prefers-reduced-motion:reduce){.nav-links{transition:none}.site-header{transition:none}}
+
+  /* ---- complete footer (shared across the site) ---- */
+  .site-footer{position:relative;z-index:1;border-top:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(6,10,18,.6),rgba(2,4,9,.92));
+    padding:clamp(44px,6vw,64px) var(--edge) calc(env(safe-area-inset-bottom) + 30px)}
+  .foot-in{max-width:1120px;margin:0 auto;display:grid;gap:34px 40px;grid-template-columns:1fr;align-items:start}
+  @media(min-width:720px){.foot-in{grid-template-columns:1.4fr 1fr 1fr}}
+  .foot-brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--a1-silver-0)}
+  .foot-brand img{width:40px;height:40px}
+  .foot-brand .ft{font-family:var(--font-display);font-weight:700;font-size:1.08rem;line-height:1.1}
+  .foot-col .foot-pos{margin:16px 0 0;max-width:34ch;font-size:.92rem;line-height:1.55;color:var(--a1-silver-2)}
+  .foot-col h4{font-family:var(--font-display);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--a1-silver-3);margin:0 0 14px}
+  .foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .foot-col a{color:var(--a1-silver-2);text-decoration:none;font-size:.94rem;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .foot-bottom{max-width:1120px;margin:clamp(30px,4vw,44px) auto 0;padding-top:20px;
+    border-top:1px solid rgba(120,150,200,.1);display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;
+    justify-content:space-between;font-size:.82rem;color:var(--a1-silver-3)}
+  .foot-bottom nav{display:flex;flex-wrap:wrap;gap:10px 18px}
+  .foot-bottom a{color:var(--a1-silver-3);text-decoration:none}
+  .foot-bottom a:hover{color:var(--a1-silver-1)}
+</style>
 </head>
-<body class="home-v2">
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="field" aria-hidden="true"><span class="grid"></span><span class="bloom blue"></span><span class="bloom gold"></span></div>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="field" aria-hidden="true">
+    <span class="grid"></span><span class="bloom blue"></span><span class="bloom gold"></span>
+    <svg class="circuit" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="b">
+        <path d="M60 150 H210 V250 H300"/><path d="M120 150 V70"/><path d="M60 360 H180 V300"/>
+        <circle cx="60" cy="150" r="4" fill="#9cc6ff"/><circle cx="300" cy="250" r="4" fill="#9cc6ff"/>
+        <circle cx="120" cy="70" r="3.5" fill="#9cc6ff"/><circle cx="60" cy="360" r="3.5" fill="#9cc6ff"/>
+      </g>
+      <g class="g">
+        <path d="M1380 760 H1230 V660 H1140"/><path d="M1320 760 V840"/><path d="M1380 560 H1260 V620"/>
+        <circle cx="1380" cy="760" r="4" fill="#ffe7a8"/><circle cx="1140" cy="660" r="4" fill="#ffe7a8"/>
+        <circle cx="1320" cy="840" r="3.5" fill="#ffe7a8"/><circle cx="1380" cy="560" r="3.5" fill="#ffe7a8"/>
+      </g>
+    </svg>
+  </div>
 
-<header class="site-header">
-  <nav class="nav" aria-label="Primary">
-    <a class="brand" href="/" aria-label="A/1 Creative Agency — home">
-      <img src="/brand/logo-icon.svg" alt="" width="34" height="34" />
-      <span class="bt">A/1&nbsp;Creative<small>Agency</small></span>
-    </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
-      <svg class="burger" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      <svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="/" aria-current="page">Home</a></li>
-      <li><a href="/services">Services</a></li>
-      <li><a href="#proof">Proof</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li class="nav-cta"><a class="btn btn-gold btn-sm" href="/quote">Start Your Upgrade</a></li>
-    </ul>
-  </nav>
-</header>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="/" aria-label="A/1 Creative Agency — home">
+        <img src="brand/a1-logo-official.png" alt="" width="34" height="34" />
+        <span class="bt">A/1&nbsp;Creative<small>Agency</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <svg class="burger" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/industries">Industries</a></li>
+        <li><a href="/work">Work</a></li>
+        <li><a href="/assessment">Assessment</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li class="nav-cta"><a class="btn btn-primary btn-sm" href="/quote">Start Your Upgrade</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<main id="main">
-  <section class="v2-hero" aria-labelledby="hero-title">
-    <div class="v2-hero-copy">
-      <p class="v2-eyebrow gold">A/1 Creative Agency</p>
-      <h1 id="hero-title">We build the system behind the brand.</h1>
-      <p class="v2-lede">Websites, automation, lead capture, booking, CRM, and digital infrastructure built to help businesses move cleaner and grow stronger.</p>
-      <div class="v2-actions">
-        <a class="btn btn-gold" href="/quote">Start Your Upgrade</a>
+  <main id="main">
+  <section class="wrap" aria-label="A/1 Creative Agency — Get Plugged In">
+    <p class="kicker reveal r1"><span class="dot"></span>Infrastructure&nbsp;·&nbsp;Intelligence&nbsp;·&nbsp;Systems</p>
+
+    <!-- OFFICIAL A/1 CREATIVE LOGO — exact artwork, used INTACT (single un-clipped <img>). -->
+    <div class="logo-slot">
+      <div class="logo" role="img" aria-label="A/1 Creative Agency logo">
+        <img class="mark" src="brand/a1-logo-official.png"
+             alt="A/1 Creative Agency — lightbulb mark with A/1 and CREATIVE AGENCY nameplate"
+             fetchpriority="high" decoding="async" />
+        <span class="glow"  aria-hidden="true"></span>
+        <span class="sweep" aria-hidden="true"></span>
+      </div>
+      <button class="replay" type="button" aria-label="Replay logo power-on">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+      </button>
+    </div>
+
+    <span class="link" aria-hidden="true"></span>
+
+    <h1 class="reveal r2">Get <span class="glow-word">Plugged&nbsp;In</span></h1>
+    <p class="lede reveal r2">We build the infrastructure that powers your business.</p>
+
+    <span class="link reveal r3" aria-hidden="true"></span>
+
+    <div class="cta-row reveal r3">
+      <a class="btn btn-primary" href="/quote">Start Your Upgrade <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-ghost" href="/assessment">Take the Assessment</a>
+    </div>
+
+    <div class="infra reveal r5" role="list" aria-label="The systems we connect and power">
+      <div class="sys" role="listitem"><span class="node"></span>Websites</div>
+      <div class="sys" role="listitem"><span class="node"></span>Automation</div>
+      <div class="sys" role="listitem"><span class="node"></span>Lead Capture</div>
+      <div class="sys" role="listitem"><span class="node"></span>Booking</div>
+      <div class="sys" role="listitem"><span class="node"></span>CRM</div>
+      <div class="sys" role="listitem"><span class="node"></span>Call Routing &amp; Follow-Up</div>
+      <div class="sys" role="listitem"><span class="node"></span>AI Systems</div>
+    </div>
+  </section>
+
+  <!-- ==================== PROBLEM ==================== -->
+  <section class="sec" id="problem" aria-labelledby="problem-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow">The Problem</p>
+        <h2 class="sec-title" id="problem-title">Most businesses lose revenue they never see.</h2>
+        <p class="sec-sub">The gaps usually aren't in the work — they're in the systems around it. This is where deals quietly slip away.</p>
+      </div>
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Outdated or missing website</h3>
+          <p>Buyers judge credibility in seconds. An old or absent site turns them away before you ever hear from them.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Leads slipping through the cracks</h3>
+          <p>Inquiries land in scattered inboxes and DMs, get missed, and never receive a reply.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Missed calls becoming lost revenue</h3>
+          <p>An unanswered call is a customer who moves straight on to the next name on the list.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Disconnected booking and customer systems</h3>
+          <p>Tools that don't talk to each other create manual work, double entry, and dropped handoffs.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>No follow-up automation</h3>
+          <p>Without automatic follow-up, warm leads go cold and never come back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SOLUTION ==================== -->
+  <section class="sec sec-alt" id="solution" aria-labelledby="solution-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow">The Solution</p>
+        <h2 class="sec-title" id="solution-title">A/1 Creative builds the infrastructure behind the business.</h2>
+        <p class="sec-sub">Not just a website — the connected system that captures leads, books customers, and recovers the revenue you're missing.</p>
+      </div>
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Websites</h3>
+          <p>A fast, credible site built to convert — not just to exist.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node g" aria-hidden="true"></span>Lead capture</h3>
+          <p>Every inquiry caught, tagged, and routed into one place.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>Automation</h3>
+          <p>The repetitive work runs itself, around the clock.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node g" aria-hidden="true"></span>Booking systems</h3>
+          <p>Customers schedule themselves, straight onto your calendar.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>CRM</h3>
+          <p>One record of every lead, customer, and conversation.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node g" aria-hidden="true"></span>Call routing &amp; follow-up</h3>
+          <p>Missed calls alert your team and create callback work without treating a call as SMS consent.</p>
+        </div>
+        <div class="card" role="listitem">
+          <h3><span class="node" aria-hidden="true"></span>AI systems</h3>
+          <p>Intelligent assistance layered onto the systems you already run.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES & PRICING ==================== -->
+  <section class="sec" id="pricing" aria-labelledby="pricing-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow gold">Services &amp; Pricing</p>
+        <h2 class="sec-title" id="pricing-title">Pick the level of infrastructure your business is ready for.</h2>
+        <p class="sec-sub">Start where you are. Each tier is a foundation you can build on as you grow.</p>
+      </div>
+      <div class="grid tiers" role="list">
+        <div class="card tier tier-blue" role="listitem">
+          <h3>QuickLaunch Kit</h3>
+          <p class="price"><span class="lead">Starting at</span>$500</p>
+          <p>A fast, professional web presence that gets your business online and credible.</p>
+        </div>
+        <div class="card tier tier-blue" role="listitem">
+          <h3>Community Access System</h3>
+          <p class="price">$1,500</p>
+          <p>Website plus lead capture and booking — the core system that turns visitors into booked customers.</p>
+        </div>
+        <div class="card tier tier-gold" role="listitem">
+          <h3>Growth Infrastructure</h3>
+          <p class="price">$3,500+</p>
+          <p>Automation, CRM, and call follow-up working together to capture and keep revenue.</p>
+        </div>
+        <div class="card tier tier-gold" role="listitem">
+          <h3>Full Infrastructure Build</h3>
+          <p class="price">Custom</p>
+          <p>A complete, end-to-end revenue-infrastructure build tailored to how your business runs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="sec sec-alt" id="how" aria-labelledby="how-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow">How It Works</p>
+        <h2 class="sec-title" id="how-title">From assessment to launch, one clear path.</h2>
+        <p class="sec-sub">No guesswork. You always know what's being built, what it costs, and what it produces.</p>
+      </div>
+      <div class="grid steps" role="list">
+        <div class="card step" role="listitem">
+          <p class="num">01</p>
+          <h3>Assessment</h3>
+          <p>We map your business, your gaps, and where revenue is leaking.</p>
+        </div>
+        <div class="card step" role="listitem">
+          <p class="num">02</p>
+          <h3>Infrastructure plan</h3>
+          <p>You get a clear plan: what gets built, what it costs, and what it produces.</p>
+        </div>
+        <div class="card step" role="listitem">
+          <p class="num">03</p>
+          <h3>Build and connect</h3>
+          <p>We build the systems and wire them together into one workflow.</p>
+        </div>
+        <div class="card step" role="listitem">
+          <p class="num">04</p>
+          <h3>Launch and support</h3>
+          <p>Everything goes live — and we stay on to keep it running.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROOF OF WORK ==================== -->
+  <section class="sec" id="proof" aria-labelledby="proof-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow gold">Proof of Work</p>
+        <h2 class="sec-title" id="proof-title">Real businesses, running on real builds.</h2>
+        <p class="sec-sub">A look at what we've actually built and connected — open any project to see the work.</p>
+      </div>
+      <div class="pgrid">
+        <a class="pcard" href="/work/trhue-hair-care">
+          <span class="shot"><img src="assets/portfolio/trhue-hair-care.jpg" alt="TRHUE Hair Care website — Where Beauty Meets Confidence" loading="lazy" width="800" height="517" /></span>
+          <span class="pbody">
+            <span class="pindustry">Hair Care / Beauty</span>
+            <h3>TRHUE Hair Care</h3>
+            <span class="pwhat">Website, brand, service menu, and booking — a premium presence that converts lookers into clients.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+        <a class="pcard" href="/work/4-reel-cleaning">
+          <span class="shot"><img src="assets/portfolio/4-reel-cleaning.jpg" alt="4 Reel Cleaning website — Clean Spaces. Clear Minds." loading="lazy" width="800" height="470" /></span>
+          <span class="pbody">
+            <span class="pindustry">Cleaning Services</span>
+            <h3>4 Reel Cleaning</h3>
+            <span class="pwhat">A credible service site with a fast quote pathway and lead capture that turns visitors into booked jobs.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+        <a class="pcard" href="/work/a-touch-of-feather">
+          <span class="shot"><img src="assets/portfolio/a-touch-of-feather.jpg" alt="A Touch of Feather website — Craftsmanship Built To Last" loading="lazy" width="800" height="433" /></span>
+          <span class="pbody">
+            <span class="pindustry">General Contractor</span>
+            <h3>A Touch of Feather</h3>
+            <span class="pwhat">A portfolio-driven website that matches high-end craftsmanship and opens an inquiry pathway for estimates.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+        <a class="pcard" href="/work/a1-suppliers">
+          <span class="shot brandtile"><img src="assets/portfolio/a1-suppliers-logo.png" alt="A/1 Suppliers logo" loading="lazy" width="500" height="500" /></span>
+          <span class="ptag">Affiliated Project</span>
+          <span class="pbody">
+            <span class="pindustry">Nonprofit / Youth &amp; Community Outreach</span>
+            <h3>A/1 Suppliers</h3>
+            <span class="pwhat">Affiliated Community Infrastructure Project — website, enrollment and donation pathways, and the operational systems behind the scenes.</span>
+            <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
+          </span>
+        </a>
+      </div>
+      <p class="center" style="margin-top:26px"><a class="btn btn-ghost" href="/work">View all work <span class="arrow">&rarr;</span></a></p>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="sec sec-alt final" aria-labelledby="cta-title">
+    <div class="sec-in">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">Get Plugged In</p>
+        <h2 class="sec-title" id="cta-title">Upgrade the infrastructure your business runs on.</h2>
+        <p class="sec-sub">Let's find the gaps and build the system that closes them.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/quote">Start Your Upgrade <span class="arrow">&rarr;</span></a>
         <a class="btn btn-ghost" href="/assessment">Take the Assessment</a>
       </div>
     </div>
-    <div class="system-map" role="img" aria-label="A/1 Creative connects websites, automation, booking, and CRM">
-      <span class="system-chip chip-web">Website</span>
-      <span class="system-chip chip-crm">CRM</span>
-      <span class="system-core"><img src="/brand/logo-icon.svg" alt="" width="88" height="88" /></span>
-      <span class="system-chip chip-auto">Automation</span>
-      <span class="system-chip chip-book">Booking</span>
-    </div>
   </section>
+  </main>
 
-  <section class="v2-section v2-section-alt" aria-labelledby="problem-title">
-    <div class="v2-container">
-      <header class="v2-section-head">
-        <p class="v2-eyebrow blue">Why the system matters</p>
-        <h2 id="problem-title">Most businesses lose revenue they never see.</h2>
-        <p>A weak digital setup creates gaps between attention, inquiry, booking, follow-up, and payment. A/1 Creative connects those pieces into one cleaner operating path.</p>
-      </header>
-      <div class="v2-grid v2-grid-2">
-        <article class="v2-card problem-card">
-          <p class="v2-card-label gold">The problem</p>
-          <h3>Disconnected tools create hidden leaks.</h3>
-          <p>Missed leads, weak follow-up, scattered forms, unclear booking paths, and no single operating view all cost time and revenue.</p>
-        </article>
-        <article class="v2-card solution-card">
-          <p class="v2-card-label blue">The A/1 solution</p>
-          <h3>One cleaner system behind the brand.</h3>
-          <p>Website, lead capture, booking, CRM, automation, and follow-up work together instead of operating as separate pieces.</p>
-        </article>
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="foot-in">
+      <div class="foot-col">
+        <a class="foot-brand" href="/"><img src="brand/a1-logo-official.png" alt="" width="40" height="40" /><span class="ft">A/1 Creative Agency</span></a>
+      <p class="foot-pos">We build the infrastructure that powers your business — websites, lead capture, automation, booking, CRM, call routing, and AI systems.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/industries">Industries</a></li>
+          <li><a href="/work">Work</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="/assessment">Take the Assessment</a></li>
+          <li><a href="/quote">Request a Quote</a></li>
+          <li><a href="/booking">Book a Call</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="mailto:operations@a1creativeagency.com">operations@a1creativeagency.com</a></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <section class="v2-section" aria-labelledby="services-title">
-    <div class="v2-container">
-      <header class="v2-section-head">
-        <p class="v2-eyebrow gold">What we build</p>
-        <h2 id="services-title">Infrastructure that turns attention into action.</h2>
-        <p>A/1 Creative connects the customer-facing experience to the operating systems behind it.</p>
-      </header>
-      <div class="v2-grid v2-grid-3">
-        <article class="v2-card service-card featured-blue">
-          <p class="v2-card-label gold">Infrastructure</p>
-          <h3>Website Systems</h3>
-          <p>High-converting websites built around lead capture, booking, clear next steps, and mobile-first customer journeys.</p>
-          <a class="v2-link" href="/services">Explore service <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="v2-card service-card">
-          <p class="v2-card-label gold">Infrastructure</p>
-          <h3>Automation &amp; CRM</h3>
-          <p>Lead routing, CRM, follow-up, reminders, operational workflows, and cleaner handoffs behind the website.</p>
-          <a class="v2-link" href="/services">Explore service <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="v2-card service-card">
-          <p class="v2-card-label gold">Infrastructure</p>
-          <h3>AI &amp; Voice</h3>
-          <p>Practical AI, voice, and business-response systems designed around real customer operations—not gimmicks.</p>
-          <a class="v2-link" href="/services">Explore service <span aria-hidden="true">→</span></a>
-        </article>
-      </div>
+    <div class="foot-bottom">
+    <span>© <span data-year>2026</span> A/1 Creative Agency. All rights reserved.</span>
+      <nav aria-label="Legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+      </nav>
     </div>
-  </section>
+  </footer>
 
-  <section class="v2-section v2-section-alt" aria-labelledby="pricing-title">
-    <div class="v2-container v2-container-wide">
-      <header class="v2-section-head">
-        <p class="v2-eyebrow blue">Choose the build level</p>
-        <h2 id="pricing-title">Start where you are. Build what the business needs next.</h2>
-        <p>Every offer is designed around a clearer customer path and a stronger operating system behind it.</p>
-      </header>
-      <div class="pricing-grid">
-        <article class="pricing-card"><p class="v2-card-label">Package</p><h3>QuickLaunch Kit</h3><p class="price">$500</p><p>Launch a professional web presence with a clear lead path and focused customer action.</p><ul><li>Strategy + build</li><li>Conversion-ready setup</li></ul><a class="pricing-cta" href="/quote">Start Your Upgrade</a></article>
-        <article class="pricing-card"><p class="v2-card-label">Package</p><h3>Community Access System</h3><p class="price">$1,500</p><p>Add stronger intake, booking, follow-up, and operational structure for a growing organization.</p><ul><li>Strategy + build</li><li>Conversion-ready setup</li></ul><a class="pricing-cta" href="/quote">Start Your Upgrade</a></article>
-        <article class="pricing-card pricing-featured"><p class="v2-card-label gold">Most complete</p><h3>Growth Infrastructure</h3><p class="price">$3,500+</p><p>Connect website, CRM, automation, lead routing, and growth infrastructure around the business.</p><ul><li>Strategy + build</li><li>Conversion-ready setup</li></ul><a class="pricing-cta primary" href="/quote">Start Your Upgrade</a></article>
-        <article class="pricing-card"><p class="v2-card-label">Package</p><h3>Full Infrastructure Build</h3><p class="price">Custom</p><p>A larger custom operating build for businesses that need multiple systems working together.</p><ul><li>Strategy + build</li><li>Conversion-ready setup</li></ul><a class="pricing-cta" href="/quote">Start Your Upgrade</a></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="v2-section" aria-labelledby="process-title">
-    <div class="v2-container">
-      <header class="v2-section-head">
-        <p class="v2-eyebrow gold">How it works</p>
-        <h2 id="process-title">A clear path from business problem to working system.</h2>
-        <p>We keep the build understandable: diagnose the gap, design the system, connect the tools, then launch and verify.</p>
-      </header>
-      <ol class="process-grid">
-        <li class="v2-card process-card"><span>01</span><h3>Assess</h3><p>We identify the customer-flow and operating gaps holding the business back.</p></li>
-        <li class="v2-card process-card"><span>02</span><h3>Architect</h3><p>We map the website, lead path, booking, CRM, and automation that should work together.</p></li>
-        <li class="v2-card process-card"><span>03</span><h3>Build + Connect</h3><p>We create the experience and wire the supporting systems behind it.</p></li>
-        <li class="v2-card process-card"><span>04</span><h3>Launch + Verify</h3><p>We test the path, fix friction, and put the business in position to operate cleaner.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="v2-section v2-section-alt" id="proof" aria-labelledby="proof-title">
-    <div class="v2-container">
-      <header class="v2-section-head">
-        <p class="v2-eyebrow blue">Proof of work</p>
-        <h2 id="proof-title">Built around real businesses, real workflows, and clearer customer paths.</h2>
-        <p>Selected work across local business websites, brand systems, and operating infrastructure. No inflated claims—just the build itself.</p>
-      </header>
-      <div class="proof-grid">
-        <a class="proof-card-v2" href="/work/trhue-hair-care"><span class="proof-visual"><img src="/assets/portfolio/trhue-hair-care.jpg" alt="TRHUE Hair Care website project" loading="lazy" /></span><span class="v2-card-label gold">Beauty / Hair Care</span><strong>TRHUE Hair Care</strong><span>Brand-facing web presence and customer-path work focused on a cleaner digital experience.</span><b>View the build →</b></a>
-        <a class="proof-card-v2 proof-featured" href="/work/4-reel-cleaning"><span class="proof-visual"><img src="/assets/portfolio/4-reel-cleaning.jpg" alt="4 Reel Cleaning website project" loading="lazy" /></span><span class="v2-card-label gold">Local services</span><strong>4 Reel Cleaning</strong><span>Local-service proof-of-work centered on a professional website and clearer lead journey.</span><b>View the build →</b></a>
-        <a class="proof-card-v2" href="/work/a-touch-of-feather"><span class="proof-visual"><img src="/assets/portfolio/a-touch-of-feather.jpg" alt="A Touch of Feather brand project" loading="lazy" /></span><span class="v2-card-label gold">Consulting / services</span><strong>A Touch of Feather</strong><span>Business presentation, branded proposal infrastructure, and customer-facing sales materials.</span><b>View the build →</b></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="v2-final" aria-labelledby="final-title">
-    <div><p class="v2-eyebrow gold">Ready to build</p><h2 id="final-title">Build the system behind your brand.</h2><p>Turn your website into a cleaner path for leads, booking, follow-up, and growth.</p><div class="v2-actions"><a class="btn btn-gold" href="/quote">Start Your Upgrade</a><a class="btn btn-ghost" href="/assessment">Take the Assessment</a></div></div>
-  </section>
-</main>
-
-<footer class="v2-footer">
-  <div class="v2-footer-main">
-    <div class="v2-footer-brand"><a href="/">A/1 Creative Agency</a><p>We build the system behind the brand.</p><a href="tel:+15134403329">513-440-3329</a><a href="mailto:operations@a1creativeagency.com">operations@a1creativeagency.com</a></div>
-    <div><h2>Explore</h2><a href="/services">Services</a><a href="/work">Proof of Work</a><a href="/about">About</a></div>
-    <div><h2>Start</h2><a href="/quote">Request a Quote</a><a href="/assessment">Take the Assessment</a><a href="/booking">Book a Call</a></div>
-    <div><h2>Legal</h2><a href="/privacy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a></div>
-  </div>
-  <div class="v2-footer-bottom">© <span data-year>2026</span> A/1 Creative Agency · Cincinnati, Ohio · All rights reserved.</div>
-</footer>
+<script>
+  (function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+    function play(){
+      if(reduce.matches)return;
+      document.body.classList.remove('is-animating');
+      void document.body.offsetWidth;
+      document.body.classList.add('is-animating');
+    }
+    if('requestAnimationFrame' in window){requestAnimationFrame(function(){requestAnimationFrame(play);});}
+    else{play();}
+    var btn=document.querySelector('.replay');
+    if(btn){btn.addEventListener('click',play);}
+  })();
+</script>
 <script src="/assets/site.js" defer></script>
 </body>
 </html>
