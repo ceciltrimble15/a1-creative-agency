@@ -1,0 +1,46 @@
+{
+  "document_type": "capability_inventory",
+  "schema_version": "1.0",
+  "last_updated": "2026-09-03",
+  "provider": "A/1 Creative Agency",
+  "canonical_url": "https://a1creativeagency.com/agent-ready-commerce",
+  "purpose": "Describe the agent-ready business infrastructure A/1 Creative can assess, design, implement, and verify without representing unbuilt connections as live.",
+  "delivery_status": "pilot conversations open",
+  "current_public_capabilities": [
+    "structured organization and service data",
+    "machine-readable offer catalog",
+    "assessment and quote pathways",
+    "public privacy and terms policies",
+    "human call and email escalation"
+  ],
+  "implementation_capabilities": [
+    {
+      "layer": "business_identity",
+      "functions": ["canonical company record", "offer and policy catalog", "service area", "proof references"]
+    },
+    {
+      "layer": "business_agent",
+      "functions": ["approved knowledge", "customer intent routing", "policy-aware responses", "human escalation"]
+    },
+    {
+      "layer": "mcp_tools",
+      "functions": ["read catalog or availability", "request quote", "create booking", "create or update CRM record", "initiate approved transaction"]
+    },
+    {
+      "layer": "trust_and_control",
+      "functions": ["authentication", "least-privilege authorization", "customer confirmation", "staff approval", "audit logs", "error recovery"]
+    },
+    {
+      "layer": "consumer_agent_access",
+      "functions": ["platform-specific discovery", "capability description", "request and response translation", "confirmed handoff"]
+    }
+  ],
+  "not_currently_represented_as_live": [
+    "a public production MCP server",
+    "universal discovery by every consumer agent",
+    "automatic agent-to-agent purchasing",
+    "automatic checkout on A/1 Creative services",
+    "guaranteed ranking, recommendation, leads, or revenue"
+  ],
+  "pilot_entry_url": "https://a1creativeagency.com/quote"
+}
