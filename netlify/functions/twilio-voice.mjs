@@ -1,6 +1,6 @@
 /* Incoming-call webhook for (513) 440-3329. Greets the caller, then rings the
    owner's cell. The <Dial action> hands the outcome to /api/twilio/missed-call,
-   which runs voicemail + text-back recovery when the call isn't answered.
+   which logs internal follow-up and offers voicemail when the call isn't answered.
 
    Point the number's Voice webhook (A Call Comes In) here:
      https://a1creativeagency.com/api/twilio/voice   (HTTP POST) */

@@ -42,7 +42,7 @@ export const NEED_POINTS = {
     'No follow-up today': 3,
   },
   missed_calls: {
-    'Automated missed-call text-back': 0,
+    'Automated missed-call follow-up': 0,
     'Voicemail only': 1,
     'We call back when we can': 2,
     'Missed calls are lost': 3,
@@ -101,7 +101,7 @@ export function buildSummary(answers, result) {
   lines.push(`  Business: ${answers.businessName || '—'}`);
   lines.push(`  Email: ${answers.email || '—'}`);
   lines.push(`  Phone: ${answers.phone || '— (not provided)'}`);
-  lines.push(`  SMS Consent: ${answers.smsConsent ? 'Yes (opted in)' : 'No'}`);
+  lines.push('  SMS Consent: Not collected on assessment');
   lines.push('');
   lines.push('INFRASTRUCTURE ANSWERS (need points)');
   SCORED_QUESTIONS.forEach((q) => {

@@ -8,9 +8,9 @@
          parameter set to STOP, START, or HELP.
 
    To avoid sending a DUPLICATE confirmation, this webhook NEVER sends an SMS of
-   its own. On an OptOutType event it only records/logs the consent change and
+   its own. On an OptOutType event it records opt-outs and logs other keyword events,
    returns an empty 200 TwiML (no <Message>). Ordinary inbound messages (no
-   OptOutType — e.g. a reply to a missed-call text-back) are logged and forwarded
+   OptOutType) are logged and forwarded
    to operations@, also without an auto-reply. The handler imports no SMS-send
    helper, so it is structurally incapable of generating an outbound message.
 
@@ -30,21 +30,21 @@ import {
 import { findLead, updateLead, logAutomation, LEAD_FIELDS } from './_lib/airtable.mjs';
 import { notifyOps } from './_lib/notify.mjs';
 
-/* Flip the Lead's SMS Consent flag when a known contact opts in/out, so the
-   record reflects the caller's latest choice. Best-effort — never blocks the
-   TwiML response and never sends a message. */
-async function recordConsentChange(from, optedIn) {
+/* Record an opt-out against a known contact. This webhook never upgrades
+   consent: initial SMS consent is accepted only through /quote. */
+async function recordOptOut(from) {
   try {
     const found = await findLead({ phone: from });
     if (found.ok && found.record) {
+      // Preserve the original consent timestamp, disclosure version, and source.
+      // They are evidence of how consent was obtained and must not be replaced
+      // by the later opt-out event. The Automation Log records the STOP time.
       await updateLead(found.record.id, {
-        [LEAD_FIELDS.smsConsent]: optedIn,
-        [LEAD_FIELDS.smsConsentAt]: new Date().toISOString(),
-        [LEAD_FIELDS.consentSourceUrl]: 'SMS keyword reply (Twilio Advanced Opt-Out)',
+        [LEAD_FIELDS.smsConsent]: false,
       });
     }
   } catch (err) {
-    console.error('recordConsentChange failed:', err.message);
+    console.error('recordOptOut failed:', err.message);
   }
 }
 
@@ -66,14 +66,11 @@ export const handler = async (event) => {
   if (optOutType) {
     if (optOutType === 'STOP') {
       await Promise.all([
-        recordConsentChange(from, false),
+        recordOptOut(from),
         logAutomation('sms_opt_out', `${from} opted out — Twilio Advanced Opt-Out sent the reply`),
       ]);
     } else if (optOutType === 'START') {
-      await Promise.all([
-        recordConsentChange(from, true),
-        logAutomation('sms_opt_in', `${from} re-subscribed — Twilio Advanced Opt-Out sent the reply`),
-      ]);
+      await logAutomation('sms_keyword_ignored', `${from} sent START — no consent was recorded; /quote is the only opt-in source`);
     } else if (optOutType === 'HELP') {
       await logAutomation('sms_help', `${from} requested help — Twilio Advanced Opt-Out sent the reply`);
     } else {
@@ -83,9 +80,8 @@ export const handler = async (event) => {
     return emptyTwiml();
   }
 
-  // Ordinary inbound message (no OptOutType) — e.g. a reply to a missed-call
-  // text-back. Forward to ops and log; do not auto-reply (avoids unsolicited
-  // messaging and any duplicate).
+  // Ordinary inbound message (no OptOutType). Forward to ops and log; do not
+  // auto-reply and do not treat the inbound message as consent.
   await Promise.all([
     notifyOps(
       `SMS reply from ${from}`,
