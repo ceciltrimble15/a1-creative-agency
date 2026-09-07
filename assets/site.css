@@ -19,6 +19,13 @@
   --line:rgba(120,150,200,.16);
   --maxw:1120px;
   --header-h:64px;
+  /* Figma V1 semantic aliases */
+  --a1-bg-page:var(--a1-black);--a1-bg-surface:var(--a1-coal);--a1-bg-elevated:var(--a1-navy);
+  --a1-text-primary:var(--a1-silver-0);--a1-text-secondary:var(--a1-silver-2);--a1-text-muted:var(--a1-silver-3);
+  --a1-text-link:var(--a1-blue-soft);--a1-border-color:var(--a1-graphite);--a1-border-subtle:var(--a1-steel);
+  --a1-border-active:var(--a1-blue);--a1-action-primary-bg:var(--a1-gold);--a1-action-primary-text:var(--a1-navy);
+  --a1-action-secondary-bg:var(--a1-navy);--a1-action-secondary-text:var(--a1-silver-1);
+  --a1-radius-lg:16px;--a1-container:1120px;--a1-container-wide:1280px;--a1-form-max:760px;--a1-touch-min:44px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -125,6 +132,8 @@ img{max-width:100%;height:auto}
 .btn-sm{min-height:42px;padding:10px 18px;font-size:.9rem;border-radius:10px}
 .btn .arrow{transition:transform .18s}
 .btn:hover .arrow{transform:translateX(3px)}
+.btn:focus-visible{outline:2px solid var(--a1-blue-soft);outline-offset:3px}
+.btn:disabled,.btn[aria-disabled="true"]{cursor:not-allowed;opacity:.48;transform:none;box-shadow:none}
 
 /* ============================ LAYOUT / SECTIONS ============================ */
 main{position:relative;z-index:1;display:block}

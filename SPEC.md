@@ -83,15 +83,15 @@ This is the biggest piece and it's a **shared** job — some of it only you can 
 
 | Step | What | Owner |
 |---|---|---|
-| 4.1 | Consent capture on the site (checkbox, unchecked, STOP/HELP/rates + Privacy/Terms) | ✅ done on BOTH the assessment and quote forms |
-| 4.2 | Build Netlify functions for Twilio: inbound **voice** (`twilio-voice`), **missed-call text-back** (`twilio-missed-call`), **voicemail** (`twilio-voicemail`), inbound **SMS** STOP/UNSUBSCRIBE/END/QUIT/CANCEL + HELP + START auto-replies (`twilio-sms`) — signature-verified, at `/api/twilio/*` | ✅ built + unit-tested 🟦 |
+| 4.1 | Consent capture on the site (one optional unchecked checkbox, STOP/HELP/rates + Privacy/Terms) | ✅ `/quote` only; assessment and contact do not collect SMS consent |
+| 4.2 | Build Netlify functions for Twilio: inbound **voice** (`twilio-voice`), internal **missed-call follow-up** (`twilio-missed-call`), **voicemail** (`twilio-voicemail`), and inbound **SMS** opt-out handling (`twilio-sms`) — signature-verified, at `/api/twilio/*` | ✅ built; missed calls never trigger customer SMS |
 | 4.3 | Twilio account: buy/confirm number, get Account SID + Auth Token | 🟧 |
 | 4.4 | **A2P 10DLC registration** in Twilio console: register Brand, then Campaign (use case = customer care/marketing), submit sample messages + the opt-in screenshot (our consent box) + Privacy/Terms URLs | 🟧 (carrier approval, days) |
 | 4.5 | Point the Twilio number's Voice + Messaging webhooks at the Netlify function URLs | 🟧 (I give exact URLs) |
-| 4.6 | Set Twilio env vars in Netlify (§5), test a real missed call + STOP/HELP | 🟦 build + 🟧 trigger |
+| 4.6 | Set Twilio env vars in Netlify (§5), test a real missed call, confirm no customer SMS, and verify STOP/HELP | 🟦 build + 🟧 trigger |
 
-> Until 4.4 is carrier-approved, outbound SMS (missed-call text-back) may be filtered.
-> The website consent flow and the functions can be fully built and tested before then.
+> A missed call, voicemail, inbound text, or phone number alone is never SMS consent.
+> The `/quote` checkbox is the only initial SMS consent source.
 
 ---
 
