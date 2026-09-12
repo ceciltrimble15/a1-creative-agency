@@ -1,9 +1,9 @@
 /* Shared Twilio helpers for the A1 Creative voice + SMS webhooks, adapted for
    Netlify Functions (event/response objects, not Express req/res). Runtime-
-   agnostic: uses only global fetch + Node's crypto + env. Server-side only —
+   agnostic: uses the official Twilio SDK + global fetch + env. Server-side only —
    the auth token never reaches the browser. */
 
-import crypto from 'node:crypto';
+import twilio from 'twilio';
 
 /* Parse a Netlify Function event body into a plain params object. Twilio POSTs
    application/x-www-form-urlencoded; Netlify may base64-encode the body. */
@@ -26,7 +26,8 @@ function requestUrl(event) {
   const proto = headers['x-forwarded-proto'] || 'https';
   const host = headers['x-forwarded-host'] || headers.host;
   const path = event.path || (event.rawPath || '');
-  return `${proto}://${host}${path}`;
+  const query = event.rawQuery ? `?${event.rawQuery}` : '';
+  return `${proto}://${host}${path}${query}`;
 }
 
 function lowerHeaders(headers = {}) {
@@ -35,32 +36,34 @@ function lowerHeaders(headers = {}) {
   return out;
 }
 
-/* Validates X-Twilio-Signature so only Twilio can hit the webhooks.
-   Twilio signs: full request URL + POST params concatenated in sorted key
-   order, HMAC-SHA1 with the account auth token, base64-encoded. Returns true
-   only on a verified signature. If TWILIO_AUTH_TOKEN is unset we cannot verify,
-   so we fail closed (return false). */
+/* Use Twilio's maintained validator; never accept unsigned callbacks. */
 export function isValidTwilioRequest(event, params) {
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const headers = lowerHeaders(event.headers);
-  const signature = headers['x-twilio-signature'];
-  if (!authToken || !signature) return false;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  const signature = lowerHeaders(event.headers)['x-twilio-signature'];
+  if (!token || !signature || !/^AC[a-f0-9]{32}$/i.test(process.env.TWILIO_ACCOUNT_SID || '')) return false;
+  if (params.AccountSid !== process.env.TWILIO_ACCOUNT_SID) return false;
+  try { return twilio.validateRequest(token, signature, requestUrl(event), params); }
+  catch { return false; }
+}
 
-  const url = requestUrl(event);
-  const data = Object.keys(params)
-    .sort()
-    .reduce((acc, key) => acc + key + params[key], url);
+export const A1_NUMBER = '+15134403329';
+export const VOICE_ORIGIN = 'https://a1creativeagency.com';
+export const voiceUrl = (path) => `${VOICE_ORIGIN}/api/twilio/${path}`;
 
-  const expected = crypto
-    .createHmac('sha1', authToken)
-    .update(Buffer.from(data, 'utf-8'))
-    .digest('base64');
+// A1's forwarding destination is a US number. Reject malformed/international
+// values and forwarding back to the business number rather than guessing.
+export function ownerNumber() {
+  const number = (process.env.OWNER_CELL || '').trim();
+  return /^\+1[2-9]\d{2}[2-9]\d{6}$/.test(number) && number !== A1_NUMBER ? number : null;
+}
 
-  try {
-    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
-  } catch {
-    return false;
-  }
+export function voiceRequestError(event, params) {
+  if (event.httpMethod !== 'POST') return methodNotAllowed();
+  if (!isValidTwilioRequest(event, params)) return forbidden();
+  if (!/^CA[a-f0-9]{32}$/i.test(params.CallSid || '')) return { statusCode: 400, body: 'Missing valid CallSid' };
+  // Recording callbacks omit To. Validate it on entry/action requests when present.
+  if (params.To && params.To !== A1_NUMBER) return { statusCode: 403, body: 'Wrong business number' };
+  return null;
 }
 
 /* Send an outbound SMS from the A1 number via the Twilio REST API. */
@@ -78,6 +81,7 @@ export async function sendSms(to, body) {
       `https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`,
       {
         method: 'POST',
+        signal: AbortSignal.timeout(2500),
         headers: {
           Authorization: 'Basic ' + Buffer.from(`${sid}:${authToken}`).toString('base64'),
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -86,7 +90,7 @@ export async function sendSms(to, body) {
       }
     );
     const data = await response.json();
-    if (!response.ok) return { ok: false, error: data.message || `Twilio ${response.status}` };
+    if (!response.ok) return { ok: false, error: data.message || `Twilio ${response.status}`, code: data.code };
     return { ok: true, sid: data.sid };
   } catch (err) {
     return { ok: false, error: err.message };

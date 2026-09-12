@@ -1,40 +1,17 @@
-/* Incoming-call webhook for (513) 440-3329. Greets the caller, then rings the
-   owner's cell. The <Dial action> hands the outcome to /api/twilio/missed-call,
-   which logs internal follow-up and offers voicemail when the call isn't answered.
-
-   Point the number's Voice webhook (A Call Comes In) here:
-     https://a1creativeagency.com/api/twilio/voice   (HTTP POST) */
-
-import {
-  parseTwilioBody,
-  isValidTwilioRequest,
-  twiml,
-  xmlEscape,
-  methodNotAllowed,
-  forbidden,
-} from './_lib/twilio.mjs';
-
+/* Canonical incoming voice route for A1; no remote API calls before dialing. */
+import { parseTwilioBody, voiceRequestError, twiml, xmlEscape, ownerNumber, voiceUrl, A1_NUMBER } from './_lib/twilio.mjs';
 export const handler = async (event) => {
-  if (event.httpMethod !== 'POST') return methodNotAllowed();
-
   const params = parseTwilioBody(event);
-  if (!isValidTwilioRequest(event, params)) return forbidden();
-
-  const greeting = 'Thank you for calling A 1 Creative Agency. Please hold while we connect you.';
-  const ownerCell = process.env.OWNER_CELL;
-
-  if (!ownerCell) {
-    // No forward target configured — go straight to the voicemail flow.
-    return twiml(
-      `<Response><Say voice="Polly.Joanna">${xmlEscape(greeting)}</Say>` +
-        `<Redirect method="POST">/api/twilio/missed-call</Redirect></Response>`
-    );
+  const error = voiceRequestError(event, params);
+  if (error) return error;
+  const owner = ownerNumber();
+  console.info(JSON.stringify({ event: 'a1_voice_received', callSid: params.CallSid, destinationValid: !!owner }));
+  if (!owner) {
+    console.error('A1 OWNER_CELL must be a US E.164 number and must not equal the business number');
+    return twiml(`<Response><Redirect method="POST">${voiceUrl('missed-call')}</Redirect></Response>`);
   }
-
-  return twiml(
-    `<Response>` +
-      `<Say voice="Polly.Joanna">${xmlEscape(greeting)}</Say>` +
-      `<Dial action="/api/twilio/missed-call" method="POST" timeout="20" answerOnBridge="true">${xmlEscape(ownerCell)}</Dial>` +
-      `</Response>`
-  );
+  return twiml(`<Response><Say>Thank you for calling A 1 Creative Agency. Please hold while we connect you.</Say>` +
+    `<Dial callerId="${A1_NUMBER}" action="${voiceUrl('missed-call')}" method="POST" timeout="20" answerOnBridge="true">` +
+    `<Number statusCallback="${voiceUrl('dial-status')}" statusCallbackMethod="POST" statusCallbackEvent="initiated ringing answered completed">${xmlEscape(owner)}</Number>` +
+    `</Dial></Response>`);
 };

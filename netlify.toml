@@ -99,3 +99,16 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Twilio asynchronous diagnostics and recording-ready notifications.
+[[redirects]]
+  from = "/api/twilio/dial-status"
+  to = "/.netlify/functions/twilio-dial-status"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/twilio/recording-status"
+  to = "/.netlify/functions/twilio-recording-status"
+  status = 200
+  force = true

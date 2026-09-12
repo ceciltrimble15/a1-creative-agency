@@ -60,7 +60,7 @@ export function hasAirtableConfig() {
 
 /* Low-level request wrapper. Returns { ok, status, data, error } and never
    throws — callers decide how to degrade. */
-async function airtableRequest(method, tablePath, { body, query } = {}) {
+async function airtableRequest(method, tablePath, { body, query, timeoutMs = 10000 } = {}) {
   const cfg = airtableConfig();
   if (!cfg) return { ok: false, error: 'Missing Airtable credentials (AIRTABLE_API_KEY or AIRTABLE_TOKEN, and AIRTABLE_BASE_ID)' };
 
@@ -70,6 +70,7 @@ async function airtableRequest(method, tablePath, { body, query } = {}) {
   try {
     const response = await fetch(url, {
       method,
+      signal: AbortSignal.timeout(timeoutMs),
       headers: {
         Authorization: `Bearer ${cfg.apiKey}`,
         'Content-Type': 'application/json',
@@ -86,11 +87,11 @@ async function airtableRequest(method, tablePath, { body, query } = {}) {
   }
 }
 
-async function airtableCreate(table, fields) {
+async function airtableCreate(table, fields, timeoutMs = 10000) {
   // typecast lets Airtable add new single-select options (e.g. a new Source
   // value) instead of rejecting the record.
   const res = await airtableRequest('POST', encodeURIComponent(table), {
-    body: { fields, typecast: true },
+    body: { fields, typecast: true }, timeoutMs,
   });
   return res.ok ? { ok: true, id: res.data.id } : { ok: false, error: res.error };
 }
@@ -159,7 +160,43 @@ export async function logAutomation(event, details, status = 'ok') {
     Event: event,
     Details: details,
     Status: status,
-  });
+  }, 2500);
   if (!result.ok) console.error(`Automation log failed (${event}):`, result.error);
   return result;
+}
+
+/* CallSid/RecordingSid is embedded in an existing text field: no schema migration.
+   Upsert only immutable fields on retry. Never reopen a task or reset lead status. */
+async function upsertRecovery(table, key, fields, initialStatus) {
+  const res = await airtableRequest('PATCH', encodeURIComponent(table), {
+    timeoutMs: 2500,
+    body: { performUpsert: { fieldsToMergeOn: [key] }, records: [{ fields }], typecast: true },
+  });
+  if (!res.ok) return { ok: false, error: res.error };
+  const record = res.data.records?.[0];
+  if (!record?.id) return { ok: false, error: 'Airtable returned no record' };
+  const created = res.data.createdRecords?.includes(record.id) || false;
+  if (created && initialStatus) {
+    const statusResult = await airtableRequest('PATCH', `${encodeURIComponent(table)}/${record.id}`, {
+      timeoutMs: 2500, body: { fields: initialStatus, typecast: true },
+    });
+    if (!statusResult.ok) return { ok: false, id: record.id, created, error: 'Record saved but initial status failed: ' + statusResult.error };
+  }
+  return { ok: true, id: record.id, created };
+}
+
+export function upsertMissedCallLead(callSid, from, to) {
+  return upsertRecovery(LEADS_TABLE, LEAD_FIELDS.name, {
+    [LEAD_FIELDS.name]: `Missed call ${from || 'unknown'} [${callSid}]`,
+    [LEAD_FIELDS.phone]: from?.startsWith('+') ? from : '',
+    [LEAD_FIELDS.source]: 'Missed call',
+    [LEAD_FIELDS.client]: 'A/1 Creative Agency',
+    [LEAD_FIELDS.notes]: `CallSid: ${callSid}. Called ${to}. No customer SMS consent was created.`,
+  }, { [LEAD_FIELDS.status]: 'new' });
+}
+
+export function upsertCallbackTask(callSid, from) {
+  return upsertRecovery(TASKS_TABLE, 'Task Title', {
+    'Task Title': `Call back ${from || 'unknown caller'} [${callSid}]`,
+  }, { Status: 'To Do' });
 }

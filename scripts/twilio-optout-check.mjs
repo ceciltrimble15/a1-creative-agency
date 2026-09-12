@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 
 process.env.AIRTABLE_API_KEY = 'test-token';
 process.env.AIRTABLE_BASE_ID = 'app-test';
+process.env.TWILIO_ACCOUNT_SID = 'AC' + 'a'.repeat(32);
 process.env.TWILIO_AUTH_TOKEN = 'test-twilio-auth-token';
 
 const requests = [];
@@ -42,6 +43,7 @@ globalThis.fetch = async (url, options = {}) => {
 const { handler } = await import('../netlify/functions/twilio-sms.mjs');
 const rawUrl = 'https://a1creativeagency.com/api/twilio/sms';
 const params = {
+  AccountSid: process.env.TWILIO_ACCOUNT_SID,
   Body: 'STOP',
   From: '+15135550100',
   OptOutType: 'STOP',
