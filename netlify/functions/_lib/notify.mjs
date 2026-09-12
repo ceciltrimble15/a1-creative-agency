@@ -4,7 +4,6 @@
    alert imports the Twilio helper lazily so the marketing-site lead path never
    loads it. Both no-op with a logged warning until their env vars are set. */
 
-import { sendSms } from './twilio.mjs';
 
 // operations@a1creativeagency.com is the permanent, fixed recipient — per
 // Cecil (Aug 7 2026), this address must never be replaced by an env var.
@@ -13,7 +12,7 @@ import { sendSms } from './twilio.mjs';
 // it can never substitute for the primary destination.
 const OPS_EMAIL = 'operations@a1creativeagency.com';
 
-export async function notifyOps(subject, text) {
+export async function notifyOps(subject, text, { idempotencyKey, timeoutMs = 10000 } = {}) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('notifyOps skipped: RESEND_API_KEY not set');
@@ -39,9 +38,11 @@ export async function notifyOps(subject, text) {
 
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      signal: AbortSignal.timeout(timeoutMs),
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
+        ...(idempotencyKey ? { 'Idempotency-Key': idempotencyKey } : {}),
       },
       body: JSON.stringify(body),
     });
@@ -56,7 +57,8 @@ export async function notifyOps(subject, text) {
 /* SMS alert to the owner's cell (OWNER_CELL) via the Twilio number. Used by the
    missed-call / voicemail flows. No-ops until OWNER_CELL is set. */
 export async function alertOwner(text) {
-  const ownerCell = process.env.OWNER_CELL;
+  const { sendSms, ownerNumber } = await import('./twilio.mjs');
+  const ownerCell = ownerNumber();
   if (!ownerCell) {
     console.error('alertOwner skipped: OWNER_CELL not set');
     return { ok: false, error: 'OWNER_CELL not set' };
