@@ -53,7 +53,7 @@
           "@type": "Offer",
           "name": "QuickLaunch Kit",
           "url": "https://a1creativeagency.com/quote",
-          "priceSpecification": {"@type": "PriceSpecification", "minPrice": 500, "priceCurrency": "USD"},
+          "priceSpecification": {"@type": "PriceSpecification", "price": 500, "priceCurrency": "USD"},
           "itemOffered": {"@type": "Service", "name": "QuickLaunch Kit", "description": "A focused, mobile-ready website launch and clear customer contact pathway."}
         },
         {
@@ -138,7 +138,7 @@
   .circuit circle{stroke:none}
 
   /* ---- layout: one tight, connected hero column ---- */
-  .wrap{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;
+  .wrap{position:relative;z-index:1;min-height:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:clamp(10px,1.4vh,15px);
     padding:calc(env(safe-area-inset-top) + 26px) var(--edge) calc(env(safe-area-inset-bottom) + 26px);
     text-align:center}
@@ -161,9 +161,9 @@
 
   /* ---- official logo (ONE intact PNG + whole-mark power-on) ---- */
   .logo-slot{position:relative;display:flex;flex-direction:column;align-items:center}
-  .logo{position:relative;width:min(38vh,264px);aspect-ratio:1/1;display:block;
+  .logo{position:relative;width:min(23vh,172px);aspect-ratio:1/1;display:block;
     filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
-  @media (max-width:560px){ .logo{width:min(27vh,188px)} }
+  @media (max-width:560px){ .logo{width:min(19vh,132px)} }
   .logo .mark{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
     display:block;pointer-events:none;-webkit-user-select:none;user-select:none;opacity:1;filter:none}
   .logo .glow{position:absolute;left:50%;top:33%;width:74%;height:74%;
@@ -190,7 +190,7 @@
   h1 .glow-word{background:linear-gradient(180deg,#eaf3ff 0%,#9cc6ff 55%,#2a82ff 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent}
   .lede{margin:0;font-size:clamp(1.02rem,2.2vw,1.42rem);color:var(--a1-silver-1);
-    font-weight:500;max-width:32ch;line-height:1.32;text-wrap:balance}
+    font-weight:500;max-width:52ch;line-height:1.45;text-wrap:balance}
 
   /* ---- CTAs: one related pair, tightly grouped ---- */
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
@@ -234,7 +234,7 @@
   .is-animating .sweep {animation:energize 1.15s ease-out .55s both}
   .is-animating .glow  {animation:powerGlow 1.7s ease-out .70s both, breathe 5.5s ease-in-out 2.75s infinite}
   .is-animating .kicker .dot{animation:dotBoot .5s ease 1.9s both}
-  .is-animating .reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+  .is-animating .reveal{animation:none}
   .is-animating .r1{animation-delay:1.92s}
   .is-animating .r2{animation-delay:2.04s}
   .is-animating .r3{animation-delay:2.16s}
@@ -477,6 +477,11 @@
   .foot-bottom nav{display:flex;flex-wrap:wrap;gap:10px 18px}
   .foot-bottom a{color:var(--a1-silver-3);text-decoration:none}
   .foot-bottom a:hover{color:var(--a1-silver-1)}
+
+  .hero-note{margin:3px 0;color:var(--a1-silver-2);font-size:.9rem;line-height:1.5;max-width:62ch}
+  .hero-note a{color:var(--a1-blue-soft);text-underline-offset:3px}
+  .pcard .pchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .pcard .pchips span{font-size:11px;color:var(--a1-silver-1);border:1px solid var(--line);border-radius:6px;padding:4px 8px}
 </style>
 </head>
 <body>
@@ -542,15 +547,17 @@
     <span class="link" aria-hidden="true"></span>
 
     <h1 class="reveal r2">Get <span class="glow-word">Plugged&nbsp;In</span></h1>
-    <p class="lede reveal r2">We build the infrastructure that powers your business.</p>
+    <p class="lede reveal r2">Websites, booking, and follow-up systems that help turn inquiries into customers.</p>
+    <p class="hero-note">One connected system—from first click to customer follow-up.</p>
 
     <span class="link reveal r3" aria-hidden="true"></span>
 
     <div class="cta-row reveal r3">
-      <a class="btn btn-primary" href="/quote">Start Your Upgrade <span class="arrow">&rarr;</span></a>
-      <a class="btn btn-ghost" href="/assessment">Take the Assessment</a>
+      <a class="btn btn-primary" href="/quote?package=quicklaunch">Request the $500 QuickLaunch <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-ghost" href="/assessment">Find the right system</a>
     </div>
 
+    <p class="hero-note">One page · Quote form · Click-to-call · One revision<br><a href="/pricing#quicklaunch-details">See inclusions and separate costs</a></p>
     <div class="infra reveal r5" role="list" aria-label="The systems we connect and power">
       <div class="sys" role="listitem"><span class="node"></span>Websites</div>
       <div class="sys" role="listitem"><span class="node"></span>Automation</div>
@@ -567,13 +574,13 @@
     <div class="sec-in">
       <div class="sec-head">
         <p class="eyebrow">The Problem</p>
-        <h2 class="sec-title" id="problem-title">Most businesses lose revenue they never see.</h2>
+        <h2 class="sec-title" id="problem-title">Make it easier for the next customer to reach you.</h2>
         <p class="sec-sub">The gaps usually aren't in the work — they're in the systems around it. This is where deals quietly slip away.</p>
       </div>
       <div class="grid" role="list">
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>Outdated or missing website</h3>
-          <p>Buyers judge credibility in seconds. An old or absent site turns them away before you ever hear from them.</p>
+          <p>An outdated or missing website can make it harder for customers to understand your services and contact you.</p>
         </div>
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>Leads slipping through the cracks</h3>
@@ -581,7 +588,7 @@
         </div>
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>Missed calls becoming lost revenue</h3>
-          <p>An unanswered call is a customer who moves straight on to the next name on the list.</p>
+          <p>An unanswered call can send a customer to another business. A clear callback process helps your team respond.</p>
         </div>
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>Disconnected booking and customer systems</h3>
@@ -589,7 +596,49 @@
         </div>
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>No follow-up automation</h3>
-          <p>Without automatic follow-up, warm leads go cold and never come back.</p>
+          <p>Without a consistent follow-up process, interested customers can be overlooked.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES & PRICING ==================== -->
+  <section class="sec" id="pricing" aria-labelledby="pricing-title">
+    <div class="sec-in">
+      <div class="sec-head">
+        <p class="eyebrow gold">Services &amp; Pricing</p>
+        <h2 class="sec-title" id="pricing-title">Pick the level of infrastructure your business is ready for.</h2>
+        <p class="sec-sub">Start where you are. Each tier is a foundation you can build on as you grow.</p>
+      </div>
+      <div class="grid tiers" role="list">
+        <div class="card tier tier-blue" role="listitem">
+          <h3>QuickLaunch Kit</h3>
+          <p class="price"><span class="lead">One-time build</span>$500</p>
+          <p>A fast, professional web presence that gets your business online and credible.</p>
+          <ul><li>One mobile-ready page, up to six sections</li><li>Quote form to one inbox + click-to-call</li><li>One consolidated revision</li></ul>
+          <p><a href="/pricing#quicklaunch-details">See scope, exclusions, and next steps</a></p>
+          <a class="btn btn-ghost btn-sm" href="/quote?package=quicklaunch">Request this build <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="card tier tier-blue" role="listitem">
+          <h3>Community Access System</h3>
+          <p class="price">$1,500</p>
+          <p>Website, inquiry capture, and booking setup so customers have a clear way to take the next step.</p>
+          <ul><li>Multi-section website</li><li>Lead or enrollment capture</li><li>Booking and routing setup</li></ul>
+          <a class="btn btn-ghost btn-sm" href="/quote?package=community">Request this build <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="card tier tier-gold" role="listitem">
+          <h3>Growth Infrastructure</h3>
+          <p class="price">$3,500+</p>
+          <p>Automation, CRM, and call follow-up working together to capture and keep revenue.</p>
+          <ul><li>Connected CRM workflow</li><li>Lead-routing automation</li><li>Operational reporting</li></ul>
+          <a class="btn btn-gold btn-sm" href="/quote?package=growth">Build my system <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="card tier tier-gold" role="listitem">
+          <h3>Full Infrastructure Build</h3>
+          <p class="price">Custom</p>
+          <p>A complete, end-to-end revenue-infrastructure build tailored to how your business runs.</p>
+          <ul><li>Custom system architecture</li><li>Automation and AI workflows</li><li>Launch, training, and support</li></ul>
+          <a class="btn btn-gold btn-sm" href="/quote?package=full">Plan the build <span class="arrow">&rarr;</span></a>
         </div>
       </div>
     </div>
@@ -601,7 +650,7 @@
       <div class="sec-head">
         <p class="eyebrow">The Solution</p>
         <h2 class="sec-title" id="solution-title">A/1 Creative builds the infrastructure behind the business.</h2>
-        <p class="sec-sub">Not just a website — the connected system that captures leads, books customers, and recovers the revenue you're missing.</p>
+        <p class="sec-sub">Connect your website, inquiry handling, and follow-up around the way your business serves customers.</p>
       </div>
       <div class="grid" role="list">
         <div class="card" role="listitem">
@@ -610,11 +659,11 @@
         </div>
         <div class="card" role="listitem">
           <h3><span class="node g" aria-hidden="true"></span>Lead capture</h3>
-          <p>Every inquiry caught, tagged, and routed into one place.</p>
+          <p>Capture website inquiries in one place so your team can respond.</p>
         </div>
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>Automation</h3>
-          <p>The repetitive work runs itself, around the clock.</p>
+          <p>Automate agreed routine tasks, with alerts and human review where needed.</p>
         </div>
         <div class="card" role="listitem">
           <h3><span class="node g" aria-hidden="true"></span>Booking systems</h3>
@@ -622,7 +671,7 @@
         </div>
         <div class="card" role="listitem">
           <h3><span class="node" aria-hidden="true"></span>CRM</h3>
-          <p>One record of every lead, customer, and conversation.</p>
+          <p>Keep customer details, conversations, and next steps together.</p>
         </div>
         <div class="card" role="listitem">
           <h3><span class="node g" aria-hidden="true"></span>Call routing &amp; follow-up</h3>
@@ -642,7 +691,7 @@
       <div class="sec-head">
         <p class="eyebrow gold">The Infrastructure Map</p>
         <h2 class="sec-title" id="system-title">One connected system—from first click to customer follow-up.</h2>
-        <p class="sec-sub">The website is the front door. The real value is what happens behind it: every lead captured, organized, routed, and followed through.</p>
+        <p class="sec-sub">Connect the customer-facing website to the people and tools that handle inquiries, appointments, and next steps.</p>
       </div>
       <div class="blueprint" aria-label="A/1 Creative connected business infrastructure">
         <div class="bp-column">
@@ -666,48 +715,6 @@
         <div class="outcome"><b>Clear ownership</b><span>Every next action assigned</span></div>
         <div class="outcome"><b>Cleaner operations</b><span>Fewer disconnected tools</span></div>
         <div class="outcome"><b>Stronger visibility</b><span>Know what happens next</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SERVICES & PRICING ==================== -->
-  <section class="sec" id="pricing" aria-labelledby="pricing-title">
-    <div class="sec-in">
-      <div class="sec-head">
-        <p class="eyebrow gold">Services &amp; Pricing</p>
-        <h2 class="sec-title" id="pricing-title">Pick the level of infrastructure your business is ready for.</h2>
-        <p class="sec-sub">Start where you are. Each tier is a foundation you can build on as you grow.</p>
-      </div>
-      <div class="grid tiers" role="list">
-        <div class="card tier tier-blue" role="listitem">
-          <h3>QuickLaunch Kit</h3>
-          <p class="price"><span class="lead">Starting at</span>$500</p>
-          <p>A fast, professional web presence that gets your business online and credible.</p>
-          <ul><li>One mobile-ready page, up to six sections</li><li>Quote form to one inbox + click-to-call</li><li>One consolidated revision</li></ul>
-          <p><a href="/pricing#quicklaunch-details">See scope, exclusions, and next steps</a></p>
-          <a class="btn btn-ghost btn-sm" href="/quote">Request this build <span class="arrow">&rarr;</span></a>
-        </div>
-        <div class="card tier tier-blue" role="listitem">
-          <h3>Community Access System</h3>
-          <p class="price">$1,500</p>
-          <p>Website plus lead capture and booking — the core system that turns visitors into booked customers.</p>
-          <ul><li>Multi-section website</li><li>Lead or enrollment capture</li><li>Booking and routing setup</li></ul>
-          <a class="btn btn-ghost btn-sm" href="/quote">Request this build <span class="arrow">&rarr;</span></a>
-        </div>
-        <div class="card tier tier-gold" role="listitem">
-          <h3>Growth Infrastructure</h3>
-          <p class="price">$3,500+</p>
-          <p>Automation, CRM, and call follow-up working together to capture and keep revenue.</p>
-          <ul><li>Connected CRM workflow</li><li>Lead-routing automation</li><li>Operational reporting</li></ul>
-          <a class="btn btn-gold btn-sm" href="/quote">Build my system <span class="arrow">&rarr;</span></a>
-        </div>
-        <div class="card tier tier-gold" role="listitem">
-          <h3>Full Infrastructure Build</h3>
-          <p class="price">Custom</p>
-          <p>A complete, end-to-end revenue-infrastructure build tailored to how your business runs.</p>
-          <ul><li>Custom system architecture</li><li>Automation and AI workflows</li><li>Launch, training, and support</li></ul>
-          <a class="btn btn-gold btn-sm" href="/quote">Plan the build <span class="arrow">&rarr;</span></a>
-        </div>
       </div>
     </div>
   </section>
@@ -739,7 +746,7 @@
         <div class="card step" role="listitem">
           <p class="num">04</p>
           <h3>Launch and support</h3>
-          <p>Everything goes live — and we stay on to keep it running.</p>
+          <p>We test the agreed build and hand it over. Support duration and any ongoing maintenance fees are agreed in writing.</p>
         </div>
       </div>
     </div>
@@ -773,8 +780,8 @@
     <div class="sec-in">
       <div class="sec-head">
         <p class="eyebrow gold">Proof of Work</p>
-        <h2 class="sec-title" id="proof-title">Real businesses, running on real builds.</h2>
-        <p class="sec-sub">A look at what we've actually built and connected — open any project to see the work.</p>
+        <h2 class="sec-title" id="proof-title">See the websites and systems we’ve built.</h2>
+        <p class="sec-sub">Explore client work and our affiliated community project. Each project explains the work delivered.</p>
       </div>
       <div class="pgrid">
         <a class="pcard" href="/work/trhue-hair-care">
@@ -793,7 +800,7 @@
           <span class="pbody">
             <span class="pindustry">Cleaning Services</span>
             <h3>4 Reel Cleaning</h3>
-            <span class="pwhat">A credible service site with a fast quote pathway and lead capture that turns visitors into booked jobs.</span>
+            <span class="pwhat">A service website presenting the business, with a quote pathway and inquiry capture.</span>
             <span class="pcta">View case study <span class="arrow">&rarr;</span></span>
           </span>
         </a>

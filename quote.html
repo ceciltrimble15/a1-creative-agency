@@ -47,11 +47,13 @@
   <div class="page-hero">
     <p class="eyebrow">Request a Quote</p>
     <h1>Tell us what you want built.</h1>
-    <p class="lede">Share where your business is now and where you want it to go. We'll reply — usually the same day — with a clear plan: what gets built, what it costs, and what it produces.</p>
+    <p class="lede">Tell us what you need. We’ll review your request and confirm scope, price, and timing before you decide. Submitting this form does not charge you or commit you to a project.</p>
   </div>
 
   <section class="sec" style="border-top:0;padding-top:0">
     <div class="sec-in">
+      <p id="package-summary" class="form-wrap form-note" hidden></p>
+      <noscript><p class="form-wrap">This form needs JavaScript. You can email <a href="mailto:operations@a1creativeagency.com">operations@a1creativeagency.com</a> with your name, business, and the build you need.</p></noscript>
       <form id="quote-form" class="form-wrap" novalidate aria-describedby="quote-lead">
         <p id="quote-lead" class="form-note" style="margin:0 0 18px">Fields marked <span style="color:var(--a1-gold)">*</span> are required. Phone is optional.</p>
         <div class="f-grid two">
@@ -115,13 +117,13 @@
         <button type="submit" class="btn btn-primary form-submit">Request my quote <span class="arrow">&rarr;</span></button>
         <p class="form-msg" role="status" aria-live="polite"></p>
         <p class="form-legal">Phone is optional. Providing a phone number without checking the box submits your request without SMS messaging — a phone number alone is never treated as SMS consent.</p>
-        <p class="form-note">Prefer to talk? Call <a href="tel:+15134403329">(513)&nbsp;440-3329</a> · <a href="/booking">request a call</a>.</p>
+        <p class="form-note">Prefer email? <a href="mailto:operations@a1creativeagency.com">operations@a1creativeagency.com</a> · <a href="/booking">Request a callback</a>.</p>
       </form>
 
       <div id="quote-ok" class="form-ok" role="status" aria-live="polite">
         <div class="check">✓</div>
         <h3>Request received</h3>
-        <p>Thanks — your quote request is in. A/1 Creative will follow up, usually the same day, with a clear plan and next steps.</p>
+        <p>Thanks — your quote request is in. We’ll review the details and contact you about scope, price, and timing. No payment has been taken.</p>
       </div>
     </div>
   </section>
@@ -162,6 +164,22 @@
     var msg = form.querySelector('.form-msg');
     var btn = form.querySelector('.form-submit');
     var ok = document.getElementById('quote-ok');
+    // Only known package keys are accepted. Never render URL text as HTML.
+    var packages = {
+      quicklaunch: { label: 'QuickLaunch Kit — $500', service: 'Website' },
+      community: { label: 'Community Access System — $1,500', service: 'Booking system' },
+      growth: { label: 'Growth Infrastructure — $3,500+', service: 'CRM' },
+      full: { label: 'Full Infrastructure Build — custom quote', service: 'Full Infrastructure Build' }
+    };
+    var packageKey = new URLSearchParams(window.location.search).get('package');
+    if (Object.prototype.hasOwnProperty.call(packages, packageKey)) {
+      var chosen = packages[packageKey];
+      var summary = document.getElementById('package-summary');
+      summary.textContent = 'Your selection: ' + chosen.label + '. You can change your request below.';
+      summary.hidden = false;
+      form.elements['service'].value = chosen.service;
+      form.elements['message'].value = 'I’m interested in the ' + chosen.label + '.';
+    }
     function set(t, k) { msg.textContent = t; msg.className = 'form-msg' + (k ? ' ' + k : ''); }
     function val(n) { return (form.elements[n] && form.elements[n].value || '').trim(); }
     form.addEventListener('submit', function (e) {
@@ -203,7 +221,7 @@
         })
         .catch(function (err) {
           console.error('[A1] Quote submit failed:', err);
-          set((err && err.fromServer && err.message) ? err.message : 'Something went wrong. Please call (513) 440-3329 or email operations@a1creativeagency.com.', 'err');
+          set((err && err.fromServer && err.message) ? err.message : 'Your request could not be confirmed. Please email operations@a1creativeagency.com before trying again.', 'err');
           btn.disabled = false; btn.innerHTML = label;
         });
     });
