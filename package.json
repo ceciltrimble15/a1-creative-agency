@@ -6,12 +6,17 @@
   "scripts": {
     "build": "echo 'Static site — no build step required.'",
     "test": "node scripts/compliance-check.mjs && node scripts/backend-consent-check.mjs && node scripts/twilio-optout-check.mjs && node scripts/twilio-recovery-check.mjs",
-    "twilio:audit": "node scripts/twilio-connect.mjs"
+    "twilio:audit": "node scripts/twilio-connect.mjs",
+    "preview:local": "node scripts/preview-server.mjs",
+    "review:website": "node scripts/website-review.mjs"
   },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
     "twilio": "^5.13.1"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }
