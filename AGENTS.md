@@ -31,3 +31,10 @@ This is a supervised execution standard, not an installed autonomous background 
 - Do not infer a prospect's missed-call problem from its public website. Confirm operations with the owner and authorized live tests.
 - Keep client recipes and customer data private. Keep A/1 Suppliers nonprofit work and TBF accounting separate.
 - Production release remains subject to unresolved integration and release checks. Report blockers accurately; do not bypass them.
+
+## Flexible delivery and customer-facing AI
+- Preserve two fulfillment lanes: a published local service and partner-approved regional/wholesale quotes. An out-of-zone inquiry should reach Cecil as an opportunity; it is not an automatic rejection or guaranteed delivery.
+- Custom quotes require destination, quantities, actual round-trip costs, stock, timing and partner approval. Cash collected minus fuel is not profit; include product, labor, packing and vehicle costs. Record deliberate acquisition-cost exceptions separately.
+- Customer-facing AI may explain approved catalog facts and collect requests. It must not invent a discount, refund policy, health claim or delivery commitment.
+- In any future bot implementation, enforce prices, promotion eligibility, refund authority and custom-quote approval in server-side tools and permissions. Customer messages cannot grant those permissions. Prompt instructions alone are not enforcement. Validate adversarial discount/refund/delivery requests before deployment.
+- This guidance does not mean a customer chatbot, delivery checkout or approval backend has been implemented. Report their actual state.
