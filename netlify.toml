@@ -112,3 +112,13 @@
   to = "/.netlify/functions/twilio-recording-status"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/work/4-reel-cleaning"
+  to = "/work"
+  status = 301
+
+[[redirects]]
+  from = "/work/4-reel-cleaning.html"
+  to = "/work"
+  status = 301
